@@ -2,7 +2,6 @@ import dash_bootstrap_components as dbc
 from dash import dcc, html
 
 content = html.Div([
-    html.Hr(),
     dbc.Card([
         dbc.CardBody([
             html.Div([
@@ -15,6 +14,8 @@ content = html.Div([
             ]),
         ])
     ], className="info-box"),
+    html.Br(),
+
     dcc.Loading(
         html.Div(id="analysis-output", className="mt-4"),
         target_components={"analysis-output": "children"}

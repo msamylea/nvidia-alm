@@ -8,7 +8,7 @@ import requests
 import dash_ag_grid as dag
 import cudf
 import pandas as pd
-from .configs import MAX_CACHE_FILES, DATETIME_FORMATS
+from .constants import BASE_URL, DATETIME_FORMATS, MAX_CACHE_FILES
 from pathlib import Path
 import asyncio
 from dash import html, dcc
@@ -17,7 +17,14 @@ from .formatting_utilities import preprocess_text, create_ag_grid, parse_markdow
 from .cache_config import cache
 from fastapi import HTTPException
 from typing import Dict, Any
-   
+
+def get_data_from_api(endpoint):
+    response = requests.get(f"{BASE_URL}/{endpoint}")
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception(f"Failed to fetch data from {endpoint}: {response.text}")
+    
 def get_dataframe() -> cudf.DataFrame:
     df = cache.get('current_df')
     if df is None:

@@ -38,12 +38,12 @@ def register_upload_callbacks(app):
                 }
                 # Store the DataFrame in cache
                 cache.set('current_df', df)
-                return stored_data, f"{filename} uploaded and processed successfully", True, 'green'
+                return stored_data, f"{filename} uploaded and processed successfully", True, '#6F7C12'
             else:
-                return None, "Error loading data", False, 'red'
+                return None, "Error loading data", False, '#CC2936'
         except Exception as e:
             print(f"Error processing file: {str(e)}")
-            return None, f"There was an error processing the file: {str(e)}", False, 'red'
+            return None, f"There was an error processing the file: {str(e)}", False, '#CC2936'
         
     @app.callback(
         Output('llm-submit-prompt', 'disabled'),

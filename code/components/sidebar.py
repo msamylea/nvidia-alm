@@ -13,7 +13,7 @@ sidebar = dbc.Nav(
                         children=[
                             dbc.Row([
                                 dbc.Col("Configure LLM   ", width="auto", className="d-flex align-items-center"),
-                                dbc.Col(daq.Indicator(id='connection-indicator', value=False, color='red', size=20, theme='dark'), width="auto"),
+                                dbc.Col(daq.Indicator(id='connection-indicator', value=False, color='#CC2936', size=20, theme='dark'), width="auto"),
                             ], className="no-gutters flex-nowrap align-items-center justify-content-between"),
                         ],
                         id="llm-config-button",
@@ -31,7 +31,7 @@ sidebar = dbc.Nav(
                             children=[
                                 dbc.Row([
                                     dbc.Col("Upload Dataset", width="auto", className="d-flex align-items-center"),
-                                    dbc.Col(daq.Indicator(id='file-indicator', value=False, color='red', size=20, theme='dark'), width="auto", className="ml-3"),
+                                    dbc.Col(daq.Indicator(id='file-indicator', value=False, color='#CC2936', size=20, theme='dark'), width="auto", className="ml-3"),
                                 ], className="no-gutters flex-nowrap align-items-center justify-content-between"),
                             ],
                             id="upload-data-button",

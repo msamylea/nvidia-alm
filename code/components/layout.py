@@ -6,21 +6,22 @@ from components.sidebar import sidebar
 from components.content import content
 from components.llm_config_modal import llm_config_modal
 from .home_tab import home_content
-from .predictions_tab import prediction_content
+from .chat_tab import chat_content
 from .presentation_modal import presentation_modal
+from utils.utilities import get_dataframe
 
 tabs = dbc.Tabs(
     [
         dbc.Tab(
-            label="Home",
+            label="Reports",
             tab_id="home",
-            tabClassName = "inner-tab",
+            tabClassName = "inner-tab-report",
             labelClassName="inner-tab-label"
         ),
         dbc.Tab(
-            label="Predictions",
-            tab_id="predictions",
-            tabClassName="inner-tab",
+            label="Chat",
+            tab_id="chat",
+            tabClassName="inner-tab-chat",
             labelClassName="inner-tab-label"
         ),
     ],
@@ -33,6 +34,7 @@ tabs = dbc.Tabs(
 def create_layout():
     return dmc.MantineProvider(
         dbc.Container([
+            dcc.Store(id="store-conversation", storage_type="memory"),
             dcc.Store(id='stored-data'),
             dcc.Store(id='report-data'),
             html.Div(id='connection-status', style={'display': 'none'}),
@@ -64,7 +66,7 @@ def create_layout():
 def render_tab_content(active_tab):
     if active_tab == "home":
         return home_content
-    elif active_tab == "predictions":
-        return prediction_content
+    elif active_tab == "chat":
+        return chat_content
     else:
         return content

@@ -3,7 +3,6 @@ from dash import dcc, html
 import dash_ag_grid as dag
 
 home_content = html.Div([
-    html.Hr(),
     dbc.Row([
         dbc.Col([
             dbc.Card([
@@ -15,7 +14,9 @@ home_content = html.Div([
                     dbc.Button("Get Analysis", id="llm-submit-prompt", color="primary", className="custom-btn", disabled=False),
                 ])
             ], className="info-box"),
-            html.Br(),  # Add a break to create space between the card and the loading component
+            html.Br(),
+            html.Br(),
+            html.Br(),
             dcc.Loading(
                 html.Div(id="analysis-output", className="mt-4"),
                 target_components={"analysis-output": "children"},

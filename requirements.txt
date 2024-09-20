@@ -1,1 +1,16 @@
 jupyterlab>3.0
+dash
+fastapi
+json_repair
+google-generativeai
+huggingface-hub
+openai
+dash-mantine-components
+dash-bootstrap-components
+uvicorn
+python-dotenv
+dash_daq
+dash-ag-grid
+python-multipart
+reportlab
+python-pptx

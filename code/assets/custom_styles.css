@@ -11,7 +11,7 @@
  * Copyright 2011-2024 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
- @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;500;600;700&display=swap");
+ @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 :root,
 [data-bs-theme=light] {
   --bs-blue: #2c3e50;
@@ -79,7 +79,7 @@
   --bs-dark-border-subtle: #b4bcc2;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-font-sans-serif: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --bs-font-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
@@ -88,13 +88,13 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #f0edee;
+  --bs-body-bg: #faf7f7;
   --bs-body-bg-rgb: 255, 255, 255;
-  --bs-emphasis-color: #EF8354;
+  --bs-emphasis-color: #7400ff;
   --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: rgba(33, 37, 41, 0.75);
   --bs-secondary-color-rgb: 33, 37, 41;
-  --bs-secondary-bg: #5E5C6C;
+  --bs-secondary-bg: #364652;
   --bs-secondary-bg-rgb: 236, 240, 241;
   --bs-tertiary-color: rgba(33, 37, 41, 0.5);
   --bs-tertiary-color-rgb: 33, 37, 41;
@@ -106,7 +106,7 @@
   --bs-link-decoration: underline;
   --bs-link-hover-color: #188FA7;
   --bs-link-hover-color-rgb: 19, 150, 125;
-  --bs-code-color: #EF8354;
+  --bs-code-color: #7400ff;
   --bs-highlight-color: #d7e2da;
   --bs-highlight-bg: #fdebd0;
   --bs-border-width: 1px;
@@ -12116,7 +12116,7 @@ textarea.form-control-lg {
 
 .side-card {
     border-radius: 22px;
-    background: #5E5C6C;
+    background: #CDD5D1;
     -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
     -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
     box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
@@ -12142,10 +12142,10 @@ textarea.form-control-lg {
 
    
    .custom-btn:hover {
-    background-color: #73A580;
-  box-shadow: 0px 2px 6px #73A580;
-  color: #fff;
-  transform: translateY(-7px);
+    background-color: #364652;
+    box-shadow: 0px 2px 6px #6F7C12;
+    color: #fff;
+    transform: translateY(-7px);
    }
    
    
@@ -12154,14 +12154,14 @@ textarea.form-control-lg {
    }
    
    .custom-btn:active::before {
-    -webkit-box-shadow: 0 0 0 2px #73A580, 0 0 #ffe3e2;
-    box-shadow: 0 0 0 2px #73A580, 0 0 #ffe3e2;
+    -webkit-box-shadow: 0 0 0 2px #6F7C12, 0 0 #ffe3e2;
+    box-shadow: 0 0 0 2px #6F7C12, 0 0 #ffe3e2;
     -webkit-transform: translate3d(0, 0, -1em);
     transform: translate3d(0, 0, -1em);
    }
 
    .info-box {
-    background: #5E5C6C;
+    background: #364652;
     border-radius: 10px;
     /* width: 30%; */
     -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
@@ -12198,22 +12198,24 @@ textarea.form-control-lg {
     text-align: left;
    }
 
-.custom-navbar-text {
+   .custom-navbar-text {
+    font-weight: 700;
     margin-top: 10px;
     color: white;
-    margin-left: 35px;
-  }
+    text-align: right;
+    margin-left: auto;  /* Ensure it pushes to the right */
+}
 
 .report-card {
 
-    background-color: #5E5C6C;
+    background-color: #364652;
     border-radius: 15px;
     border: 1px solid #fdebd0;
 
 }
 
 .report-buttons-card {
-  background-color: #5E5C6C;
+  background-color: #364652;
   border-radius: 15px;
   border: 1px solid #fdebd0;
   align-items: center;
@@ -12266,7 +12268,8 @@ textarea.form-control-lg {
    }
 
 .custom-navbar-brand {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    font-family: "Open Sans", sans-serif;
     text-transform: uppercase;
     letter-spacing: 2.5px;
     font-weight: 700;
@@ -12274,11 +12277,19 @@ textarea.form-control-lg {
     text-align: left;
 }
 
-.inner-tab {
-  border-radius: 15px;
-  height: 60px; 
-  padding: 2px;
-  border: 1px solid #fdebd0;
+/* Apply styles to the Reports tab */
+.inner-tab-report .nav-link {
+  height: 80px; 
+  margin-left: 40px;
+  border-top: 5px solid #364652 !important;
+  margin-right: 5px;
+
+}
+
+.inner-tab-chat .nav-link {
+  height: 80px; 
+  border-top: 5px solid #6b889e !important; 
+
 }
 
 .inner-tab-label {
@@ -12290,31 +12301,34 @@ textarea.form-control-lg {
 }
 .custom-tabs {
     border-radius: 15px;
+    
 }
 
 .custom-tabs .nav-link {
     font-size: 1.5rem; /* Increase font size */
-    padding: 15px; /* Increase padding */
+    
     height: 60px; /* Increase height */
+    width: 200px;
     color: #fff; /* Inactive tab text color */
-    background-color: #5e5c6c; /* Inactive tab background color */
+    background-color: #CDD5D1; /* Inactive tab background color */
     border: none; /* Remove border */
-    margin-bottom: -1px; /* Align with active tab */
+    margin-bottom: -2px; /* Align with active tab */
+    text-align: center;
 }
 
 .custom-tabs .nav-link.active {
     color: black; /* Active tab text color */
-    background-color: #ef8354; /* Active tab background color */
+    background-color: #849cae; /* Active tab background color */
     /* border-top: 1rem solid #F0EDEE; */
-
-    margin-bottom: -1px; /* Align with inactive tab */
+    border-top: 5px solid #364652; /* Active tab border color */
+    margin-bottom: -2px; /* Align with inactive tab */
 }
 
 .ppt-theme-header {
   font-weight: 700;
   text-align: center;
   width: 100%;
-  background-color: #5E5C6C;
+  background-color: #364652;
   color: #F0EDEE;
   border-bottom: 2px solid black;
 }
@@ -12323,7 +12337,7 @@ textarea.form-control-lg {
   display: flex;
   align-items: center;
   padding: 5px;
-  border: 1px solid #5E5C6C;
+  border: 1px solid #364652;
   box-shadow:rgba(0, 0, 0, 0.075) 0px 4px 6px;
 }
 
@@ -12346,6 +12360,24 @@ textarea.form-control-lg {
   font-size: 1.5rem;
   font-weight: 700;
   text-align: center;
-  color: #5E5C6C;
+  color: #364652;
   background-color: white;
+}
+
+.chat-plot-card {
+  background-color: #364652;
+  border-radius: 15px;
+  border: 1px solid #fdebd0;
+  padding: 10px;
+
+  margin-bottom: 25px;
+}
+
+.chat-card {
+  background-color: #364652;
+  border-radius: 15px;
+  border: 1px solid #fdebd0;
+  padding: 10px;
+  margin-bottom: 25px;
+  color: white;
 }

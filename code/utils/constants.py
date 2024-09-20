@@ -20,3 +20,8 @@ MODEL_CHOICES = {
 MODEL_CHOICES_OPTIONS = [{"label": key, "value": value} for key, value in MODEL_CHOICES.items()]
 
 PPT_THEME_OPTIONS = ["BlackWhite", "BlueYellow", "Orange", "Teal", "BlueGrey", "RedGrey"]
+
+BASE_URL = "http://localhost:8000"
+
+LOGO_ICON = 'assets/pie.png'
+MAX_CACHE_FILES = 10 

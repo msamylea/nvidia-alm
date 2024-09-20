@@ -4,7 +4,7 @@ import io
 import os
 from fastapi.middleware.cors import CORSMiddleware
 from utils.cache_config import cache, cache_key, ClearableCache
-from utils.configs import DATETIME_FORMATS, CATEGORICAL_DTYPES
+from utils.constants import DATETIME_FORMATS, CATEGORICAL_DTYPES
 from data_staging.load_data import ingest_data
 from data_staging.preprocess_data import prep_data
 from utils.utilities import get_dataframe

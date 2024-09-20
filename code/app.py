@@ -1,12 +1,13 @@
 import dash
 import dash_bootstrap_components as dbc
-from dash import dcc, html, _dash_renderer
+from dash import dcc, html, _dash_renderer, clientside_callback, Input, Output, ALL
 from components.layout import create_layout
 from callbacks import register_callbacks
 from utils.configs import app_config
 import os
 from flask import Flask, request
 import requests
+from utils.utilities import get_dataframe
 
 _dash_renderer._set_react_version("18.2.0")
 
