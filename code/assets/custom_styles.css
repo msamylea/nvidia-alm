@@ -106,7 +106,7 @@
   --bs-link-decoration: underline;
   --bs-link-hover-color: #188FA7;
   --bs-link-hover-color-rgb: 19, 150, 125;
-  --bs-code-color: #7400ff;
+  --bs-code-color: #364652;
   --bs-highlight-color: #d7e2da;
   --bs-highlight-bg: #fdebd0;
   --bs-border-width: 1px;
@@ -12208,7 +12208,7 @@ textarea.form-control-lg {
 
 .report-card {
 
-    background-color: #364652;
+    background-color: #849cae;
     border-radius: 15px;
     border: 1px solid #fdebd0;
 
@@ -12223,6 +12223,7 @@ textarea.form-control-lg {
   margin-left: 100px;
   margin-right: 40px;
   padding: 10px;
+  padding-top: 40;
   -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
   -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
   box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
@@ -12235,10 +12236,11 @@ textarea.form-control-lg {
 .card-header .report-card-header {
     background-color: #f1f1f1;
     border-radius: 15px;
+    padding: 10px;
    }
    .report-card-header {
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     font-size: 2.5rem;
     font-weight: 700;
     text-align: center;
@@ -12309,7 +12311,7 @@ textarea.form-control-lg {
     
     height: 60px; /* Increase height */
     width: 200px;
-    color: #fff; /* Inactive tab text color */
+    color: black; /* Inactive tab text color */
     background-color: #CDD5D1; /* Inactive tab background color */
     border: none; /* Remove border */
     margin-bottom: -2px; /* Align with active tab */
@@ -12317,7 +12319,7 @@ textarea.form-control-lg {
 }
 
 .custom-tabs .nav-link.active {
-    color: black; /* Active tab text color */
+    color: white; /* Active tab text color */
     background-color: #849cae; /* Active tab background color */
     /* border-top: 1rem solid #F0EDEE; */
     border-top: 5px solid #364652; /* Active tab border color */

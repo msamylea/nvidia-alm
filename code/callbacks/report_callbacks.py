@@ -4,7 +4,7 @@ import dash
 import io
 from utils.cache_config import cache, cache_key
 from reports.indepth_report import create_final_report
-from reports.pdf_report import create_pdf_report
+from reports.new_pdf import create_pdf
 from reports.presentation_report import create_presentation
 from utils.utilities import run_async
 from utils.report_gen import create_report
@@ -70,7 +70,7 @@ def register_report_callbacks(app):
             pdf_buffer = io.BytesIO()
             
             # Generate the PDF
-            create_pdf_report(report_title, section_results, end_matter, pdf_buffer)
+            create_pdf(report_title, section_results, end_matter, pdf_buffer)
             
             # Seek to the beginning of the BytesIO object
             pdf_buffer.seek(0)

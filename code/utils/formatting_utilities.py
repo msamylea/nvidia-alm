@@ -5,18 +5,30 @@ from bs4 import BeautifulSoup
 from typing import Any, Dict
 from dash import html
 
+
 def format_markdown_content(content):
     lines = content.split('\n')
     formatted_content = []
     current_list = None
+    h2_texts = set()  # Keep track of h2 texts
     
     for line in lines:
+        if line.startswith("Error"):
+            continue
         if line.startswith('# '):
-            formatted_content.append(html.H2(line[2:]))
+            h2_text = line[2:]
+            formatted_content.append(html.H2(h2_text))
+            h2_texts.add(h2_text)
         elif line.startswith('## '):
-            formatted_content.append(html.H3(line[3:]))
+            h3_text = line[3:]
+            if h3_text not in h2_texts:  # Only add h3 if its text is not in h2_texts
+                formatted_content.append(html.H3(h3_text))
         elif line.startswith('### '):
-            formatted_content.append(html.H4(line[4:]))
+            h4_text = line[4:]
+            if h4_text not in h2_texts:  # Only add h4 if its text is not in h2_texts
+                formatted_content.append(html.H4(h4_text))
+        elif line.startswith('#### '):
+            formatted_content.append(html.H5(line[5:]))
         elif line.startswith('- ') or line.startswith('* '):
             if current_list is None:
                 current_list = html.Ul()
@@ -122,6 +134,8 @@ def preprocess_text(text):
     text = re.sub(r'(r\s*≈)', lambda m: f'{m.group(1)}{zws}', text)
     text = re.sub(r'(p-value)', f'{zws}p-value', text)
     
+    text = re.sub(r'(=​)+', '', text)
+        
     text = remove_duplicate_lines(text)
     
     return text

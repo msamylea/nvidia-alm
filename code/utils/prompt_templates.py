@@ -200,9 +200,9 @@ For the Conclusions section:
 
 Formatting Guidelines:
 - Use '## Recommendations' and '## Conclusions' for main section headers
-- Use '### ' for subheaders within each section
+- Use '#### ' for subheaders within each section
 - Use '* ' for unordered lists and '1. ' for ordered lists
-- Use '**bold**' for emphasis on key points or critical numbers
+- Use '**bold**' for emphasis on key points or critical numbers but never inside tables
 - Use '`code`' for specific data points or metrics
 - Use '> ' for blockquotes or notable quotes
 - Use '---' for horizontal rules to separate major parts of the section
