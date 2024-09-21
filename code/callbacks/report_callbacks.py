@@ -4,16 +4,16 @@ import dash
 import io
 from utils.cache_config import cache, cache_key
 from reports.indepth_report import create_final_report
-from reports.new_pdf import create_pdf
+from reports.new_pdf import create_pdf_report
 from reports.presentation_report import create_presentation
 from utils.utilities import run_async
 from utils.report_gen import create_report
-from dash import dcc
+from dash import dcc, html
 import logging
 import traceback
+import base64
 
 logger = logging.getLogger(__name__)
-
 
 async def async_cached_create_final_report(prompt: str, max_samples: int = 10000):
     return await create_final_report(prompt, max_samples=max_samples)
@@ -52,12 +52,42 @@ def register_report_callbacks(app):
         return report, report_data
     
     @app.callback(
-        Output("download-pdf", "data"),
-        Input("btn-download-pdf", "n_clicks"),
-        State('report-data', 'data'),
-        prevent_initial_call=True,
+    Output("open-pdf-modal", "data"),
+    Input("btn-open-pdf-modal", "n_clicks"),
+    prevent_initial_call=True
     )
-    def generate_pdf(n_clicks, report_data):
+    def set_open_pdf_modal(n_clicks):
+        if n_clicks:
+            return True
+        return dash.no_update
+
+    @app.callback(
+        Output("pdf-modal", "is_open"),
+        Input("open-pdf-modal", "data"),
+        Input("submit-pdf", "n_clicks"),
+        State("pdf-modal", "is_open"),
+    )
+    def toggle_pdf_modal(open_modal, submit_clicks, is_open):
+        ctx = dash.callback_context
+        if not ctx.triggered:
+            return is_open
+        prop_id = ctx.triggered[0]["prop_id"].split(".")[0]
+        if prop_id == "open-pdf-modal" and open_modal:
+            return True
+        elif prop_id == "submit-pdf":
+            return False
+        return is_open
+
+    @app.callback(
+    Output("download-pdf", "data"),
+    Input("submit-pdf", "n_clicks"),
+    State('report-data', 'data'),
+    State("uploaded-logo", "contents"),
+    State("primary-color-picker", "value"),
+    State("accent-color-picker", "value"),
+    prevent_initial_call=True,
+    )
+    def generate_pdf(n_clicks, report_data, logo, primary_color, accent_color):
         if n_clicks is None or report_data is None:
             raise PreventUpdate
 
@@ -66,14 +96,27 @@ def register_report_callbacks(app):
             section_results = report_data['section_results']
             end_matter = report_data['end_matter']
 
-            # Create a BytesIO object to store the PDF
-            pdf_buffer = io.BytesIO()
-            
+            # Process the logo
+            if logo:
+                # The logo is in base64 format, so we need to decode it
+                logo_type, logo_string = logo.split(',')
+                logo_bytes = base64.b64decode(logo_string)
+            else:
+                logo_bytes = None
+
+            # Process colors
+            primary_color = primary_color.lstrip('#')
+            accent_color = accent_color.lstrip('#')
+
             # Generate the PDF
-            create_pdf(report_title, section_results, end_matter, pdf_buffer)
-            
-            # Seek to the beginning of the BytesIO object
-            pdf_buffer.seek(0)
+            pdf_buffer = create_pdf_report(
+                report_title, 
+                section_results, 
+                end_matter, 
+                logo_bytes, 
+                primary_color, 
+                accent_color 
+            )
 
             logger.debug("PDF generation completed")
             return dcc.send_bytes(pdf_buffer.getvalue(), f"{report_title}.pdf")
@@ -81,8 +124,8 @@ def register_report_callbacks(app):
         except Exception as e:
             logger.error(f"Error in PDF generation: {str(e)}")
             logger.error(traceback.format_exc())
-            return None
-        
+        return None
+            
     @app.callback(
         Output("presentation-modal", "is_open"),
         Input("btn-download-pptx", "n_clicks"),
@@ -90,7 +133,7 @@ def register_report_callbacks(app):
         State("presentation-modal", "is_open"),
         prevent_initial_call=True,
     )
-    def toggle_modal(open_clicks, download_clicks, modal_is_open):
+    def toggle_presentation_modal(open_clicks, download_clicks, modal_is_open):
         ctx = dash.callback_context
         if not ctx.triggered:
             return modal_is_open

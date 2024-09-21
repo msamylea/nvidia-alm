@@ -84,32 +84,32 @@ def create_report(report_title, section_results, end_matter):
     ], className="report-card")
     
     return html.Div([
-        html.Br(),
-        dbc.Container([
-dbc.Card([
-    dbc.Row([
-        dbc.Col([
+    html.Br(),
+    dbc.Container([
+        dbc.Card([
             dbc.Row([
                 dbc.Col([
-                    dcc.Loading([
-                        dbc.Button("Download PPTX", id="btn-download-pptx", color="primary", className="custom-btn"),
-                        dcc.Download(id="download-pptx")
-                    ], className="d-flex justify-content-center align-items-center"),
-                ], width="auto"),
-                dbc.Col([
-                    dcc.Loading([    
-                        dbc.Button("Download PDF", id="btn-download-pdf", color="primary", className="custom-btn"),
-                        dcc.Download(id="download-pdf")
-                    ], className="d-flex justify-content-center align-items-center"),
-                ], width="auto")
-            ], className="justify-content-center"),
-            html.Br(),
-            html.Div(section_cards, className="report-card"),
-            html.Hr(style={'margin': '30px 0'}),
-            html.Div(end_matter_card, className="report-card")
-        ], width={"size": 10, "offset": 1})
-    ])
-], className="report-buttons-card")
-        ], fluid=True),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Loading([
+                                dbc.Button("Download PPTX", id="btn-download-pptx", color="primary", className="custom-btn"),
+                                dcc.Download(id="download-pptx")
+                            ], className="d-flex justify-content-center align-items-center"),
+                        ], width="auto"),
+                        dbc.Col([
+                            dcc.Loading([    
+                                dbc.Button("Download PDF", id="btn-open-pdf-modal", color="primary", className="custom-btn"),
+                                dcc.Download(id="download-pdf")
+                            ], className="d-flex justify-content-center align-items-center"),
+                        ], width="auto")
+                    ], className="justify-content-center"),
+                    html.Br(),
+                    html.Div(section_cards, className="report-card"),
+                    html.Hr(style={'margin': '30px 0'}),
+                    html.Div(end_matter_card, className="report-card")
+                ], width={"size": 10, "offset": 1})
+            ])
+        ], className="report-buttons-card")
+    ], fluid=True),
     ])
     

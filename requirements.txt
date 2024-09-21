@@ -16,7 +16,6 @@ reportlab
 python-pptx
 kaleido
 weasyprint
-pango
 pydyf
 cffi
 html5lib
@@ -25,3 +24,4 @@ cssselect2
 pyphen
 pillow
 fonttools
+markdown2

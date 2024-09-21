@@ -5,6 +5,7 @@ from components.navbar import navbar
 from components.sidebar import sidebar
 from components.content import content
 from components.llm_config_modal import llm_config_modal
+from components.pdf_layout_modal import pdf_modal
 from .home_tab import home_content
 from .chat_tab import chat_content
 from .presentation_modal import presentation_modal
@@ -37,10 +38,12 @@ def create_layout():
             dcc.Store(id="store-conversation", storage_type="memory"),
             dcc.Store(id='stored-data'),
             dcc.Store(id='report-data'),
+            dcc.Store(id='open-pdf-modal', data=False), 
             html.Div(id='connection-status', style={'display': 'none'}),
             navbar,
             llm_config_modal,
             presentation_modal,
+            pdf_modal,
             dbc.Row([
                 dbc.Col(sidebar, width=2),
                 dbc.Col(

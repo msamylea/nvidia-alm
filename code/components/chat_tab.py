@@ -54,5 +54,5 @@ chat_content = html.Div([
             dbc.Button("Send", id="submit", color="primary"),
         ], size="lg"),
     ], style={"padding": "20px", "background-color": "#f8f9fa"}),
-], style={"height": "90vh", "display": "flex", "flex-direction": "column"})
-], className="chat-card")
+], className="chat-card", style={"height": "90vh", "display": "flex", "flex-direction": "column"})
+])

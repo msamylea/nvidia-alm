@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="pdf_report.css" rel="stylesheet">
+    <title>{report_title}</title>
+    <meta name="description" content="Report example">
+</head>
+
+<body>
+    <article id="cover">
+        <h1>{report_title}</h1>
+    </article>
+
+    <article id="contents">
+        <h2>Table of contents</h2>
+        <ul>
+            {toc_items}
+        </ul>
+    </article>
+
+    <article id="sections">
+        {sections}
+    </article>
+</body>
+</html>

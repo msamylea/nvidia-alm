@@ -7,6 +7,11 @@ import re
 import sys
 import io
 
+def remove_show_calls(code):
+    # Remove plt.show(), fig.show(), and similar calls
+    show_calls_pattern = re.compile(r'\b(?:plt|fig)\.show\(\s*\)')
+    return show_calls_pattern.sub('', code)
+
 def process_response(response):
     segments = re.split(r'(<CODE>.*?</CODE>|<FIGURE>.*?</FIGURE>)', response, flags=re.DOTALL)
     df = get_dataframe()
@@ -31,6 +36,7 @@ def process_response(response):
                 results.append({"type": "error", "content": f"Error executing code: {str(e)}"})
         elif segment.startswith('<FIGURE>') and segment.endswith('</FIGURE>'):
             figure_code = segment[8:-9].strip()
+            figure_code = remove_show_calls(figure_code)
             try:
                 local_vars = {"pd": pd, "cudf": cudf, "px": px, "df": df, "get_data_from_api": get_data_from_api}
                 exec(figure_code, globals(), local_vars)

@@ -1,10 +1,7 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Request
-import cudf
-import io
-import os
+from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
-from utils.cache_config import cache, cache_key, ClearableCache
-from utils.constants import DATETIME_FORMATS, CATEGORICAL_DTYPES
+from utils.cache_config import cache
 from data_staging.load_data import ingest_data
 from data_staging.preprocess_data import prep_data
 from utils.utilities import get_dataframe
@@ -22,7 +19,23 @@ def log_error(message):
     print(f"ERROR: {message}", file=sys.stderr, flush=True)
     sys.stderr.flush()
 
+
+
 app = FastAPI()
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="FastAPI Data Processing API",
+        version="1.0.0",
+        description="API for data loading, preprocessing, and analysis",
+        routes=app.routes,
+    )
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
 
 app.add_middleware(
     CORSMiddleware,
