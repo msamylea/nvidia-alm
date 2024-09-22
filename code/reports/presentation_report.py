@@ -10,7 +10,7 @@ from PIL import Image
 import plotly.graph_objects as go
 from plotly.io import to_image
 from markdown import markdown
-from utils.prompt_templates import presentation_prompt
+from prompts.presentation_prompt_template import presentation_prompt
 from pptx.enum.text import PP_ALIGN
 from pptx.dml.color import RGBColor
 from pptx.enum.text import MSO_ANCHOR

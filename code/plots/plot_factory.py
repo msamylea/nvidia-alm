@@ -3,7 +3,7 @@ import cudf
 import json_repair
 from utils.configs import llm
 from utils.constants import DATETIME_FORMATS
-from utils.prompt_templates import generate_plots_prompt
+from prompts.plot_generation_template import generate_plots_prompt
 from dash import dcc
 import plotly.graph_objects as go
 import io

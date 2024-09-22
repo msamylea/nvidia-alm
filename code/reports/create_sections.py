@@ -1,5 +1,5 @@
 
-from utils.prompt_templates import prepare_outline_prompt, summarize_prompt, write_section_prompt, write_recommendations_conclusions_prompt
+from prompts.report_prompt_template import prepare_outline_prompt, summarize_prompt, write_section_prompt, write_recommendations_conclusions_prompt
 from utils.cache_config import cache, cache_key
 import json
 from utils.utilities import parse_and_correct_json
