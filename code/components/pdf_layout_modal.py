@@ -28,7 +28,7 @@ pdf_modal = dbc.Modal([
                                     dbc.Card([
                                         dbc.CardHeader("Primary Color", className="inner-color-header"),
                                         dbc.Input(type="color", id="primary-color-picker", value="#1a73e8", style={'width': '100px', 'height': '50px'}),
-                                    ], className="ppt-theme-card"),
+                                    ], className="pdf-theme-card"),
                                 ]),
                                 ]),
                             html.Br(),
@@ -37,7 +37,7 @@ pdf_modal = dbc.Modal([
                                     dbc.Card([
                                         dbc.CardHeader("Accent Color", className="inner-color-header"),
                                         dbc.Input(type="color", id="accent-color-picker", value="#fbbc04", style={'width': '100px', 'height': '50px'}),
-                                    ], className="ppt-theme-card"),
+                                    ], className="pdf-theme-card"),
                                 ]),
                             ]),
                         ]),

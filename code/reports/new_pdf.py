@@ -16,15 +16,21 @@ def convert_markdown_to_html(md_content, section_title):
     # Parse the HTML
     soup = BeautifulSoup(html_content, 'html.parser')
           
-    # Find all tables and add Bootstrap classes
+    # Process tables
     for table in soup.find_all('table'):
         table['class'] = table.get('class', []) + ['table', 'table-bordered', 'table-striped']
-    
-    # Ensure each row is split into appropriate columns
-    for row in soup.find_all('tr'):
-        cells = row.find_all(['th', 'td'])
-        for cell in cells:
-            cell['style'] = cell.get('style', '') + 'padding: 8px; border: 1px solid #ddd; text-align: left;'
+        # Ensure table has a header
+        if not table.find('thead'):
+            first_row = table.find('tr')
+            if first_row:
+                thead = soup.new_tag('thead')
+                thead.append(first_row.extract())
+                table.insert(0, thead)
+        # Wrap remaining rows in tbody
+        tbody = soup.new_tag('tbody')
+        for row in table.find_all('tr'):
+            tbody.append(row.extract())
+        table.append(tbody)
     
     # Process headers and avoid duplicates
     seen_headers = set()
@@ -40,90 +46,110 @@ def convert_markdown_to_html(md_content, section_title):
     for header in soup.find_all('h1'):
         header.decompose()
         
-    # Ensure bullet-pointed lists are styled correctly
+    # Process lists
     for ul in soup.find_all('ul'):
-        ul['style'] = ul.get('style', '') + 'list-style-type: disc; margin-left: 10px;'
+        ul['class'] = ul.get('class', []) + ['list-unstyled']
     
     for ol in soup.find_all('ol'):
-        ol['style'] = ol.get('style', '') + 'list-style-type: decimal; margin-left: 10px;'
+        ol['class'] = ol.get('class', []) + ['list-unstyled']
     
-    # Ensure paragraphs are styled correctly
+    # Process paragraphs
     for p in soup.find_all('p'):
-        p['style'] = p.get('style', '') + 'margin-bottom: 10px;'
+        p['class'] = p.get('class', []) + ['paragraph']
+    
+    # Process code blocks
+    for pre in soup.find_all('pre'):
+        pre['class'] = pre.get('class', []) + ['code-block']
+    
+    # Process inline code
+    for code in soup.find_all('code'):
+        if code.parent.name != 'pre':
+            code['class'] = code.get('class', []) + ['inline-code']
+    
+    # Process bold and italic text
+    for strong in soup.find_all(['strong', 'b']):
+        strong['class'] = strong.get('class', []) + ['bold-text']
+    
+    for em in soup.find_all(['em', 'i']):
+        em['class'] = em.get('class', []) + ['italic-text']
     
     return str(soup)
 
 
+def generate_toc(sections):
+    toc_html = '<ul>'
+    for section in sections:
+        toc_html += f'<li><a href="#{section["id"]}"></a></li>'
+    toc_html += '</ul>'
+    return toc_html
+
 def create_pdf_report(report_title, section_results, end_matter, logo_bytes, primary_color, accent_color):
-    
     with open('code/reports/pdf_report.css', 'r') as file:
         css_template = file.read()
     
     css = css_template.replace("{primary_color}", primary_color).replace("{accent_color}", accent_color)
     
     html_template = Template("""
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>{{ report_title }}</title>
-            <style>
-                {{ css }}
-            </style>
-        </head>
-        <body>
-            <div class="cover">
-                <div class="layout">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ report_title }}</title>
+        <style>
+            {{ css }}
+        </style>
+    </head>
+    <body>
+        <div class="cover">
+            <div class="layout">
+                <div class="top-section">
                     <div class="logo-container">
                         {% if logo %}
                         <img src="data:image/png;base64,{{ logo }}" alt="Logo" class="logo">
                         {% endif %}
                     </div>
-                    <h1>{{ report_title }}</h1>
-                    <div class="halfline"></div>
-                    <p class="date">{{ generated_date }}</p>
                 </div>
+                <h1>{{ report_title }}</h1>
+                <p class="date">{{ generated_date }}</p>
             </div>
-            
-            <article id="contents">
-                <h2>Table of Contents</h2>
-                <ul>
-                    {% for section in sections %}
-                    <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </article>
-            
-            <article id="sections">
-                {% for section in sections %}
-                <div class="section">
-                    <h2 id="{{ section.id }}">{{ section.title }}</h2>
-                    {{ section.content | safe }}
-                    {% if section.plot %}
-                    <img src="data:image/png;base64,{{ section.plot }}" alt="Plot" class="plot">
-                    {{ section.plot_description | safe }}
-                    {% endif %}
-                    {% if section.table %}
-                    <div class="table-container">
-                        {{ section.table | safe }}
-                    </div>
-                    {% endif %}
+        </div>
+        
+        <div class="content-start"></div>
+        
+        <article id="contents">
+            <h2>Table of Contents</h2>
+            {{ toc | safe }}
+        </article>
+        
+        <article id="sections">
+            {% for section in sections %}
+            <div class="section">
+                <h2 id="{{ section.id }}">{{ section.number }}. {{ section.title }}</h2>
+                {{ section.content | safe }}
+                {% if section.plot %}
+                <img src="data:image/png;base64,{{ section.plot }}" alt="Plot" class="plot">
+                {{ section.plot_description | safe }}
+                {% endif %}
+                {% if section.table %}
+                <div class="table-container">
+                    {{ section.table | safe }}
                 </div>
-                {% endfor %}
-            </article>
-            
-            <article id="conclusion">
-                <h2>Conclusion and Recommendations</h2>
-                {{ end_matter | safe }}
-            </article>
-        </body>
-        </html>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </article>
+        
+        <article id="conclusion">
+            <h2>Conclusion and Recommendations</h2>
+            {{ end_matter | safe }}
+        </article>
+    </body>
+    </html>
     """)
 
     processed_sections = []
-    for section_name, (section_content, plot_dict, plot_config) in section_results:
+    for index, (section_name, (section_content, plot_dict, plot_config)) in enumerate(section_results, start=1):
         section_id = section_name.lower().replace(" ", "-")
-        section_title = section_name
         html_content = convert_markdown_to_html(section_content, section_name)
         
         # Generate plot image
@@ -135,7 +161,7 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
                 img_bytes = pio.to_image(plot, format="png", width=600, height=400)
                 plot_image = base64.b64encode(img_bytes).decode('utf-8')
                 
-                plot_description = f"Figure: {plot_config.get('x', 'X')} vs {plot_config.get('y', 'Y')}"
+                plot_description = f"Figure {index}: {plot_config.get('x', 'X')} vs {plot_config.get('y', 'Y')}"
                 if plot_config.get('color'):
                     plot_description += f", colored by {plot_config['color']}"
                 if plot_config.get('size'):
@@ -147,12 +173,14 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
 
         processed_sections.append({
             'id': section_id,
+            'number': index,
             'title': section_name,
             'content': html_content,
             'plot': plot_image,
             'plot_description': plot_description
         })
 
+    toc_html = generate_toc(processed_sections)
     end_matter_html = convert_markdown_to_html(end_matter, "End Matter")
 
     html_content = html_template.render(
@@ -160,7 +188,9 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
         logo=base64.b64encode(logo_bytes).decode('utf-8') if logo_bytes else None,
         generated_date=datetime.now().strftime('%m-%d-%Y'),
         sections=processed_sections,
-        end_matter=end_matter_html
+        end_matter=end_matter_html,
+        css=css,
+        toc=toc_html
     )
     
     # Generate PDF

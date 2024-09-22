@@ -12367,7 +12367,7 @@ textarea.form-control-lg {
 }
 
 .chat-plot-card {
-  background-color: #364652;
+  background-color: #cdd5d1;
   border-radius: 15px;
   border: 1px solid #fdebd0;
   padding: 10px;
@@ -12376,10 +12376,26 @@ textarea.form-control-lg {
 }
 
 .chat-card {
-  background-color: rgb(132, 156, 174);
+  background-color: #849cae;
   border-radius: 15px;
   border: 1px solid #fdebd0;
   padding: 10px;
   margin-bottom: 25px;
+  color: white;
+}
+
+.pdf-modal-body {
+  background-color: #364652;
+  border-radius: 15px;
+  border: 1px solid #fdebd0;
+  padding: 10px;
+  margin-bottom: 25px;
+  color: white;
+}
+
+.pdf-theme-maincard {
+  padding: 10px;
+  border-radius: 15px;
+  background-color: white;
   color: white;
 }

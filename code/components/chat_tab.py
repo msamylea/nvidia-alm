@@ -21,7 +21,8 @@ def textbox(content, box="AI", name="AI Data Expert"):
     elif box == "AI":
         style["margin-left"] = 0
         style["margin-right"] = "auto"
-        style["background-color"] = "#CDD5D1"
+        style["background-color"] = "#faf7f7"
+        style["padding"] = "10px 15px"
         style["color"] = "black"
     else:
         raise ValueError("Incorrect option for `box`.")
@@ -50,9 +51,9 @@ chat_content = html.Div([
     dbc.Spinner(html.Div(id="loading-component"), color="primary"),
     html.Div([
         dbc.InputGroup([
-            dbc.Input(id="user-input", placeholder="Type your message here...", type="text", size="lg"),
+            dbc.Input(id="user-input", placeholder="Type your message here...", type="text", size="lg", style={"border-radius": 15}),
             dbc.Button("Send", id="submit", color="primary"),
-        ], size="lg"),
+        ], size="lg", style={"border-radius": 15}),
     ], style={"padding": "20px", "background-color": "#f8f9fa"}),
 ], className="chat-card", style={"height": "90vh", "display": "flex", "flex-direction": "column"})
 ])

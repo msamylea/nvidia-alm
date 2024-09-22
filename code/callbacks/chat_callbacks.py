@@ -76,7 +76,7 @@ def register_chat_callbacks(app):
             
             CRITICAL: DO NOT PUT FIGURES INSIDE CODE BLOCKS. Figures may only be enclosed in <FIGURE> </FIGURE> tags.
 
-            You should also return a response to the user's latest message in markdown text.
+            You should also return a response to the user's latest message in plain text.
             Do not use comments in code blocks.
             For any code, include a print statement so the output can be displayed.
 
