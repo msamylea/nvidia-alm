@@ -1,8 +1,8 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
-from .utilities import extract_content
-from .formatting_utilities import preprocess_text, create_ag_grid
+from utils.utilities import extract_content
+from utils.formatting_utilities import preprocess_text, create_ag_grid
 import re
 
 def create_report(report_title, section_results, end_matter):

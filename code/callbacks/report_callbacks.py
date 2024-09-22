@@ -3,11 +3,11 @@ from dash.exceptions import PreventUpdate
 import dash
 import io
 from utils.cache_config import cache, cache_key
-from reports.indepth_report import create_final_report
+from reports.combine_final_report import create_final_report
 from reports.new_pdf import create_pdf_report
 from reports.presentation_report import create_presentation
 from utils.utilities import run_async
-from utils.report_gen import create_report
+from reports.report_gen import create_report
 from dash import dcc, html
 import logging
 import traceback
