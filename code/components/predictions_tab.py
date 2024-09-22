@@ -5,13 +5,10 @@ import dash
 from dash.exceptions import PreventUpdate
 from utils.utilities import get_dataframe
 from utils.constants import DATETIME_FORMATS, MODEL_CHOICES_OPTIONS
-import base64
-import io
 import cudf.pandas
 cudf.pandas.install()
 import cupy as cp
 import gc
-import pandas as pd
 
 prediction_content = html.Div([
     dcc.Store(id='mse-store'),

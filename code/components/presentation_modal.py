@@ -1,10 +1,11 @@
 import dash_bootstrap_components as dbc
-from dash import dcc, html, Input, Output, State, callback
+from dash import html, dcc
 import dash_mantine_components as dmc
 from utils.constants import PPT_THEME_OPTIONS
 
 presentation_modal = dbc.Modal([
     dbc.ModalHeader("Presentation Style", style={'font-weight': 'bold', 'font-size': '1.5rem', 'align-items': 'center'}),
+    dcc.Markdown("**Select a theme for your presentation. The theme will be applied to the entire presentation.**", style={'font-size': '1rem'}),
     dbc.ModalBody([
         dbc.Card([
             dbc.Row([

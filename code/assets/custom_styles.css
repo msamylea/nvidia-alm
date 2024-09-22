@@ -12219,6 +12219,7 @@ textarea.form-control-lg {
   border-radius: 15px;
   border: 1px solid #fdebd0;
   align-items: center;
+  color: white;
   margin-top: 20px;
   margin-left: 100px;
   margin-right: 40px;
@@ -12376,7 +12377,7 @@ textarea.form-control-lg {
 }
 
 .chat-card {
-  background-color: #849cae;
+  background-color: #ced7df;
   border-radius: 15px;
   border: 1px solid #fdebd0;
   padding: 10px;
@@ -12398,4 +12399,29 @@ textarea.form-control-lg {
   border-radius: 15px;
   background-color: white;
   color: white;
+}
+
+.section-modal-card {
+  background-color: #9cb0bf;
+  border-radius: 15px;
+  border: 1px solid #fdebd0;
+  padding: 10px;
+  margin-bottom: 25px;
+  color: white;
+}
+
+.section-modal-card-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+  background-color: #364652;
+}
+
+.section-modal-card-inner {
+  padding: 5px;
+  margin-top: 20px;
+  margin-left: 10px;
+  color: black;
+  height: 50%;
 }

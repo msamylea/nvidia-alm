@@ -2,18 +2,13 @@ import plotly.express as px
 import cudf
 import json_repair
 from utils.configs import llm
-from utils.constants import DATETIME_FORMATS
 from prompts.plot_generation_template import generate_plots_prompt
-from dash import dcc
 import plotly.graph_objects as go
 import io
-import pandas as pd
-from pathlib import Path
 import re
-from utils.utilities import sample_data, is_timeseries, resample_df , get_dataframe
+from utils.utilities import is_timeseries, resample_df , get_dataframe
 from typing import Optional, Dict, Any, Tuple
 import json
-from utils.cache_config import cache
 
 def plot_scatter(df: cudf.DataFrame, x: str, y: str, size: str, color: str = None) -> px.scatter:
     df = df.sort_values(by=[x])  # Add sorting

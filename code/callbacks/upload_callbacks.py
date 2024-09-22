@@ -2,10 +2,7 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import base64
 from data_staging.load_data import ingest_data
-from utils.utilities import send_data_to_api
 from utils.cache_config import cache
-import json
-import numpy as np
 
 def register_upload_callbacks(app):
     @app.callback(

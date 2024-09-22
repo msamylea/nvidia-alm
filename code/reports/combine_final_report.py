@@ -1,9 +1,5 @@
 import asyncio
-import requests
-import json
-import re
 from typing import Any, Dict, List, Tuple
-from utils.configs import llm
 from .create_sections import get_outline, summarize_section_async, write_section_async, write_recommendations_conclusions_async
 from utils.utilities import generate_plot_title, extract_table_from_content
 from plots.plot_factory import parse_llm_response

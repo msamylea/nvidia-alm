@@ -9,7 +9,6 @@ from components.pdf_layout_modal import pdf_modal
 from .home_tab import home_content
 from .chat_tab import chat_content
 from .presentation_modal import presentation_modal
-from utils.utilities import get_dataframe
 
 tabs = dbc.Tabs(
     [
@@ -31,19 +30,33 @@ tabs = dbc.Tabs(
     class_name="custom-tabs"
 )
 
-
 def create_layout():
     return dmc.MantineProvider(
         dbc.Container([
             dcc.Store(id="store-conversation", storage_type="memory"),
             dcc.Store(id='stored-data'),
+            dcc.Store(id='pdf-buffer'), 
+            dcc.Store(id='report-generated'),  #
             dcc.Store(id='report-data'),
-            dcc.Store(id='open-pdf-modal', data=False), 
+            dcc.Store(id='open-pdf-modal', data=False),
+            dcc.Store(id='outline-data'),
             html.Div(id='connection-status', style={'display': 'none'}),
             navbar,
             llm_config_modal,
             presentation_modal,
             pdf_modal,
+            dbc.Modal(
+                [
+                    dbc.ModalBody(id="section-modal-body"),
+                    dbc.ModalFooter([
+                        dbc.Button("Submit", id="submit-sections", className="ml-auto"),
+                        dbc.Button("Cancel", id="cancel-sections", className="ml-2")
+                    ])
+                ],
+                id="section-modal",
+                size="lg",
+                is_open=False,
+            ),
             dbc.Row([
                 dbc.Col(sidebar, width=2),
                 dbc.Col(
@@ -65,7 +78,6 @@ def create_layout():
     Output("tab-content", "children"),
     Input("tabs", "active_tab")
 )
-
 def render_tab_content(active_tab):
     if active_tab == "home":
         return home_content

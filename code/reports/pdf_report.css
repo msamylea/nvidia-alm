@@ -7,34 +7,6 @@ body {
   counter-reset: page 1;
 }
 
-@font-face {
-  font-family: Open Sans;
-  font-weight: 400;
-  src: url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-}
-@font-face {
-  font-family: Open Sans;
-  font-style: italic;
-  font-weight: 400;
-  src: url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-}
-@font-face {
-  font-family: Open Sans;
-  font-weight: 300;
-  src: url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-}
-@font-face {
-  font-family: Open Sans;
-  font-style: italic;
-  font-weight: 300;
-  src: url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-}
-@font-face {
-  font-family: Open Sans;
-  font-weight: 700;
-  src:url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-}
-
 .cover {
   page: blank;
   height: 297mm;
@@ -103,18 +75,36 @@ h1 {
 }
 
 .table {
-  width: 100%;
-  margin-bottom: 1rem;
-  background-color: #{accent_color};
-  color: black;
   border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1em;
+  table-layout: fixed;
 }
 
 .table-bordered {
   border: 1px solid #dee2e6;
 }
 
-tr:nth-child(even) {background-color: #e3e3e3;}
+table, th, td, tr {
+  border: 1px solid #585757;
+  padding: 8px;
+  text-align: left;
+  word-wrap: break-word;
+  font-size: 9pt;
+}
+
+tr:hover {
+  background-color: #{primary_color};
+}
+
+th {
+  background-color: #{accent_color};
+  color: #ffffff; /* Set text color for table headers */
+}
+
+tr:nth-child(even) {
+  background-color: #e3e3e3;
+}
 
 .table th,
 .table td {
@@ -127,7 +117,6 @@ tr:nth-child(even) {background-color: #e3e3e3;}
   vertical-align: bottom;
   border-bottom: 2px solid #dee2e6;
 }
-
 
 .list-unstyled {
   padding-left: 0;

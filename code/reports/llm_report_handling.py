@@ -5,6 +5,7 @@ from .data_router import get_schema, get_sample, get_column_stats, get_value_cou
 
 
 async def get_outline_response(prompt):
+    print("CALLED LLM FOR OUTLINE")
     context = f"""
     Using the provided context, generate an outline for a report based on the dataset.
     
@@ -16,6 +17,7 @@ async def get_outline_response(prompt):
     return response
 
 async def get_llm_response(prompt: str, section_name: str = None) -> str:
+    print("CALLED LLM FOR REPORT SECTION")
     schema = get_schema()
     columns = list(schema.keys())
     

@@ -1,22 +1,18 @@
 import json_repair
 import json
-import logging
 import re
 import io
 import base64
 import requests
-import dash_ag_grid as dag
 import cudf
-import pandas as pd
-from .constants import BASE_URL, DATETIME_FORMATS, MAX_CACHE_FILES
-from pathlib import Path
+from .constants import BASE_URL, DATETIME_FORMATS
 import asyncio
-from dash import html, dcc
-import dash_bootstrap_components as dbc
-from .formatting_utilities import preprocess_text, create_ag_grid, parse_markdown_table
+from .formatting_utilities import parse_markdown_table
 from .cache_config import cache
 from fastapi import HTTPException
 from typing import Dict, Any
+from concurrent.futures import ThreadPoolExecutor
+
 
 def get_data_from_api(endpoint):
     response = requests.get(f"{BASE_URL}/{endpoint}")
@@ -60,6 +56,19 @@ def is_timeseries(df: cudf.DataFrame) -> bool:
         print(f"Error checking DataFrame columns: {str(e)}")
     return False
 
+def run_async_in_sync(coroutine):
+    def run_in_new_loop(coro):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(coro)
+        finally:
+            loop.close()
+
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(run_in_new_loop, coroutine)
+        return future.result()
+    
 def run_async(coroutine):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)

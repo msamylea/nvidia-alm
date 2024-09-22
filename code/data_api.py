@@ -128,7 +128,7 @@ async def get_summary():
     return result
     
 @app.get("/sample")
-async def get_sample(n: int = 5):
+async def get_sample(n: int = 25):
     df = get_dataframe()
     return df.head(n).to_pandas().to_dict(orient="records")
 

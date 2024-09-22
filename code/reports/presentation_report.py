@@ -1,19 +1,16 @@
 from pptx import Presentation
-from pptx.util import Inches, Pt
+from pptx.util import Pt
 from io import BytesIO
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from bs4 import BeautifulSoup
 from utils.configs import llm
-from PIL import Image
+from utils.utilities import extract_content
 import plotly.graph_objects as go
 from plotly.io import to_image
 from markdown import markdown
 from prompts.presentation_prompt_template import presentation_prompt
-from pptx.enum.text import PP_ALIGN
-from pptx.dml.color import RGBColor
-from pptx.enum.text import MSO_ANCHOR
 import random
 
 def select_slide_layout(slide_content, include_plot):
@@ -30,14 +27,18 @@ def select_slide_layout(slide_content, include_plot):
     else:
         return 4  # Default layout
 
-def get_presentation_content(section_content):
-    content = section_content['content']
+def get_presentation_content(content):
+    if isinstance(content, dict):
+        content = str(content)
     prompt = presentation_prompt.replace("{section_content}", content)
+   
     response = llm.get_response(prompt)
     return response
 
-def parse_slides(section_content):
-    response = get_presentation_content(section_content)
+def parse_slides(content):
+    if isinstance(content, list):
+        content = "\n".join(content)  # Convert list to string
+    response = get_presentation_content(content)
     soup = BeautifulSoup(markdown(response), 'html.parser')
     slides = []
     
@@ -48,30 +49,21 @@ def parse_slides(section_content):
         section_title = title_element.text if title_element else "Untitled Section"
         
         content = []
-        table_text = ""
-        in_table = False
+         
         content_element = slide.find('content')
         if content_element:
             for line in content_element.text.strip().split('\n'):
-                if line.strip().startswith('|'):
-                    in_table = True
-                    table_text += line + '\n'
-                elif in_table:
-                    in_table = False
-                    table = parse_markdown_table(table_text)
-                    table_text = ""
-                elif line.strip():
+                if line.strip():
                     if line.strip().startswith('- '):
                         content.append({'type': 'bullet', 'text': line.strip()[2:]})
                     else:
                         content.append({'type': 'paragraph', 'text': line.strip()})
         
-        if table_text:
-            table = parse_markdown_table(table_text)
-        else:
-            table = None
+        table_element = slide.find('table')
+        table = parse_markdown_table(table_element.text) if table_element else None
         
-        plot = section_content.get('plot', None)
+        plot_element = slide.find('plot')
+        plot = plot_element.text if plot_element else None
         
         slides.append({
             'report_title': report_title,
@@ -84,20 +76,25 @@ def parse_slides(section_content):
     return slides
 
 def parse_markdown_table(markdown_table):
-    lines = markdown_table.strip().split('\n')
-    if len(lines) < 2:
-        return None
+    print("Parsing table")
+    try:
+        lines = markdown_table.strip().split('\n')
+        if len(lines) < 2:
+            return None
 
-    headers = [cell.strip() for cell in lines[0].split('|') if cell.strip()]
-    data = []
-    for line in lines[2:]:
-        cells = [cell.strip() for cell in line.split('|') if cell.strip()]
-        if cells:
-            data.append(cells)
-    
-    if headers and data:
-        return {'headers': headers, 'data': data}
-    else:
+        headers = [cell.strip() for cell in lines[0].split('|') if cell.strip()]
+        data = []
+        for line in lines[2:]:
+            cells = [cell.strip() for cell in line.split('|') if cell.strip()]
+            if cells:
+                data.append(cells)
+        
+        if headers and data:
+            return {'headers': headers, 'data': data}
+        else:
+            return None
+    except Exception as e:
+        print(f"Error parsing table: {e}")
         return None
     
 def create_presentation(section_content, prs=None, selected_template='default'):
@@ -106,12 +103,16 @@ def create_presentation(section_content, prs=None, selected_template='default'):
             prs = Presentation('code/templates/BlueYellow.pptx')
         prs = Presentation(f"code/templates/{selected_template}.pptx")
         
-    # Add title slide only if it's the first section
     if not prs.slides:
         title_slide = prs.slides.add_slide(prs.slide_layouts[0])
         report_title = title_slide.shapes.title
         report_title.text = section_content.get('report_title', 'Untitled Presentation')
     
+    if isinstance(section_content, dict):
+        content = section_content.get("content", "")
+    else:
+        raise ValueError("section_content must be a dictionary")
+        
     slides = parse_slides(section_content)
     total_slides = len(prs.slides) + len(slides)
     

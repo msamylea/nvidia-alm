@@ -1,7 +1,5 @@
 import io
 import cudf
-import dask_cudf
-import pandas as pd
 
 def ingest_data(file_contents, filename) -> cudf.DataFrame:
     file_like_object = io.BytesIO(file_contents)

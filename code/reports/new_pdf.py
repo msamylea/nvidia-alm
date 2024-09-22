@@ -8,31 +8,42 @@ import plotly.io as pio
 import io
 from datetime import datetime
 from bs4 import BeautifulSoup
+from utils.utilities import extract_content
+import pandas as pd
+
+def process_tables(md_content):
+    pd.set_option('display.max_colwidth', 0)
+    elements = extract_content(md_content)
+    processed_tables = []
+
+    for element_type, element in elements:
+        if element_type == 'table':
+            if isinstance(element, str):
+                rows = [row.strip() for row in element.split('\n') if row.strip()]
+                headers = [cell.strip() for cell in rows[0].split('|') if cell.strip()]
+                table_data = [headers]
+                for row in rows[2:]:
+                    cells = [cell.strip() for cell in row.split('|') if cell.strip()]
+                    if len(cells) == len(headers):
+                        table_data.append(cells)
+            elif isinstance(element, dict):
+                table_data = [element['columns']] + element['data']
+
+            table_data = [[cell.replace('**', '') for cell in row] for row in table_data]
+            df = pd.DataFrame(table_data[1:], columns=table_data[0])
+            df = df.map(lambda x: f"{float(x):.2f}" if x.replace('.', '', 1).isdigit() else x)
+            html_table = df.to_html(index=False, classes=['table', 'table-striped', 'table-bordered'], escape=False)
+            processed_tables.append(html_table)
+
+    return processed_tables
 
 def convert_markdown_to_html(md_content, section_title):
-    # Convert Markdown to HTML with extended features, including TOC
+    processed_tables = process_tables(md_content)
     html_content = markdown.markdown(md_content, extensions=['tables', 'fenced_code', 'sane_lists', 'smarty', 'toc'])
     
     # Parse the HTML
     soup = BeautifulSoup(html_content, 'html.parser')
-          
-    # Process tables
-    for table in soup.find_all('table'):
-        table['class'] = table.get('class', []) + ['table', 'table-bordered', 'table-striped']
-        # Ensure table has a header
-        if not table.find('thead'):
-            first_row = table.find('tr')
-            if first_row:
-                thead = soup.new_tag('thead')
-                thead.append(first_row.extract())
-                table.insert(0, thead)
-        # Wrap remaining rows in tbody
-        tbody = soup.new_tag('tbody')
-        for row in table.find_all('tr'):
-            tbody.append(row.extract())
-        table.append(tbody)
     
-    # Process headers and avoid duplicates
     seen_headers = set()
     for i in range(2, 7):  # h2 to h6, skip h1
         for header in soup.find_all(f'h{i}'):
@@ -73,13 +84,23 @@ def convert_markdown_to_html(md_content, section_title):
     for em in soup.find_all(['em', 'i']):
         em['class'] = em.get('class', []) + ['italic-text']
     
+    # Replace markdown tables with processed HTML tables
+    table_tags = soup.find_all('table')
+    for i, table_tag in enumerate(table_tags):
+        if i < len(processed_tables):
+            new_table = BeautifulSoup(processed_tables[i], 'html.parser')
+            table_tag.replace_with(new_table)
+    
     return str(soup)
-
 
 def generate_toc(sections):
     toc_html = '<ul>'
     for section in sections:
         toc_html += f'<li><a href="#{section["id"]}"></a></li>'
+        if plot := section.get('plot'):
+            toc_html += f'<li><a href="#{section["id"]}">{section["plot"]}</a></li>'
+        if table := section.get('table'):
+            toc_html += f'<li><a href="#{section["id"]}">{table}</a></li>'
     toc_html += '</ul>'
     return toc_html
 
@@ -89,6 +110,7 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
     
     css = css_template.replace("{primary_color}", primary_color).replace("{accent_color}", accent_color)
     
+      
     html_template = Template("""
     <!DOCTYPE html>
     <html lang="en">
@@ -124,16 +146,11 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
         <article id="sections">
             {% for section in sections %}
             <div class="section">
-                <h2 id="{{ section.id }}">{{ section.number }}. {{ section.title }}</h2>
+                <h2 id="{{ section.id }}">{{ section.number }} {{ section.title }}</h2>
                 {{ section.content | safe }}
                 {% if section.plot %}
                 <img src="data:image/png;base64,{{ section.plot }}" alt="Plot" class="plot">
                 {{ section.plot_description | safe }}
-                {% endif %}
-                {% if section.table %}
-                <div class="table-container">
-                    {{ section.table | safe }}
-                </div>
                 {% endif %}
             </div>
             {% endfor %}
@@ -146,7 +163,6 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
     </body>
     </html>
     """)
-
     processed_sections = []
     for index, (section_name, (section_content, plot_dict, plot_config)) in enumerate(section_results, start=1):
         section_id = section_name.lower().replace(" ", "-")

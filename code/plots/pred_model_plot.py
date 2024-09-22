@@ -1,13 +1,11 @@
-import plotly.express as px
 import plotly.graph_objects as go
-import plotly.io as pio
 from plotly.subplots import make_subplots
 import cudf
 import pandas as pd
 from cuml.preprocessing import LabelEncoder
 from cuml_models.metrics import get_confusion_matrix
 import cupy as cp
-from cudf import Series, DataFrame
+from cudf import Series
 
 def plot_timeseries_vs_actual(past_df, future_df, target_column):
     

@@ -1,7 +1,7 @@
 from pathlib import Path
 import sys
 import cudf
-from typing import Tuple, Dict
+from typing import Tuple
 from data_staging.load_data import ingest_data
 import numpy as np
 

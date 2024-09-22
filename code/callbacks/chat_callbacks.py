@@ -1,18 +1,14 @@
 import logging
 import traceback
-from dash import html, dcc, Input, Output, callback, State, no_update
+from dash import html, dcc, Input, Output, State, no_update
 from utils.configs import llm
 from utils.utilities import get_dataframe, get_data_from_api
 from utils.constants import DATETIME_FORMATS, NUMERIC_DTYPES, CATEGORICAL_DTYPES
-from utils.cache_config import cache, cache_key
 from prompts.chat_prompt_template import context
-import plotly.express as px
-import pandas as pd
 import json
 from chat.parse_code import process_response
 from components.chat_tab import textbox
-import plotly.io as pio
-from dash import html, dcc, callback, Input, Output
+from dash import html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 import json
 

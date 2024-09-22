@@ -1,60 +1,31 @@
-from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import dash
 import io
-from utils.cache_config import cache, cache_key
-from reports.combine_final_report import create_final_report
 from reports.new_pdf import create_pdf_report
 from reports.presentation_report import create_presentation
-from utils.utilities import run_async
-from reports.report_gen import create_report
-from dash import dcc, html
+from dash import dcc, html, Input, Output, State, callback_context, ALL
 import logging
 import traceback
 import base64
+import dash
+from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
+from dash import html, no_update
+import asyncio
+from utils.utilities import run_async_in_sync
+from reports.create_sections import write_section_async, get_outline, write_recommendations_conclusions_async, summarize_section_async
+from components.section_content_modal import create_section_modal_body
+from plots.plot_factory import parse_llm_response
+from components.pdf_display import create_pdf_display  # Import the create_pdf_display function
 
 logger = logging.getLogger(__name__)
 
-async def async_cached_create_final_report(prompt: str, max_samples: int = 10000):
-    return await create_final_report(prompt, max_samples=max_samples)
-
 def register_report_callbacks(app):
+       
     @app.callback(
-        Output("analysis-output", "children"),
-        Output('report-data', 'data'),
-        Input("llm-submit-prompt", "n_clicks"),
-        State("llm-prompt", "value"),
-        State('stored-data', 'data'),
-    )
-    def generate_report(n_clicks, prompt, stored_data):
-        if n_clicks is None or prompt is None or stored_data is None:
-            raise PreventUpdate
-
-        # Retrieve the dataframe from the cache
-        df = cache.get('current_df')
-        
-        if df is None:
-            raise PreventUpdate("Data not found in cache. Please reload the data.")
-        
-        report_title, section_results, end_matter, presentation_content = run_async(async_cached_create_final_report(prompt, max_samples=10000))
-        
-        report = create_report(report_title, section_results, end_matter)
-        
-        report_data = {
-            'report_title': presentation_content['report_title'],
-            'section_title': presentation_content['section_title'],
-            'section_results': [
-                (name, (content, plot.to_dict() if plot else None, plot_config))
-                for name, (content, plot, plot_config) in section_results
-            ],
-            'end_matter': end_matter
-        }
-        return report, report_data
-    
-    @app.callback(
-    Output("open-pdf-modal", "data"),
-    Input("btn-open-pdf-modal", "n_clicks"),
-    prevent_initial_call=True
+        Output("open-pdf-modal", "data"),
+        Input("btn-open-pdf-modal", "n_clicks"),
+        prevent_initial_call=True
     )
     def set_open_pdf_modal(n_clicks):
         if n_clicks:
@@ -64,33 +35,136 @@ def register_report_callbacks(app):
     @app.callback(
         Output("pdf-modal", "is_open"),
         Input("open-pdf-modal", "data"),
-        Input("submit-pdf", "n_clicks"),
+        Input("llm-submit-prompt", "n_clicks"),
         State("pdf-modal", "is_open"),
     )
     def toggle_pdf_modal(open_modal, submit_clicks, is_open):
-        ctx = dash.callback_context
+        ctx = callback_context
         if not ctx.triggered:
             return is_open
         prop_id = ctx.triggered[0]["prop_id"].split(".")[0]
         if prop_id == "open-pdf-modal" and open_modal:
             return True
-        elif prop_id == "submit-pdf":
+        elif prop_id == "llm-submit-prompt":
             return False
         return is_open
 
+
+   
     @app.callback(
-    Output("download-pdf", "data"),
-    Input("submit-pdf", "n_clicks"),
-    State('report-data', 'data'),
-    State("uploaded-logo", "contents"),
-    State("primary-color-picker", "value"),
-    State("accent-color-picker", "value"),
-    prevent_initial_call=True,
+        Output("section-modal", "is_open"),
+        Output("outline-data", "data"),
+        Output("section-modal-body", "children"),
+        Input("llm-submit-prompt", "n_clicks"),
+        Input("submit-sections", "n_clicks"),
+        Input("cancel-sections", "n_clicks"),
+        State("llm-prompt", "value"),
+        State("outline-data", "data"),
+        State({"type": "section-input", "index": ALL}, "value"),
+        State({"type": "section-checkbox", "index": ALL}, "value"),
+        prevent_initial_call=True
     )
-    def generate_pdf(n_clicks, report_data, logo, primary_color, accent_color):
-        if n_clicks is None or report_data is None:
+    def handle_section_modal(submit_clicks, confirm_clicks, cancel_clicks,
+                             prompt, outline_data, section_inputs, section_checkboxes):
+        ctx = callback_context
+        if not ctx.triggered:
             raise PreventUpdate
 
+        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+        if button_id == "llm-submit-prompt" and submit_clicks:
+            # Get outline from LLM
+            report_title, section_names, num_sections = run_async_in_sync(get_outline(prompt))
+            outline_data = {
+                "report_title": report_title,
+                "sections": [{"name": name, "selected": True} for name in section_names]
+            }
+            
+            # Create modal body
+            modal_body = create_section_modal_body(outline_data)
+            
+            return True, outline_data, modal_body
+
+        elif button_id == "submit-sections":
+            if outline_data is None or prompt is None:
+                raise PreventUpdate
+
+            # Update outline data with user selections
+            if section_inputs and len(section_inputs) > 0:
+                outline_data["report_title"] = section_inputs[0]  # First input is report title
+                
+                # Update existing sections
+                for i, checked in enumerate(section_checkboxes):
+                    if i < len(outline_data["sections"]):
+                        if checked is not None:
+                            outline_data["sections"][i]["selected"] = checked
+                        # If checked is None, keep the original selected state
+                
+                # Add new section if provided
+                new_section = section_inputs[-1] if len(section_inputs) > 1 else None
+                if new_section:
+                    outline_data["sections"].append({"name": new_section, "selected": True})
+
+            # Close the modal immediately
+            return False, outline_data, no_update
+
+        elif button_id == "cancel-sections":
+            # Close the modal and clear the outline data
+            return False, None, no_update
+
+        return no_update, no_update, no_update
+
+    
+    @app.callback(
+        Output("analysis-output", "children"),
+        Output('report-data', 'data'),
+        Output('pdf-buffer', 'data'),  
+        Output("download-pdf", "data"),
+        Output("report-generated", "data"),
+        Input("submit-sections", "n_clicks"),
+        State('outline-data', 'data'),
+        State("llm-prompt", "value"),
+        State('report-data', 'data'),
+        State("uploaded-logo", "contents"),
+        State("primary-color-picker", "value"),
+        State("accent-color-picker", "value"),
+        State("report-generated", "data"),
+        prevent_initial_call=True,
+    )
+    def process_report(n_clicks, outline_data, prompt, report_data, logo, primary_color, accent_color, report_generated):
+        
+        if outline_data is None or prompt is None:
+            raise PreventUpdate
+
+        selected_sections = [section["name"] for section in outline_data["sections"] if section.get("selected", False)]
+
+
+        async def generate_sections():
+            section_tasks = [write_section_async(section_name, prompt) for section_name in selected_sections]
+            section_results = await asyncio.gather(*section_tasks)
+            
+            # Process each section result
+            processed_results = []
+            for section_name, section_content in section_results:
+                plot, plot_data, plot_config = await parse_llm_response(section_name, max_samples=10000)
+                processed_results.append((section_name, (section_content, plot, plot_config)))
+            
+            summarized_sections = [(name, await summarize_section_async(content)) for name, (content, _, _) in processed_results]
+            end_matter = await write_recommendations_conclusions_async(summarized_sections)
+            return processed_results, end_matter
+
+        section_results, end_matter = run_async_in_sync(generate_sections())
+
+        report_data = {
+            'report_title': outline_data["report_title"],
+            'section_title': selected_sections[-1] if selected_sections else "",
+            'section_results': [
+                (name, (content, plot.to_dict() if plot else None, plot_config))
+                for name, (content, plot, plot_config) in section_results
+            ],
+            'end_matter': end_matter
+        }
+        
         try:
             report_title = report_data['report_title']
             section_results = report_data['section_results']
@@ -107,25 +181,34 @@ def register_report_callbacks(app):
             # Process colors
             primary_color = primary_color.lstrip('#')
             accent_color = accent_color.lstrip('#')
-
-            # Generate the PDF
-            pdf_buffer = create_pdf_report(
-                report_title, 
-                section_results, 
-                end_matter, 
-                logo_bytes, 
-                primary_color, 
-                accent_color 
-            )
-
-            logger.debug("PDF generation completed")
-            return dcc.send_bytes(pdf_buffer.getvalue(), f"{report_title}.pdf")
-
         except Exception as e:
-            logger.error(f"Error in PDF generation: {str(e)}")
-            logger.error(traceback.format_exc())
-        return None
-            
+            return html.Div("Error processing report data"), None, False, None, None
+
+        try:
+            pdf_buffer = create_pdf_report(
+                report_data['report_title'], 
+                report_data['section_results'], 
+                report_data['end_matter'], 
+                logo_bytes,
+                primary_color,
+                accent_color
+            )
+            pdf_base64 = base64.b64encode(pdf_buffer.getvalue()).decode('utf-8')
+            pdf_frame = create_pdf_display(pdf_buffer)
+        except Exception as e:
+            pdf_frame = html.Div("Error generating PDF")
+
+        return pdf_frame, report_data, pdf_base64, dcc.send_bytes(base64.b64decode(pdf_base64), "report.pdf"), True
+
+    @app.callback(
+        Output("download-pptx", "disabled"),  
+        Input("report-generated", "data")
+    )
+    def toggle_download_button(report_generated):
+        if report_generated:
+            return False   
+        return True  
+    
     @app.callback(
         Output("presentation-modal", "is_open"),
         Input("btn-download-pptx", "n_clicks"),
@@ -139,9 +222,9 @@ def register_report_callbacks(app):
             return modal_is_open
         button_id = ctx.triggered[0]["prop_id"].split(".")[0]
         if button_id == "btn-download-pptx" and open_clicks:
-            return not modal_is_open  # Toggle the modal state
+            return not modal_is_open 
         elif button_id == "download_pptx":
-            return False  # Close the modal after generating the PPTX
+            return False  
         return modal_is_open
 
     @app.callback(
@@ -181,6 +264,6 @@ def register_report_callbacks(app):
             return dcc.send_bytes(buffer.getvalue(), f"{report_title}.pptx")
 
         except Exception as e:
-            logger.error(f"Error in PPTX generation: {str(e)}")
-            logger.error(traceback.format_exc())
+            print(f"Error in PPTX generation: {str(e)}")
+            print(traceback.format_exc())
             return None

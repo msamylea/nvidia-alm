@@ -1,12 +1,11 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
-import plotly.graph_objs as go
 
 def textbox(content, box="AI", name="AI Data Expert"):
     style = {
         "max-width": "70%",
         "width": "max-content",
-        "padding": "10px 15px",
+        "padding": "1px 1px",
         "border-radius": 18,
         "margin-bottom": 10,
         "white-space": "pre-wrap",
@@ -54,6 +53,6 @@ chat_content = html.Div([
             dbc.Input(id="user-input", placeholder="Type your message here...", type="text", size="lg", style={"border-radius": 15}),
             dbc.Button("Send", id="submit", color="primary"),
         ], size="lg", style={"border-radius": 15}),
-    ], style={"padding": "20px", "background-color": "#f8f9fa"}),
+    ], style={"border-radius": 15, "background-color": "#f8f9fa"}),
 ], className="chat-card", style={"height": "90vh", "display": "flex", "flex-direction": "column"})
 ])

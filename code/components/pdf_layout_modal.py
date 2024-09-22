@@ -1,12 +1,11 @@
 import dash_bootstrap_components as dbc
-from dash import dcc, html, Input, Output, State, callback
-import dash_mantine_components as dmc
-import base64
+from dash import dcc, html
 
 pdf_modal = dbc.Modal([
-    dbc.ModalHeader("Presentation Style", style={'font-weight': 'bold', 'font-size': '1.5rem', 'align-items': 'center'}),
+    dbc.ModalHeader("Report Style Options", style={'font-weight': 'bold', 'font-size': '1.5rem', 'align-items': 'center'}),
     dbc.ModalBody([
         dbc.Card([
+            dbc.CardHeader("Optional: Add Logo and select color scheme for your report output.", className="pdf-theme-header"),
             dbc.Row([
                 dbc.Col([
                     dbc.Card([
@@ -45,7 +44,7 @@ pdf_modal = dbc.Modal([
                 ]),
             ]),
         ], className="pdf-theme-maincard"),
-        dbc.Button("Submit", id="submit-pdf", color="primary", className="mt-3"),
+        dbc.Button("Submit", id="llm-submit-prompt", color="primary", className="mt-3"),
         dcc.Download(id="download-pdf"),
     ]),
 ], className="pdf-modal-body", id="pdf-modal", is_open=False, size="xl")
