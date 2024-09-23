@@ -8,10 +8,9 @@ def register_upload_callbacks(app):
     @app.callback(
         Output('stored-data', 'data'),
         Output('output-data-upload', 'children'),
-        Output('file-indicator', 'value'),
-        Output('file-indicator', 'color'),
         Input('upload-data', 'contents'),
         State('upload-data', 'filename'),
+        prevent_initial_call=True   
     )
     def update_output(contents, filename):
         if contents is None:
@@ -29,48 +28,15 @@ def register_upload_callbacks(app):
                 # Store DataFrame info
                 stored_data = {
                     'columns': df.columns.tolist(),
-                    'dtypes': {col: str(dtype) for col, dtype in df.dtypes.items()},  # Convert dtypes to strings
-                    'shape': list(df.shape),  # Convert shape to a list
+                    'dtypes': {col: str(dtype) for col, dtype in df.dtypes.items()},
+                    'shape': list(df.shape),
                     'reset_trigger': True
                 }
                 # Store the DataFrame in cache
                 cache.set('current_df', df)
-                return stored_data, f"{filename} uploaded and processed successfully", True, '#6F7C12'
+                return stored_data, f"Data uploaded: {filename}"
             else:
-                return None, "Error loading data", False, '#CC2936'
+                return None, "Error loading data"
         except Exception as e:
             print(f"Error processing file: {str(e)}")
-            return None, f"There was an error processing the file: {str(e)}", False, '#CC2936'
-        
-    @app.callback(
-        Output('llm-submit-prompt', 'disabled'),
-        Input('stored-data', 'data'),
-        Input('tabs', 'active_tab')
-    )
-    def update_llm_submit_button(stored_data, active_tab):
-        if active_tab != 'home':
-            raise PreventUpdate
-        return stored_data is None
-    
-    @app.callback(
-    Output('target-column', 'options'),
-    Output('feature-column', 'options'),
-    Input('stored-data', 'data'),
-    Input('tabs', 'active_tab'),
-    Input('model-type', 'value')
-    )
-    def update_prediction_dropdowns(stored_data, active_tab, model_type):
-        if active_tab != 'predictions' or stored_data is None:
-            raise PreventUpdate
-        
-        columns = stored_data.get('columns', [])
-        dtypes = stored_data.get('dtypes', {})
-        
-        target_options = [
-            {'label': col, 'value': col, 'categorical': dtypes.get(col) == 'object'}
-            for col in columns
-        ]
-        
-        feature_options = [{'label': col, 'value': col} for col in columns]
-        
-        return target_options, feature_options
+            return None, f"Error processing file: {str(e)}"

@@ -88,7 +88,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #faf7f7;
+  --bs-body-bg: #E6EBEF;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-emphasis-color: #7400ff;
   --bs-emphasis-color-rgb: 0, 0, 0;
@@ -12129,23 +12129,29 @@ textarea.form-control-lg {
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 700;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
+  background-color: #364652;
+  border: 1px solid #364652;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #fff;
   cursor: pointer;
   outline: none;
-  margin: 0px;
+  outline: 0;
+  padding: 10px 25px;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
    
    .custom-btn:hover {
-    background-color: #364652;
-    box-shadow: 0px 2px 6px #6F7C12;
+    box-shadow: 0px 2px 6px #000;
     color: #fff;
-    transform: translateY(-7px);
+    transform: translateY(-3px);
    }
    
    
@@ -12271,60 +12277,13 @@ textarea.form-control-lg {
    }
 
 .custom-navbar-brand {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-family: "Open Sans", sans-serif;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     font-weight: 700;
     color: #fff;
     text-align: left;
-}
-
-/* Apply styles to the Reports tab */
-.inner-tab-report .nav-link {
-  height: 80px; 
-  margin-left: 40px;
-  border-top: 5px solid #364652 !important;
-  margin-right: 5px;
-
-}
-
-.inner-tab-chat .nav-link {
-  height: 80px; 
-  border-top: 5px solid #6b889e !important; 
-
-}
-
-.inner-tab-label {
-  font-size: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 700;
-  color: #fff;
-}
-.custom-tabs {
-    border-radius: 15px;
-    
-}
-
-.custom-tabs .nav-link {
-    font-size: 1.5rem; /* Increase font size */
-    
-    height: 60px; /* Increase height */
-    width: 200px;
-    color: black; /* Inactive tab text color */
-    background-color: #CDD5D1; /* Inactive tab background color */
-    border: none; /* Remove border */
-    margin-bottom: -2px; /* Align with active tab */
-    text-align: center;
-}
-
-.custom-tabs .nav-link.active {
-    color: white; /* Active tab text color */
-    background-color: #849cae; /* Active tab background color */
-    /* border-top: 1rem solid #F0EDEE; */
-    border-top: 5px solid #364652; /* Active tab border color */
-    margin-bottom: -2px; /* Align with inactive tab */
 }
 
 .ppt-theme-header {
@@ -12368,21 +12327,24 @@ textarea.form-control-lg {
 }
 
 .chat-plot-card {
-  background-color: #cdd5d1;
+  background-color: #B1BEB8;
   border-radius: 15px;
   border: 1px solid #fdebd0;
   padding: 10px;
-
   margin-bottom: 25px;
+  width: 100%;  
 }
 
 .chat-card {
-  background-color: #ced7df;
+  background-color: #fff;
   border-radius: 15px;
-  border: 1px solid #fdebd0;
+  border: 1px solid #E94F37;
   padding: 10px;
+  margin: 0;
+  margin-top: 10px;
   margin-bottom: 25px;
-  color: white;
+  color: black;
+  box-shadow:rgba(0, 0, 0, 0.075) 0px 4px 6px;
 }
 
 .pdf-modal-body {
@@ -12424,4 +12386,103 @@ textarea.form-control-lg {
   margin-left: 10px;
   color: black;
   height: 50%;
+}
+
+.home-card {
+  background-color: #fff;
+  border-radius: 15px;
+  border: 1px solid #CDD5D1;
+  padding: 40px;
+  margin: 25px;
+  color: black;
+  box-shadow:rgba(0, 0, 0, 0.075) 0px 4px 6px;
+}
+
+.main-home-card {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  width: 100vw;  /* Full viewport width */
+  margin: 0;  
+  padding: 0;    /* Remove any default padding */
+}
+
+.home-card-heading {
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 700;
+  text-align: left;
+  color: #364652;
+  background-color: white;
+}
+
+.custom-tabs {
+  height: 64px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.custom-tabs .custom-tab {
+  border-bottom: 1px solid #e94f37 !important;
+  padding: 6px;
+  font-weight: bold;
+  padding: 1.3em 3em;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+
+.custom-tabs .selected-custom-tab {
+  font-weight: bold;
+  padding: 1.3em 3em;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  border-top: 5px solid #e94f37 !important;
+  border-bottom: 1px solid #e94f37 !important;
+  background-color: #fff !important;
+  color: #e94f37 !important;
+  padding-bottom: 20px;
+}
+
+.custom-navbar-card {
+  background-color: #364652;
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: blur(15px);
+  color: white;
+  width: auto;
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: fit-content;
+
+  border-left: 5px solid #e94f37;
+}
+
+.navcard-header {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+  color: white;
+  background-color: #364652;
+}
+
+.custom-navbar-text {
+  text-transform: uppercase;
+  font-size: .8rem;
+  font-weight: 700;
+  margin-top: 10px;
+  color: white;
+  text-align: left;
+  margin-left: auto; 
+  margin-bottom: 10px;
 }

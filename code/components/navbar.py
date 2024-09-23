@@ -1,9 +1,6 @@
-import dash_bootstrap_components as dbc
 from dash import html
-from utils.constants import LOGO_ICON
-
 import dash_bootstrap_components as dbc
-
+from utils.constants import LOGO_ICON
 
 navbar = dbc.Navbar(
     dbc.Container(
@@ -13,7 +10,7 @@ navbar = dbc.Navbar(
                     dbc.Col(
                         dbc.Row(
                             [
-                                dbc.Col(html.Img(src=LOGO_ICON, height="80px"), width="auto", style={'marginRight': '20px', 'marginTop': '5px'}),
+                                dbc.Col(html.Img(src=LOGO_ICON, height="60px"), width="auto", style={'marginRight': '20px', 'marginTop': '5px'}),
                                 dbc.Col(dbc.NavbarBrand("AI Data Analysis", className="custom-navbar-brand")),
                             ],
                             align="center",
@@ -21,20 +18,45 @@ navbar = dbc.Navbar(
                         ),
                         width="auto",
                     ),
+                ],
+                align="center",
+                className="g-0",
+                style={"width": "auto"},
+            ),
+            dbc.Row(
+                [
                     dbc.Col(
-                        html.Div(id='output-data-upload', className="custom-navbar-text ml-auto"),
+                        [
+                            dbc.Card(
+                                [
+                                   dbc.Row(
+                                        html.Div(
+                                            "No data uploaded", 
+                                            id='output-data-upload', 
+                                            className="custom-navbar-text ml-auto", 
+                                        )
+                                    ),
+                                    dbc.Row(
+                                        html.Div(
+                                            "No LLM connected", 
+                                            id='llm-setup-output', 
+                                            className="custom-navbar-text ml-auto",
+                                        )
+                                    ),
+                                ], className="custom-navbar-card"
+                            ),
+                        ],
                         width="auto",
-                        style={"marginLeft": "auto"},
+                        className="ml-auto",
                     ),
                 ],
-                align="center",  # Center align items vertically
+                align="center",
                 className="g-0",
-                style={"width": "100%"},
+                style={"width": "auto"},
             ),
         ],
-        fluid=True,  # Make the container fluid to take full width
+        style={'backgroundColor': '#364652', 'height': '100px', 'border-radius': '15px'},
+        fluid=True,
     ),
-    color="#364652",
-    dark=True,
-    style={'borderRadius': '15px', 'boxShadow': '9px 10px 5px -6px rgba(0,0,0,0.32)', 'padding': '5px'}
+    
 )

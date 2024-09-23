@@ -1,24 +1,58 @@
 import dash_bootstrap_components as dbc
-from dash import dcc, html, Input, Output, State, callback_context, callback
-from dash.exceptions import PreventUpdate
-
+from dash import dcc, html
 
 home_content = html.Div([
-    dbc.Row([
-        dbc.Col([
+    dbc.Card([
+        dbc.CardBody([
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([
+                        dcc.Markdown("**Step 1: Configure LLM**", className="home-card-heading"),
+                        dbc.Button(
+                            children=[
+                                dbc.Row([
+                                    dbc.Col("Configure LLM", width="auto"),
+                                ])
+                            ],
+                            id="llm-config-button",
+                            color="primary",
+                            className="custom-btn",
+                            n_clicks=0,
+                            style={'width': '25%'}
+                        ),
+                    ], className="home-card")
+                ], width=6),
+                dbc.Col([
+                    dbc.Card([
+                        dcc.Markdown("**Step 2: Upload Dataset**", className="home-card-heading"),
+                        dcc.Upload(id='upload-data',                     
+                            children=dbc.Button(
+                                children=[
+                                    dbc.Row([
+                                        dbc.Col("Upload Dataset", width="auto"),
+                                    ])
+                                ],
+                                color="primary",
+                                className="custom-btn"
+                            ),
+                            multiple=False,
+                        )
+                    ], className="home-card")
+                ], width=6),
+            ]),
             dbc.Card([
-                dbc.CardBody([
+                dcc.Markdown("**Step 3: Enter Query and Generate Report**", className="home-card-heading"),
+                html.Div([
                     html.H4("Analysis Target", className="info-box-heading"),
-                    html.P("Enter analysis target or query.", className='info-box-text'),
-                    dbc.Textarea(id="llm-prompt", placeholder="Enter your query or analysis target here...", style={'width': '100%', 'height': 100, 'backgroundColor': 'white'}),
+                    dbc.Textarea(id="llm-prompt", placeholder="Enter your query or analysis target here...", style={'width': '100%', 'height': 100, 'backgroundColor': 'white', 'border': '1px solid #364652'}),
                     html.Br(),
-                    dbc.Button("Generate Report", id="btn-open-pdf-modal", color="primary", className="custom-btn", disabled=False),
-                    dbc.Button("Download PPTX", id="btn-download-pptx", color="primary", className="custom-btn"),
-                    dcc.Download(id="download-pptx")
+                    dbc.Row([
+                        dbc.Col(dbc.Button("Generate Report", id="btn-open-pdf-modal", color="primary", className="custom-btn", disabled=False), width="auto"),
+                       
+                    ]),
+                    html.Div(id="analysis-output", className="mt-4")
                 ])
-            ], className="info-box"),
-            html.Br(),
-            html.Br(),
+            ], className="home-card"),
             dcc.Loading(
                 id="loading-spinner",
                 children=[
@@ -26,9 +60,7 @@ home_content = html.Div([
                 ],
                 type="graph",
                 color="#EF8354"
-            ),
-            
-            
-        ], width=12),
-    ])
+            )
+        ])
+    ], className="main-home-card")
 ])

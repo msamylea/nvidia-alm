@@ -1,6 +1,5 @@
 import dash_bootstrap_components as dbc
 from dash import html, dcc
-import dash_mantine_components as dmc
 from utils.constants import PPT_THEME_OPTIONS
 
 presentation_modal = dbc.Modal([
@@ -28,13 +27,13 @@ presentation_modal = dbc.Modal([
                                 dbc.Col([
                                     dbc.Card([
                                     dbc.CardHeader("BlackWhite", className="ppt-theme-header"),
-                                    dmc.Image(radius='sm', src='assets/BlackWhite.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
+                                    html.Img(src='assets/BlackWhite.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
                                 ], className="ppt-theme-card"),
                                 ]),
                                 dbc.Col([
                                     dbc.Card([
                                     dbc.CardHeader("BlueYellow", className="ppt-theme-header"),
-                                    dmc.Image(radius='sm', src='assets/BlueYellow.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
+                                    html.Img(src='assets/BlueYellow.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
                                 ], className="ppt-theme-card"),
                                 ]),
                             ]),
@@ -43,13 +42,13 @@ presentation_modal = dbc.Modal([
                                 dbc.Col([
                                     dbc.Card([
                                     dbc.CardHeader("Orange", className="ppt-theme-header"),
-                                    dmc.Image(radius='sm', src='assets/Orange.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
+                                    html.Img(src='assets/Orange.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
                                 ], className="ppt-theme-card"),
                                 ]),
                                 dbc.Col([
                                     dbc.Card([
                                     dbc.CardHeader("Teal", className="ppt-theme-header"),
-                                    dmc.Image(radius='sm', src='assets/Teal.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
+                                    html.Img(src='assets/Teal.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
                                 ], className="ppt-theme-card"),
                                 ]),
                             ]),
@@ -58,13 +57,13 @@ presentation_modal = dbc.Modal([
                                 dbc.Col([
                                     dbc.Card([
                                     dbc.CardHeader("BlueGrey", className="ppt-theme-header"),
-                                    dmc.Image(radius='sm', src='assets/BlueGrey.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
+                                    html.Img(src='assets/BlueGrey.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
                                 ], className="ppt-theme-card"),
                                 ]),
                                 dbc.Col([
                                     dbc.Card([
                                     dbc.CardHeader("RedGrey", className="ppt-theme-header"),
-                                    dmc.Image(radius='sm', src='assets/RedGrey.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
+                                    html.Img(src='assets/RedGrey.png', className="mt-2", style={'width': '200px', 'height': '100px'}),
                                ], className="ppt-theme-card"),
                                 ]),
                             ]),

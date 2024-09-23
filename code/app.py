@@ -9,8 +9,6 @@ from flask import Flask, request
 import requests
 from utils.utilities import get_dataframe
 
-_dash_renderer._set_react_version("18.2.0")
-
 server = Flask(__name__)
 app = dash.Dash(__name__, 
                 server=server,

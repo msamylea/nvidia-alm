@@ -97,10 +97,6 @@ def generate_toc(sections):
     toc_html = '<ul>'
     for section in sections:
         toc_html += f'<li><a href="#{section["id"]}"></a></li>'
-        if plot := section.get('plot'):
-            toc_html += f'<li><a href="#{section["id"]}">{section["plot"]}</a></li>'
-        if table := section.get('table'):
-            toc_html += f'<li><a href="#{section["id"]}">{table}</a></li>'
     toc_html += '</ul>'
     return toc_html
 

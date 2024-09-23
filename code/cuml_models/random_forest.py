@@ -4,7 +4,6 @@ from cuml.preprocessing import LabelEncoder
 import cupy as cp
 import cudf
 from .metrics import get_metrics, get_rf_metrics
-from plots.pred_model_plot import plot_regression_vs_actual, plot_confusion_matrix
 
 def make_rf_prediction(df, target_column, feature_column):
     # Create a copy of the dataframe to avoid modifying the original
