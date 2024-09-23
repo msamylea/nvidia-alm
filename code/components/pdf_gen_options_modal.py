@@ -8,18 +8,17 @@ def create_section_modal_body(outline_data):
                 dbc.Card([
                     dbc.CardHeader(html.H4("Suggested Report Title and Sections"), className="section-modal-card-header"),
                     dbc.CardBody([
-                        html.Hr(),
                         dcc.Markdown("_Change the report title if desired, and select sections to include in the final report._"),
-                        dbc.Card([
-                            dbc.CardBody([
-                                html.H5("Report Title:"),
-                                dbc.Input(id={"type": "section-input", "index": 0}, value=outline_data['report_title'], type="text", className="mb-3"),
-                            ]),
-                        ], className="section-modal-card-inner"),
                         html.Hr(),
                         dbc.Card([
                             dbc.CardBody([
-                                html.H5("Select sections to include:"),
+                                html.H6("Report Title:", className="mb-2"),
+                                dbc.Input(id={"type": "section-input", "index": 0}, value=outline_data['report_title'], type="text", className="mb-3", style={"backgroundColor": "#f9f9f9"}),
+                            ]),
+                        ], className="section-modal-card-inner mb-3"),
+                        dbc.Card([
+                            dbc.CardBody([
+                                html.H6("Select sections to include:", className="mb-2"),
                                 html.Hr(),
                                 *[
                                     dbc.Checkbox(
@@ -31,58 +30,49 @@ def create_section_modal_body(outline_data):
                                     for i, section in enumerate(outline_data["sections"])
                                 ],
                             ]),
-                        ], className="section-modal-card-inner"),
-                        html.Hr(),
+                        ], className="section-modal-card-inner mb-3"),
                         dbc.Card([
                             dbc.CardBody([
-                                html.H5("Add a new section:"),
-                                dbc.Input(id={"type": "section-input", "index": -1}, placeholder="Enter a new section name", type="text", className="mt-3"),
+                                html.H6("Optional: Add new section:", className="mb-2"),
+                                dbc.Input(id={"type": "section-input", "index": -1}, placeholder="Enter a new section name", type="text", style={"backgroundColor": "#f9f9f9"}),
                             ]),
                         ], className="section-modal-card-inner"),
                     ], className="section-modal-card-body"),
-                ], className="section-modal-card"),
+                ], className="section-modal-card h-100"),
             ], width=6),
             dbc.Col([
                 dbc.Card([
-                    dbc.CardHeader("Optional: Add Logo and select color scheme for your report output.", className="pdf-theme-header"),
+                    dbc.CardHeader(html.H4("Optional: Report Styling"), className="section-modal-card-header"),
                     dbc.CardBody([
+                        dcc.Markdown("_Add Logo and select color scheme for your report output._"),
+                        html.Hr(),
                         dbc.Card([
-                            dbc.CardHeader("Upload Logo", className="ppt-inner-card-header"),
                             dbc.CardBody([
-                                dbc.Alert("Image should be approximately 300px x 120px", color="info", is_open=True, style={'fontSize': '0.8rem'}),
+                                html.H6("Upload Logo:", className="mb-2"),
+                                dbc.Alert("Image should be approximately 300px x 120px", color="info", className="mb-2"),
                                 dcc.Upload(
-                                    html.Button("Upload Logo", className="btn btn-primary"),
-                                    id="uploaded-logo",   
-                                    multiple=False,                        
-                                    style={'backgroundColor': 'white'}
+                                    id="uploaded-logo",
+                                    children=dbc.Button("Upload Logo", color="primary", className="w-100"),
+                                    multiple=False,
                                 ),
                             ]),
-                        ], className="pdf-logo-card-inner", style={'width': '100%', 'padding': '20px'}),
-                        html.Br(),
+                        ], className="section-modal-card-inner mb-3"),
                         dbc.Card([
-                            dbc.CardHeader("Select Colors", className="pdf-color-header"),
                             dbc.CardBody([
-                                dbc.Row([
-                                    dbc.Col([
-                                        dbc.Card([
-                                            dbc.CardHeader("Primary Color", className="inner-color-header"),
-                                            dbc.Input(type="color", id="primary-color-picker", value="#1a73e8", style={'width': '100px', 'height': '50px'}),
-                                        ], className="pdf-theme-card"),
-                                    ]),
-                                ]),
-                                html.Br(),
-                                dbc.Row([
-                                    dbc.Col([
-                                        dbc.Card([
-                                            dbc.CardHeader("Accent Color", className="inner-color-header"),
-                                            dbc.Input(type="color", id="accent-color-picker", value="#fbbc04", style={'width': '100px', 'height': '50px'}),
-                                        ], className="pdf-theme-card"),
-                                    ]),
+                                html.H6("Select Colors:", className="mb-2"),
+                                dcc.Markdown("_Primary used for page elements and numbering. Accent used for table headers._", className="mb-3"),
+                                html.Div([
+                                    html.Label("Primary Color:", className="mb-2"),
+                                    dbc.Input(type="color", id="primary-color-picker", value="#38a3a5", style={'width': '100%', 'height': '40px'}),
+                                ], className="mb-3"),
+                                html.Div([
+                                    html.Label("Accent Color:", className="mb-2"),
+                                    dbc.Input(type="color", id="accent-color-picker", value="#57cc99", style={'width': '100%', 'height': '40px'}),
                                 ]),
                             ]),
-                        ], className="mt-3", style={'width': '100%', 'padding': '20px'}),
-                    ]),
-                ], className="pdf-theme-maincard"),
+                        ], className="section-modal-card-inner"),
+                    ], className="section-modal-card-body"),
+                ], className="section-modal-card h-100"),
             ], width=6),
         ]),
     ])

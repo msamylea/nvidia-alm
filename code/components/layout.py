@@ -2,7 +2,6 @@ import dash_bootstrap_components as dbc
 from dash import html, dcc, Input, Output, callback
 from components.navbar import navbar
 from components.llm_config_modal import llm_config_modal
-from components.pdf_layout_modal import pdf_modal
 from .home_tab import home_content
 from .chat_tab import chat_content
 from .presentation_modal import presentation_modal
@@ -37,7 +36,6 @@ def create_layout():
             presentation_modal,
             dbc.Modal(
                 [
-                    dbc.ModalHeader("Report Configuration"),
                     dbc.ModalBody([
                         html.Div(id="section-modal-content")  # This will be replaced with the dynamic content
                     ]),

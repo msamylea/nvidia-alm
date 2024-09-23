@@ -14,8 +14,8 @@ from dash import html, no_update
 import asyncio
 from utils.utilities import run_async_in_sync
 from reports.create_sections import write_section_async, get_outline, write_recommendations_conclusions_async, summarize_section_async
-from components.section_content_modal import create_section_modal_body
 from plots.plot_factory import parse_llm_response
+from components.pdf_gen_options_modal import create_section_modal_body
 from components.pdf_display import create_pdf_display  # Import the create_pdf_display function
 
 logger = logging.getLogger(__name__)
@@ -183,7 +183,7 @@ def register_report_callbacks(app):
     
     @app.callback(
         Output("presentation-modal", "is_open"),
-        Input("btn-download-pptx", "n_clicks"),
+        Input("btn-open-presentation-modal", "n_clicks"),
         Input("download_pptx", "n_clicks"),
         State("presentation-modal", "is_open"),
         prevent_initial_call=True,
@@ -193,7 +193,7 @@ def register_report_callbacks(app):
         if not ctx.triggered:
             return modal_is_open
         button_id = ctx.triggered[0]["prop_id"].split(".")[0]
-        if button_id == "btn-download-pptx" and open_clicks:
+        if button_id == "btn-open-presentation-modal" and open_clicks:
             return not modal_is_open 
         elif button_id == "download_pptx":
             return False  
@@ -206,7 +206,7 @@ def register_report_callbacks(app):
         State('ppt-theme-choices', 'value'),
         prevent_initial_call=True,
     )
-    def generate_pptx(download_clicks, report_data, selected_template):
+    async def generate_pptx(download_clicks, report_data, selected_template):
         if download_clicks is None or report_data is None:
             raise PreventUpdate
 
@@ -217,15 +217,23 @@ def register_report_callbacks(app):
             section_title = report_data['section_title']
 
             prs = None
-            for name, (content, plot_dict, plot_config) in section_results:
+
+            async def process_section(name, content, plot_dict, plot_config):
+                nonlocal prs
                 section_content = {
                     "report_title": report_title,
-                    section_title: section_title,
+                    "section_title": name,
                     "content": content,
                     "plot": plot_dict
                 }
                 logger.debug(f"Processing section: {name}")
                 prs = create_presentation(section_content, prs, selected_template)
+                return prs
+
+            # Process sections asynchronously
+            for name, (content, plot_dict, plot_config) in section_results:
+                prs = await process_section(name, content, plot_dict, plot_config)
+
 
             # Save the presentation to a buffer
             buffer = io.BytesIO()

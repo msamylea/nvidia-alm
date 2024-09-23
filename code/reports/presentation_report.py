@@ -195,23 +195,6 @@ def find_table_placeholder(slide):
             return shape
     raise KeyError("No table placeholder found on this slide")
 
-def add_summary_slide(prs, section_results):
-    summary_slide = prs.slides.add_slide(prs.slide_layouts[1])
-    title = summary_slide.shapes.title
-    title.text = "Key Takeaways"
-
-    content = summary_slide.placeholders[1]
-    tf = content.text_frame
-    tf.clear()
-
-    for i, (name, _) in enumerate(section_results, 1):
-        p = tf.add_paragraph()
-        p.text = f"{i}. {name}"
-        p.level = 0
-        p.font.size = Pt(18)
-
-    return prs
-
 def add_table_to_slide(slide, table_data):
     if table_data is None or 'headers' not in table_data or 'data' not in table_data:
         print("Invalid table data")

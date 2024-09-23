@@ -12114,15 +12114,6 @@ textarea.form-control-lg {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
 }
 
-.side-card {
-    border-radius: 22px;
-    background: #CDD5D1;
-    -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    color: white;
-}
-
 .custom-btn {
   padding: 1.3em 3em;
   font-size: 12px;
@@ -12212,69 +12203,10 @@ textarea.form-control-lg {
     margin-left: auto;  /* Ensure it pushes to the right */
 }
 
-.report-card {
-
-    background-color: #849cae;
-    border-radius: 15px;
-    border: 1px solid #fdebd0;
-
-}
-
-.report-buttons-card {
-  background-color: #364652;
-  border-radius: 15px;
-  border: 1px solid #fdebd0;
-  align-items: center;
-  color: white;
-  margin-top: 20px;
-  margin-left: 100px;
-  margin-right: 40px;
-  padding: 10px;
-  padding-top: 40;
-  -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-  -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-  box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-}
 
 .custom-btn {
   margin: 0 5px; /* Adjust margin to control spacing between buttons */
 }
-
-.card-header .report-card-header {
-    background-color: #f1f1f1;
-    border-radius: 15px;
-    padding: 10px;
-   }
-   .report-card-header {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
-   }
-
-   .report-card-body {    
-    --red: 230;
-    --green: 230;
-    --blue: 230;
-    --aa-brightness: calc((
-        (var(--red) * 299) +
-        (var(--green) * 587) +
-        (var(--blue) * 114)
-    ) / 1000);
-    --aa-color: calc((var(--aa-brightness) - 128) * -1000);
-    background: rgb(var(--red), var(--green), var(--blue));
-    color: rgb(var(--aa-color), var(--aa-color), var(--aa-color));
-    line-height: calc(1ex / 0.32);
-    hyphens: auto;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 20px;
-    border-radius: 15px;
-    -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-   }
 
 .custom-navbar-brand {
     font-size: 2rem;
@@ -12347,45 +12279,28 @@ textarea.form-control-lg {
   box-shadow:rgba(0, 0, 0, 0.075) 0px 4px 6px;
 }
 
-.pdf-modal-body {
-  background-color: #364652;
-  border-radius: 15px;
-  border: 1px solid #fdebd0;
-  padding: 10px;
-  margin-bottom: 25px;
-  color: white;
-}
-
-.pdf-theme-maincard {
-  padding: 10px;
-  border-radius: 15px;
-  background-color: white;
-  color: white;
-}
-
 .section-modal-card {
-  background-color: #9cb0bf;
-  border-radius: 15px;
-  border: 1px solid #fdebd0;
-  padding: 10px;
-  margin-bottom: 25px;
-  color: white;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .section-modal-card-header {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  color: white;
-  background-color: #364652;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.section-modal-card-body {
+  padding: 1rem;
 }
 
 .section-modal-card-inner {
-  padding: 5px;
-  margin-top: 20px;
-  margin-left: 10px;
-  color: black;
-  height: 50%;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
 }
 
 .home-card {
