@@ -25,7 +25,8 @@ def create_layout():
             dcc.Store(id="store-conversation", storage_type="memory"),
             dcc.Store(id='stored-data'),
             dcc.Store(id='pdf-buffer'), 
-            dcc.Store(id='report-generated'),  #
+            dcc.Store(id='report-generated'),
+            dcc.Store(id='report-generation-trigger', data=False),
             dcc.Store(id='report-data'),
             dcc.Store(id='open-pdf-modal', data=False),
             dcc.Store(id='outline-data'),
@@ -49,7 +50,6 @@ def create_layout():
                 size="xl",
                 is_open=False,
             ),
-            dcc.Download(id="download-pdf"),
             dbc.Row([
                 dbc.Col(
                     [                   

@@ -99,12 +99,12 @@ def create_section_modal_body(outline_data):
                         dbc.Card([
                             dbc.CardHeader("Upload Logo", className="ppt-inner-card-header"),
                             dbc.CardBody([
-                                dbc.Alert("Image should be approximately 300px x 120px", color="info", is_open=True, style={'font-size': '0.8rem'}),
+                                dbc.Alert("Image should be approximately 300px x 120px", color="info", is_open=True, style={'fontSize': '0.8rem'}),
                                 dcc.Upload(
                                     html.Button("Upload Logo", className="btn btn-primary"),
                                     id="uploaded-logo",   
                                     multiple=False,                        
-                                    style={'background-color': 'white'}
+                                    style={'backgroundColor': 'white'}
                                 ),
                             ]),
                         ], className="pdf-logo-card-inner", style={'width': '100%', 'padding': '20px'}),

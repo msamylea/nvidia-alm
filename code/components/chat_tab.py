@@ -6,7 +6,7 @@ def textbox(content, box="AI", name="AI Data Expert"):
         "max-width": "70%",
         "width": "max-content",
         "padding": "1px 1px",
-        "border-radius": 18,
+        "borderRadius": 18,
         "margin-bottom": 10,
         "align-self": "flex-start",
         "white-space": "pre-wrap",
@@ -16,13 +16,13 @@ def textbox(content, box="AI", name="AI Data Expert"):
     if box == "user":
         style["margin-left"] = "auto"
         style["margin-right"] = 0
-        style["background-color"] = "#364652"
+        style["backgroundColor"] = "#364652"
         style["padding"] = "10px 15px"
         style["color"] = "white"
     elif box == "AI":
         style["margin-left"] = 0
         style["margin-right"] = "auto"
-        style["background-color"] = "#B1BEB8"
+        style["backgroundColor"] = "#B1BEB8"
         style["padding"] = "10px 15px"
         style["color"] = "black"
     else:
@@ -52,10 +52,10 @@ chat_content = html.Div([
             dbc.Spinner(html.Div(id="loading-component"), color="primary"),
             html.Div([
             dbc.InputGroup([
-                dbc.Input(id="user-input", placeholder="Type your message here...", type="text", size="lg", style={"border-radius": "15px 0 0 15px"}),
-                dbc.Button("Send", id="submit", color="primary", style={"border-radius": "0 15px 15px 0"}),
+                dbc.Input(id="user-input", placeholder="Type your message here...", type="text", size="lg", style={"borderRadius": "15px 0 0 15px"}),
+                dbc.Button("Send", id="submit", color="primary", style={"borderRadius": "0 15px 15px 0"}),
             ], size="lg"),
-        ], style={"border-radius": 15, "background-color": "#f8f9fa", "width": "100%", "margin-top": "auto"}),  
+        ], style={"borderRadius": 15, "backgroundColor": "#f8f9fa", "width": "100%", "margin-top": "auto"}),  
         ], className="chat-card", style={
             "display": "flex", 
             "flex-direction": "column",

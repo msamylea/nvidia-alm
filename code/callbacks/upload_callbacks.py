@@ -8,6 +8,7 @@ def register_upload_callbacks(app):
     @app.callback(
         Output('stored-data', 'data'),
         Output('output-data-upload', 'children'),
+        Output('upload-success', 'is_open'),
         Input('upload-data', 'contents'),
         State('upload-data', 'filename'),
         prevent_initial_call=True   
@@ -34,9 +35,9 @@ def register_upload_callbacks(app):
                 }
                 # Store the DataFrame in cache
                 cache.set('current_df', df)
-                return stored_data, f"Data uploaded: {filename}"
+                return stored_data, f"Data uploaded: {filename}", True
             else:
                 return None, "Error loading data"
         except Exception as e:
             print(f"Error processing file: {str(e)}")
-            return None, f"Error processing file: {str(e)}"
+            return None, f"Error processing file: {str(e)}", False

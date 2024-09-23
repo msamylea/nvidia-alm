@@ -2,7 +2,7 @@ import dash_bootstrap_components as dbc
 from dash import dcc, html
 
 pdf_modal = dbc.Modal([
-    dbc.ModalHeader("Report Style Options", style={'font-weight': 'bold', 'font-size': '1.5rem', 'align-items': 'center'}),
+    dbc.ModalHeader("Report Style Options", style={'font-weight': 'bold', 'fontSize': '1.5rem', 'align-items': 'center'}),
     dbc.ModalBody([
         dbc.Card([
             dbc.CardHeader("Optional: Add Logo and select color scheme for your report output.", className="pdf-theme-header"),
@@ -10,11 +10,11 @@ pdf_modal = dbc.Modal([
                 dbc.Col([
                     dbc.Card([
                         dbc.CardHeader("Upload Logo", className="ppt-inner-card-header"),
-                        dbc.Alert("Image should be approximately 300px x 120px", color="info", is_open=True, style={'font-size': '0.8rem'}),
+                        dbc.Alert("Image should be approximately 300px x 120px", color="info", is_open=True, style={'fontSize': '0.8rem'}),
                         dcc.Upload(html.Button("Upload Logo", className="btn btn-primary"),
                             id="uploaded-logo",   
                             multiple=False,                        
-                            style={'background-color': 'white'}
+                            style={'backgroundColor': 'white'}
                         ),
                     ], className="pdf-logo-card-inner", style={'width': '100%', 'padding': '20px'}),
                 ]),

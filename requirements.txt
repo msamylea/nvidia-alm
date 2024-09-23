@@ -24,3 +24,4 @@ pyphen
 pillow
 fonttools
 markdown2
+dash-iconify
