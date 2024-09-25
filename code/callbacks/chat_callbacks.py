@@ -12,8 +12,6 @@ from dash import html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 import json
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
 
 def register_chat_callbacks(app):
     @app.callback(
@@ -25,7 +23,19 @@ def register_chat_callbacks(app):
         prevent_initial_call=True
     )
     def run_chatbot(n_clicks, n_submit, user_input, chat_history):
-        logger.debug(f"Callback triggered. n_clicks: {n_clicks}, n_submit: {n_submit}, user_input: {user_input}")
+        """
+        Handles the chatbot interaction by processing user input and generating a response.
+        Args:
+            n_clicks (int): Number of times the submit button has been clicked.
+            n_submit (int): Number of times the user has submitted input.
+            user_input (str): The input provided by the user.
+            chat_history (str): JSON string representing the chat history.
+        Returns:
+            tuple: A tuple containing:
+                - Updated chat history as a JSON string.
+                - None if no error, otherwise an HTML Div with the error message.
+                - Boolean indicating whether an error occurred (False if no error).
+        """
         
         try:
             if user_input is None or user_input.strip() == "":
@@ -61,7 +71,6 @@ def register_chat_callbacks(app):
             return json.dumps(chat_history), None, False
 
         except Exception as e:
-            logger.error(traceback.format_exc())
             return no_update, html.Div(f"An error occurred: {str(e)}"), False
 
 
@@ -71,6 +80,17 @@ def register_chat_callbacks(app):
     [Input("store-conversation", "data")]
     )
     def update_display(chat_history):
+        """
+        Updates the display of chat messages based on the provided chat history.
+        Args:
+            chat_history (str): A JSON string representing the chat history. Each message in the chat history
+                                should be a dictionary with a "role" key (either "user" or "assistant") and a 
+                                "content" key containing the message content.
+        Returns:
+            list: A list of HTML components representing the chat messages. Each user message is displayed in a 
+                  textbox, and each assistant message is processed and displayed with appropriate formatting 
+                  (text, code, figure, or error).
+        """
         if not chat_history:
             return []
         

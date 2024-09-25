@@ -1,9 +1,6 @@
 import requests
 import sys
 
-def log_error(message):
-    print(f"ERROR: {message}", file=sys.stderr, flush=True)
-    sys.stderr.flush()
 
 def get_schema():
     try:
@@ -11,7 +8,6 @@ def get_schema():
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        log_error(f"Error getting schema: {str(e)}")
         return {}
 
 def get_summary():
@@ -20,7 +16,6 @@ def get_summary():
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        log_error(f"Error getting summary: {str(e)}")
         return {}
 
 def get_sample(n=5):
@@ -29,7 +24,6 @@ def get_sample(n=5):
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        log_error(f"Error getting sample: {str(e)}")
         return []
 
 def get_column_stats(column_name):
@@ -38,25 +32,23 @@ def get_column_stats(column_name):
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        log_error(f"Error getting column stats: {str(e)}")
         return {}
 
-def get_value_counts(column_name):
+def get_value_counts(column_name, top_n=10):
     try:
-        response = requests.get(f'http://localhost:8000/value_counts/{column_name}')
+        response = requests.get(f'http://localhost:8000/value_counts/{column_name}?top_n={top_n}')
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        log_error(f"Error getting value counts: {str(e)}")
+        print(f"Error getting value counts for {column_name}: {str(e)}")
         return {}
-
+    
 def sum_single_column(column_name):
     try:
         response = requests.get(f'http://localhost:8000/sum_single_column/{column_name}')
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        log_error(f"Error getting sum of column: {str(e)}")
         return {}
 
 def detect_outliers(column_name):
@@ -65,6 +57,5 @@ def detect_outliers(column_name):
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        log_error(f"Error detecting outliers: {str(e)}")
         return {}
     

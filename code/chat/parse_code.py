@@ -8,17 +8,53 @@ import sys
 import io
 
 def remove_show_calls(code):
-    # Remove plt.show(), fig.show(), and similar calls
+    """
+    Remove all instances of plt.show() and fig.show() from the given code string.
+
+    Args:
+        code (str): The input code as a string.
+
+    Returns:
+        str: The code string with all plt.show() and fig.show() calls removed.
+    """
     show_calls_pattern = re.compile(r'\b(?:plt|fig)\.show\(\s*\)')
     return show_calls_pattern.sub('', code)
 
 def process_response(response):
+    """
+    Processes a response string containing text, code, and figure segments.
+    The function splits the response into segments based on <CODE> and <FIGURE> tags,
+    processes each segment, and returns a dictionary with the results.
+    Args:
+        response (str): The response string to be processed.
+    Returns:
+        dict: A dictionary with the following structure:
+            {
+                "results": [
+                    {
+                        "type": "text" | "code" | "figure" | "error",
+                        "content": str | dict,
+                        "output": str (only for "code" type)
+                    },
+                    ...
+                ]
+            - "type": always "mixed".
+            - "results": a list of dictionaries, each representing a processed segment.
+                - "type": the type of the segment ("text", "code", "figure", or "error").
+                - "content": the content of the segment (text, code, figure, or error message).
+                - "output": the output of the executed code (only present for "code" type).
+    Raises:
+        Exception: If there is an error executing code or creating a figure, the error message
+                   is captured and included in the results.
+    """
     segments = re.split(r'(<CODE>.*?</CODE>|<FIGURE>.*?</FIGURE>)', response, flags=re.DOTALL)
     df = get_dataframe()
     df = df.to_pandas()
     results = []
 
     for segment in segments:
+        
+        segment = remove_show_calls(segment)
         if segment.strip() == "":
             continue
         elif segment.startswith('<CODE>') and segment.endswith('</CODE>'):

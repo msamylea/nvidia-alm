@@ -3,7 +3,7 @@ from dash import dcc
 from utils.constants import LLM_PROVIDER_OPTIONS
 
 llm_config_modal = dbc.Modal([
-    dbc.ModalHeader("LLM Configuration", style={'font-weight': 'bold', 'fontSize': '1.5rem', 'align-items': 'center'}),
+    dbc.ModalHeader("LLM Configuration", style={'fontWeight': 'bold', 'fontSize': '1.5rem', 'alignItems': 'center'}),
     dbc.ModalBody([
         dbc.Select(
             id="llm-provider",

@@ -5,6 +5,7 @@ from utils.cache_config import cache
 from data_staging.load_data import ingest_data
 from data_staging.preprocess_data import prep_data
 from utils.utilities import get_dataframe
+from utils.fuzzy_matching import apply_fuzzy_matching
 import traceback
 from fastapi import Query
 import numpy as np
@@ -58,43 +59,6 @@ def serialize_value(v):
         return v.tolist()
     return str(v)
 
-@app.post("/load_data")
-async def load_data(file: UploadFile = File(...)):
-    try:
-        contents = await file.read()
-        
-        try:
-            df = ingest_data(contents, file.filename)
-            df, num_duplicates, num_missing, dt_converted = prep_data(df)
-        except Exception as e:
-            log_info(f"Error loading data: {str(e)}")
-        
-        
-        cache.set('current_df', df)
-        
-        cached_df = cache.get('current_df')
-        if cached_df is not None:
-            log_info("Data successfully retrieved from cache.")
-            log_info(f"Shape of cached data: {cached_df.shape}")
-        else:
-            log_info("Data not found in cache.")
-        
-        return {
-            "message": "Data loaded and preprocessed successfully",
-            "preprocessing_info": {
-                "duplicates_removed": serialize_value(num_duplicates),
-                "missing_values_handled": serialize_value(num_missing),
-                "datetime_columns_converted": serialize_value(dt_converted)
-            },
-            "schema": {
-                "columns": df.columns.to_list(),
-                "dtypes": {col: str(dtype) for col, dtype in df.dtypes.items()},
-            }
-        }
-    except Exception as e:
-        print(f"Error in load_data: {str(e)}")
-        print(traceback.format_exc())
-        raise HTTPException(status_code=400, detail=f"Error loading data: {str(e)}")
 
 @app.post("/clear_cache")
 async def clear_cache():
@@ -105,9 +69,6 @@ async def clear_cache():
         print(f"Error in clear_cache: {str(e)}")
         print(traceback.format_exc())
         raise HTTPException(status_code=500, detail=f"Error clearing cache: {str(e)}")
-    
-    
-
 
 @app.get("/schema")
 async def get_schema():
@@ -132,19 +93,32 @@ async def get_sample(n: int = 25):
     df = get_dataframe()
     return df.head(n).to_pandas().to_dict(orient="records")
 
+@apply_fuzzy_matching("column_name")
 @app.get("/value_counts/{column_name}")
 async def get_value_counts(column_name: str, top_n: int = Query(default=10, ge=1)):
     df = get_dataframe()
+    
+    # Debug print to check the input parameters
+    print(f"get_value_counts called with column_name={column_name}, top_n={top_n}")
+    
+    # Debug print to check the DataFrame columns
+    print(f"DataFrame columns: {df.columns}")
+    
     if column_name not in df.columns:
         raise HTTPException(status_code=404, detail=f"Column '{column_name}' not found. Available columns are: {', '.join(df.columns)}")
     
     try:
         value_counts = df[column_name].value_counts().head(top_n).to_pandas().to_dict()
         result = {str(k): int(v) for k, v in value_counts.items()}
+        
+        # Debug print to check the result
+        print(f"Value counts result: {result}")
+        
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error calculating value counts: {str(e)}")
 
+@apply_fuzzy_matching("column_name")
 @app.get("/column_stats/{column_name}")
 async def get_column_stats(column_name: str):
     df = get_dataframe()
@@ -163,7 +137,8 @@ async def get_column_stats(column_name: str):
     }
     return stats
 
-@app.get("/sum_single_column")
+@apply_fuzzy_matching("column_name")
+@app.get("/sum_single_column/{column_name}")
 async def sum_single_column(column_name: str):
     df = get_dataframe()
     if column_name not in df.columns:
@@ -172,6 +147,7 @@ async def sum_single_column(column_name: str):
     column_sum = df[column_name].sum()
     return {"sum": float(column_sum)}
 
+@apply_fuzzy_matching("column_name")
 @app.get("/outliers/{column_name}")
 async def detect_outliers(column_name: str):
     df = get_dataframe()

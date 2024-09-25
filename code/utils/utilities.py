@@ -5,6 +5,7 @@ import io
 import base64
 import requests
 import cudf
+import pandas as pd
 from .constants import BASE_URL, DATETIME_FORMATS
 import asyncio
 from .formatting_utilities import parse_markdown_table
@@ -28,8 +29,6 @@ def get_dataframe() -> cudf.DataFrame:
     return df
 
 def extract_table_from_content(content):
-    # This function should parse the content and extract any table data
-    # You may need to adjust this based on how tables are represented in your content
     table_data = None
     elements = extract_content(content)
     for element_type, element in elements:
@@ -39,21 +38,12 @@ def extract_table_from_content(content):
     return table_data
 
 def is_timeseries(df: cudf.DataFrame) -> bool:
-    """
-    Check if the DataFrame contains any datetime columns.
-
-    Parameters:
-    df (cudf.DataFrame): The DataFrame to check.
-
-    Returns:
-    bool: True if the DataFrame contains any datetime columns, False otherwise.
-    """
     try:
-        for col in df.columns:
-            if df[col].dtype in DATETIME_FORMATS:
-                return True
+        datetime_cols = df.select_dtypes(include=['datetime64', 'datetime64[ns]']).columns
+        if not datetime_cols.empty:
+            return True
     except Exception as e:
-        print(f"Error checking DataFrame columns: {str(e)}")
+        return(f"Error checking DataFrame columns: {str(e)}")
     return False
 
 def run_async_in_sync(coroutine):
@@ -80,43 +70,50 @@ def run_async(coroutine):
 def resample_df(df):
     datetime_cols = df.select_dtypes(include=['datetime64', 'datetime64[ns]']).columns.tolist()
     
+    if not datetime_cols:
+        raise ValueError("No datetime columns found in the DataFrame")
+
+    resampled_dfs = []
+
     for col in datetime_cols:
         freq = df[col].diff().dt.seconds.mode().values[0] / 60
                       
         if freq < 1440:
-            # Filter numeric columns for aggregation
             numeric_cols = df.select_dtypes(include=['float64', 'float32', 'int64', 'int32']).columns.tolist()
             agg_dict = {colu: 'mean' for colu in numeric_cols if colu != col}
             
-            # Ensure all columns in agg_dict exist in the DataFrame
             for colu in agg_dict.keys():
                 if colu not in df.columns:
                     raise ValueError(f"Column '{colu}' specified in aggregation dictionary not found in the DataFrame")
 
-            # Forward-fill categorical columns before resampling
             categorical_cols = df.select_dtypes(include=['object', 'string']).columns.tolist()
-            df_pandas = df.to_pandas()  # Convert to pandas DataFrame for unsupported operations
+            df_pandas = df.to_pandas() 
             for cat_col in categorical_cols:
                 df_pandas[cat_col] = df_pandas[cat_col].ffill()
 
-            # Set the datetime column as the index and resample
-            df = cudf.DataFrame.from_pandas(df_pandas)  # Convert back to cudf DataFrame
+      
+            df = cudf.DataFrame.from_pandas(df_pandas)  
             df = df.set_index(col)
+            
             resampled = df.resample('D').agg(agg_dict).reset_index()
 
-            # Round all numerical columns to two decimal places
             for colu in resampled.columns:
                 if resampled[colu].dtype in ['float64', 'float32']:
                     resampled[colu] = resampled[colu].round(2)
 
-            # Merge forward-filled categorical columns back into the resampled DataFrame
             resampled_pandas = resampled.to_pandas()
             for cat_col in categorical_cols:
                 resampled_pandas[cat_col] = df_pandas[cat_col].reindex(resampled_pandas.index, method='ffill')
+            
+            resampled_dfs.append(resampled_pandas)
 
-            return cudf.DataFrame.from_pandas(resampled_pandas)  # Convert back to cudf DataFrame
-
-    return df
+    if not resampled_dfs:
+        raise ValueError("No columns met the frequency condition for resampling")
+    
+    final_resampled_df = pd.concat(resampled_dfs, axis=1)
+    
+    final_resampled_df = cudf.DataFrame.from_pandas(final_resampled_df)
+    return final_resampled_df
 
 def sample_data(df: cudf.DataFrame, max_samples: int = 10000):
     if len(df) > max_samples:

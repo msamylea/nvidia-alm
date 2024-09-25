@@ -4,6 +4,26 @@ import hashlib
 import pickle
 
 class ClearableCache:
+    """
+    A simple cache system that stores data in files within a specified directory.
+    The cache can be cleared by removing all files in the cache directory.
+
+    Attributes:
+        cache_dir (str): The directory where cache files are stored.
+
+    Methods:
+        __init__(cache_dir='cache-directory'):
+            Initializes the cache directory.
+        
+        set(key, value, timeout=None):
+            Stores a value in the cache with the specified key.
+        
+        get(key):
+            Retrieves a value from the cache by its key.
+        
+        clear():
+            Clears all files in the cache directory.
+    """
     def __init__(self, cache_dir='cache-directory'):
         self.cache_dir = cache_dir
         os.makedirs(self.cache_dir, exist_ok=True)
@@ -34,6 +54,15 @@ class ClearableCache:
 cache = ClearableCache()
 
 def cache_key(*args, **kwargs):
-    """Generate a cache key from the given arguments."""
+    """
+    Generates a cache key based on the provided arguments and keyword arguments.
+
+    Args:
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
+
+    Returns:
+        str: A hexadecimal MD5 hash string representing the cache key.
+    """
     key = str(args) + str(sorted(kwargs.items()))
     return hashlib.md5(key.encode()).hexdigest()

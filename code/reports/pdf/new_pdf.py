@@ -3,8 +3,6 @@ from weasyprint.text.fonts import FontConfiguration
 import markdown
 import base64
 from jinja2 import Template
-import plotly.graph_objects as go
-import plotly.io as pio
 import io
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -95,18 +93,26 @@ def convert_markdown_to_html(md_content, section_title):
 
 def generate_toc(sections):
     toc_html = '<ul>'
+    seen_ids = set()
     for section in sections:
-        toc_html += f'<li><a href="#{section["id"]}"></a></li>'
+        section_id = section["id"]
+        original_id = section_id
+        counter = 1
+        while section_id in seen_ids:
+            section_id = f"{original_id}-{counter}"
+            counter += 1
+        seen_ids.add(section_id)
+        toc_html += f'<li><a href="#{section_id}">{section["title"]}</a></li>'
     toc_html += '</ul>'
     return toc_html
 
-def create_pdf_report(report_title, section_results, end_matter, logo_bytes, primary_color, accent_color):
-    with open('code/reports/pdf_report.css', 'r') as file:
+def create_pdf_report(report_title, section_results, end_matter, logo_bytes, primary_color, accent_color, company_name):
+    with open('code/reports/pdf/pdf_report.css', 'r') as file:
         css_template = file.read()
     
-    css = css_template.replace("{primary_color}", primary_color).replace("{accent_color}", accent_color)
+    # Replace placeholders with actual values
+    css = css_template.replace("{primary_color}", primary_color).replace("{accent_color}", accent_color).replace("{company_name}", company_name).replace("{report_title}", report_title)
     
-      
     html_template = Template("""
     <!DOCTYPE html>
     <html lang="en">
@@ -159,30 +165,23 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
     </body>
     </html>
     """)
+    
     processed_sections = []
-    for index, (section_name, (section_content, plot_dict, plot_config)) in enumerate(section_results, start=1):
+    for index, (section_name, (section_content, plot_image, plot_config)) in enumerate(section_results, start=1):
         section_id = section_name.lower().replace(" ", "-")
         html_content = convert_markdown_to_html(section_content, section_name)
         
-        # Generate plot image
-        plot_image = None
+        # Use the existing plot image
         plot_description = ""
-        if plot_dict is not None:
-            try:
-                plot = go.Figure(data=plot_dict['data'], layout=plot_dict['layout'])
-                img_bytes = pio.to_image(plot, format="png", width=600, height=400)
-                plot_image = base64.b64encode(img_bytes).decode('utf-8')
-                
-                plot_description = f"Figure {index}: {plot_config.get('x', 'X')} vs {plot_config.get('y', 'Y')}"
-                if plot_config.get('color'):
-                    plot_description += f", colored by {plot_config['color']}"
-                if plot_config.get('size'):
-                    plot_description += f", with size represented by {plot_config['size']}"
-                
-                plot_description = f'<div class="caption">{plot_description}</div>'
-            except Exception as e:
-                print(f"Error generating plot: {str(e)}")
-
+        if plot_image:
+            plot_description = f"Figure {index}: {plot_config.get('x', 'X')} vs {plot_config.get('y', 'Y')}"
+            if plot_config.get('color'):
+                plot_description += f", colored by {plot_config['color']}"
+            if plot_config.get('size'):
+                plot_description += f", with size represented by {plot_config['size']}"
+            
+            plot_description = f'<div class="caption">{plot_description}</div>'
+    
         processed_sections.append({
             'id': section_id,
             'number': index,
@@ -191,10 +190,10 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
             'plot': plot_image,
             'plot_description': plot_description
         })
-
+    
     toc_html = generate_toc(processed_sections)
     end_matter_html = convert_markdown_to_html(end_matter, "End Matter")
-
+    
     html_content = html_template.render(
         report_title=report_title,
         logo=base64.b64encode(logo_bytes).decode('utf-8') if logo_bytes else None,
@@ -214,5 +213,5 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
     pdf_buffer = io.BytesIO()
     html.write_pdf(pdf_buffer, stylesheets=[css], font_config=font_config)
     pdf_buffer.seek(0)
-
+    
     return pdf_buffer

@@ -55,8 +55,8 @@ navbar = dbc.Navbar(
                 style={"width": "auto"},
             ),
         ],
-        style={'backgroundColor': '#364652', 'height': '100px', 'borderRadius': '15px'},
+        style={'backgroundColor': '#364652', 'height': '100px', 'borderRadius': '15px', "width": "100%", "margin": "0px"},
         fluid=True,
-    ),
+    ), dark=True, color="#fafafa", className="mb-5", style={"width": "100%", "margin": "0px"},
     
 )

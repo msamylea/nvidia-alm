@@ -1,27 +1,30 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
+from dash_iconify import DashIconify
 
 def textbox(content, box="AI", name="AI Data Expert"):
     style = {
-        "max-width": "70%",
+        "maxWidth": "70%",
         "width": "max-content",
         "padding": "1px 1px",
         "borderRadius": 18,
-        "margin-bottom": 10,
-        "align-self": "flex-start",
-        "white-space": "pre-wrap",
-        "word-wrap": "break-word",
+        "marginBottom": 10,
+        "alignSelf": "flexStart",
+        "whiteSpace": "pre-wrap",
+        "wordWrap": "break-word",
     }
 
     if box == "user":
-        style["margin-left"] = "auto"
-        style["margin-right"] = 0
+        icon = DashIconify(icon="hugeicons:user-question-01", width=24, className="me-2")
+        style["marginLeft"] = "auto"
+        style["marginRight"] = 0
         style["backgroundColor"] = "#364652"
         style["padding"] = "10px 15px"
         style["color"] = "white"
     elif box == "AI":
-        style["margin-left"] = 0
-        style["margin-right"] = "auto"
+        icon = DashIconify(icon="hugeicons:ai-chat-02", width=24, className="me-2")
+        style["marginLeft"] = 0
+        style["marginRight"] = "auto"
         style["backgroundColor"] = "#B1BEB8"
         style["padding"] = "10px 15px"
         style["color"] = "black"
@@ -31,42 +34,44 @@ def textbox(content, box="AI", name="AI Data Expert"):
     if isinstance(content, dict):
         if content["type"] == "graph":
             return html.Div([
-                html.Div(content["text"], style=style),
-                dcc.Graph(figure=content["figure"], config={'displayModeBar': False}, style={"margin-top": "10px"})
-            ], style={"margin-bottom": "20px"})
+                html.Div([icon, content["text"]], style=style),
+                dcc.Graph(figure=content["figure"], config={'displayModeBar': False}, style={"marginTop": "10px"})
+            ], style={"marginBottom": "20px"})
         else:
-            return html.Div(content["text"], style=style)
+            return html.Div([icon, content["text"]], style=style)
     else:
-        return html.Div(content, style=style)
+        return html.Div([icon, content], style=style)
 
 chat_content = html.Div([
-        dcc.Store(id="store-conversation", storage_type="memory"),
-        dbc.Card([
-            html.Div(id="display-conversation", style={
-                "overflow-y": "auto",
-                "display": "flex",
-                "height": "calc(70vh - 200px)",  # Adjust this value as needed
-                "flex-direction": "column",
-                "padding": "20px",
-            }),
-            dbc.Spinner(html.Div(id="loading-component"), color="primary"),
-            html.Div([
+    dcc.Store(id="store-conversation", storage_type="memory"),
+    dbc.Card([
+        html.Div(id="display-conversation", style={
+            "overflowY": "auto",
+            "display": "flex",
+            "height": "calc(70vh - 200px)",  # Adjust this value as needed
+            "flexDirection": "column",
+            "padding": "20px",
+        }),
+        dbc.Spinner(html.Div(id="loading-component"), color="primary"),
+        html.Div([
             dbc.InputGroup([
                 dbc.Input(id="user-input", placeholder="Type your message here...", type="text", size="lg", style={"borderRadius": "15px 0 0 15px"}),
                 dbc.Button("Send", id="submit", color="primary", style={"borderRadius": "0 15px 15px 0"}),
             ], size="lg"),
         ], style={"borderRadius": 15, "backgroundColor": "#f8f9fa", "width": "100%", "margin-top": "auto"}),  
-        ], className="chat-card", style={
-            "display": "flex", 
-            "flex-direction": "column",
-            "width": "100%",
-            "height": "70vh",
-            "margin": "0",
-        })
-    ], style={
-        "width": "90%",
-        "maxWidth": "1200px",  
-        "margin": "0 auto",
-        "margin-top": "20px",
-        "border": "none",
+    ], className="chat-card", style={
+        "display": "flex", 
+        "flexDirection": "column",
+        "width": "100%",
+        "height": "70vh",
+        "margin": "0",
     })
+], style={
+    "width": "90%",
+    "maxWidth": "1600px",  
+    "margin": "0 auto",
+    "marginTop": "20px",
+    "border": "none",
+    "display": "flex",
+    "justifyContent": "center",
+})

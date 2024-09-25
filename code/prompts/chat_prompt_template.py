@@ -1,11 +1,11 @@
 from textwrap import dedent
 
-context = dedent(f"""
+context = dedent("""
 You have access to a dataframe with the following columns: 
 
-Categorical Columns {{categorical_columns}}
-Numeric Columns {{numeric_columns}}
-Datetime Columns {{datetime_columns}}
+Categorical Columns: {{categorical_columns}}
+Numeric Columns: {{numeric_columns}}
+Datetime Columns: {{datetime_columns}}
 
 The dataframe is already loaded and you may reference it as df. You do not need to instantiate it or create it.
 
@@ -22,7 +22,7 @@ IMPORTANT: For visualizations, use Plotly Express (px).
 
 CRITICAL: DO NOT PUT FIGURES INSIDE CODE BLOCKS. Figures may only be enclosed in <FIGURE> </FIGURE> tags.
 
-You should also return a response to the user's latest message in plain text.
+You should also return a response to the user's latest message in plain text. Do not use markdown.
 Do not use comments in code blocks.
 For any code, include a print statement so the output can be displayed.
 
@@ -54,4 +54,6 @@ fig = px.scatter(df, x='Season', y='Humidity', trendline='ols', title='Humidity 
 
 Remember, ALWAYS include at least one <CODE> block and one <FIGURE> block in your response.
 Please provide a response to the user's latest message, including code and a figure.
+
+User's latest message: {{user_input}}
 """)

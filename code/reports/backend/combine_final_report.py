@@ -4,19 +4,20 @@ from .create_sections import get_outline, summarize_section_async, write_section
 from utils.utilities import generate_plot_title, extract_table_from_content
 from plots.plot_factory import parse_llm_response
 from utils.cache_config import cache, cache_key
-import sys
-
-def log_info(message):
-    print(f"INFO: {message}", flush=True)
-    sys.stdout.flush()
-
-def log_error(message):
-    print(f"ERROR: {message}", file=sys.stderr, flush=True)
-    sys.stderr.flush()
-
-
 
 async def create_final_report(query: str, max_samples: int = 10000) -> Tuple[str, List[Tuple[str, Tuple[str, Any, Any]]], str, Dict[str, Any]]:
+    """
+    Asynchronously creates a final report based on the given query.
+    Args:
+        query (str): The query string to generate the report.
+        max_samples (int, optional): The maximum number of samples to use. Defaults to 10000.
+    Returns:
+        Tuple[str, List[Tuple[str, Tuple[str, Any, Any]]], str, Dict[str, Any]]:
+            - The title of the report.
+            - A list of tuples containing section names and their corresponding content, plot, and plot configuration.
+            - The end matter of the report.
+            - A dictionary containing the presentation content, including slides with section content and plots.
+    """
     report_key = cache_key(query, max_samples)
     cached_report = cache.get(report_key)
     if cached_report is not None:

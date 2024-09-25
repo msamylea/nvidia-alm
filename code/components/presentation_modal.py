@@ -3,8 +3,6 @@ from dash import html, dcc
 from utils.constants import PPT_THEME_OPTIONS
 
 presentation_modal = dbc.Modal([
-    dbc.ModalHeader("Presentation Style", style={'font-weight': 'bold', 'fontSize': '1.5rem', 'align-items': 'center'}),
-    dcc.Markdown("**Select a theme for your presentation. The theme will be applied to the entire presentation.**", style={'fontSize': '1rem'}),
     dbc.ModalBody([
         dbc.Card([
             dbc.Row([
@@ -19,7 +17,7 @@ presentation_modal = dbc.Modal([
                         ),
                     ], className="ppt-theme-card-inner", style={'width': '100%', 'padding': '20px'}),
                 ]),
-                dbc.Col([
+                dbc.Row([
                     dbc.Card([
                         dbc.CardHeader("Presentation Theme Previews", className="ppt-inner-card-header"),
                         dbc.CardBody([
@@ -72,6 +70,9 @@ presentation_modal = dbc.Modal([
                 ]),
             ]),
         ], className="ppt-theme-maincard"),
-        dbc.Button("Submit", id="download_pptx", color="primary", className="mt-3"),
+        html.Div(
+            dbc.Button("Submit", id="download_pptx", color="primary", className="ml-auto"),
+            className="d-flex justify-content-end"
+        ),
     ]),
 ], className="presentation-modal-body", id="presentation-modal", is_open=False, size="xl")

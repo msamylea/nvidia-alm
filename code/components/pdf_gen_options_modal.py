@@ -1,5 +1,5 @@
 import dash_bootstrap_components as dbc
-from dash import html, dcc
+from dash import html, dcc, Input, Output, callback
 
 def create_section_modal_body(outline_data):
     return html.Div([
@@ -48,6 +48,16 @@ def create_section_modal_body(outline_data):
                         html.Hr(),
                         dbc.Card([
                             dbc.CardBody([
+                                html.H6("Company Name:", className="mb-2"),
+                                dbc.Input(
+                                    type = "text",
+                                    id="company-name",                            
+                               
+                                ),
+                            ]),
+                        ], className="section-modal-card-inner mb-3"),
+                        dbc.Card([
+                            dbc.CardBody([
                                 html.H6("Upload Logo:", className="mb-2"),
                                 dbc.Alert("Image should be approximately 300px x 120px", color="info", className="mb-2"),
                                 dcc.Upload(
@@ -55,6 +65,7 @@ def create_section_modal_body(outline_data):
                                     children=dbc.Button("Upload Logo", color="primary", className="w-100"),
                                     multiple=False,
                                 ),
+                                html.Div(id="logo-preview", className="mt-2"),
                             ]),
                         ], className="section-modal-card-inner mb-3"),
                         dbc.Card([
@@ -63,11 +74,11 @@ def create_section_modal_body(outline_data):
                                 dcc.Markdown("_Primary used for page elements and numbering. Accent used for table headers._", className="mb-3"),
                                 html.Div([
                                     html.Label("Primary Color:", className="mb-2"),
-                                    dbc.Input(type="color", id="primary-color-picker", value="#38a3a5", style={'width': '100%', 'height': '40px'}),
+                                    dbc.Input(type="color", id="primary-color-picker", value="#76B900", style={'width': '100%', 'height': '40px'}),
                                 ], className="mb-3"),
                                 html.Div([
                                     html.Label("Accent Color:", className="mb-2"),
-                                    dbc.Input(type="color", id="accent-color-picker", value="#57cc99", style={'width': '100%', 'height': '40px'}),
+                                    dbc.Input(type="color", id="accent-color-picker", value="#aad361", style={'width': '100%', 'height': '40px'}),
                                 ]),
                             ]),
                         ], className="section-modal-card-inner"),
@@ -76,3 +87,11 @@ def create_section_modal_body(outline_data):
             ], width=6),
         ]),
     ])
+    
+@callback(
+    Output("logo-preview", "children"),
+    Input("uploaded-logo", "contents"),
+)
+def update_logo_preview(contents):
+    if contents is not None:
+        return html.Img(src=contents, style={"max-width": "25%"})

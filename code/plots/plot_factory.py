@@ -1,132 +1,33 @@
-import plotly.express as px
 import cudf
 import json_repair
 from utils.configs import llm
 from prompts.plot_generation_template import generate_plots_prompt
-import plotly.graph_objects as go
 import io
 import re
-from utils.utilities import is_timeseries, resample_df , get_dataframe
-from typing import Optional, Dict, Any, Tuple
+from utils.utilities import is_timeseries, resample_df, get_dataframe
+from typing import Optional, Dict, Any
 import json
+from .plot_generators import plot_scatter, plot_comparison_bars, plot_linear_regression, plot_violin, plot_ecdf, plot_parallel_coordinates, plot_pie, plot_time_series
+import traceback
 
-def plot_scatter(df: cudf.DataFrame, x: str, y: str, size: str, color: str = None) -> px.scatter:
-    df = df.sort_values(by=[x])  # Add sorting
-    df.fillna({x: df[x].mean(), y: df[y].mean(), size: df[size].mean()}, inplace=True)
-    fig = px.scatter(df.to_pandas(), x=x, y=y, size=size, color=color)
-    fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-        })
-    return px.scatter(df.to_pandas(), x=x, y=y, size=size, color=color)
-
-
-def plot_time_series(df: cudf.DataFrame, x: str, y: str, line_color: str = 'blue', line_dash: str = 'solid', line_width: int = 2) -> go.Figure:
-    df = df.sort_values(by=[x])
-    
-    # Convert to pandas for plotting
-    pdf = df.to_pandas()
-    
-    # Create the plot
-    fig = go.Figure()
-    
-    # Add the main data line with custom color and style
-    fig.add_trace(go.Scatter(
-        x=pdf[x],
-        y=pdf[y],
-        mode='lines',
-        name='Data',
-        line=dict(color=line_color, dash=line_dash, width=line_width)
-    ))
-    
-   
-    fig.update_layout(
-        plot_bgcolor='rgba(0, 0, 0, 0)',
-        paper_bgcolor='rgba(0, 0, 0, 0)',
-        title=f'{y} over time',
-        xaxis_title=x,
-        yaxis_title=y,
-        showlegend=False,
-        xaxis=dict(
-            tickformat='%Y-%m-%d',
-        )
-    )
-
-    fig.add_annotation(
-        text="<b>Gaps in Date/Time are filled with Mean for Visualization</b>",
-        xref="paper", yref="paper",
-        x=0.5, y=1.05,
-        yshift=20,
-        showarrow=False,
-        font=dict(size=12)
-    )
-    
-    return fig
-
-def plot_comparison_bars(df: cudf.DataFrame, x: str, y: str, color: str) -> px.histogram:
-    df = df.sort_values(by=[y], ascending=False)  # Sort by y-value descending
-    fig = px.histogram(df.to_pandas(), x=x, y=y, color=color, barmode="group")
-    fig.update_traces(textposition='outside')
-    fig.update_layout(
-        plot_bgcolor='rgba(0, 0, 0, 0)',
-        paper_bgcolor='rgba(0, 0, 0, 0)',
-        uniformtext_minsize=8, 
-        uniformtext_mode='hide'
-        )
-    return fig
-
-def plot_area(df: cudf.DataFrame, x: str, y: str, color: str, line_group: str) -> px.area:
-    df = df.sort_values(by=[x])  
-    fig = px.area(df.to_pandas(), x=x, y=y, color=color, line_group=line_group)
-    fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-        })
-    return fig
-
-def plot_violin(df: cudf.DataFrame, x: str, y: str, color: str) -> px.violin:
-    fig = px.violin(df.to_pandas(), x=x, y=y, color=color, box=True, points="all")
-    fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-        })
-    return fig
-
-def plot_ecdf(df: cudf.DataFrame, x: str, color: str) -> px.ecdf:
-    fig = px.ecdf(df.to_pandas(), x=x, color=color, marginal="histogram")
-    fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-        })
-    return fig
-
-def plot_parallel_coordinates(df: cudf.DataFrame) -> px.parallel_coordinates:
-    fig = px.parallel_coordinates(df.to_pandas(), color="total_bill",
-                                   color_continuous_scale=px.colors.diverging.Tealrose,
-                                   color_continuous_midpoint=2)
-    fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-        })
-    return fig
-
-def plot_heatmap(df: cudf.DataFrame) -> px.parallel_coordinates:
-    fig = px.imshow(df.to_pandas())
-    fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-        })
-    return fig
-    
-def plot_pie(df: cudf.DataFrame, x: str, y: str) -> px.pie:
-    fig = px.pie(df.to_pandas(), values=x, names=y, color_discrete_sequence=px.colors.sequential.RdBu)
-    fig.update_layout({
-        'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-        'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-        })
-    return fig
 
 def get_llm_response(df: cudf.DataFrame, section_name: str) -> str:
+    """
+    Generates a response from a language model based on the structure of a given DataFrame.
+    Args:
+        df (cudf.DataFrame): The input DataFrame for which the response is to be generated.
+        section_name (str): The name of the section to be included in the prompt.
+    Returns:
+        str: The response generated by the language model.
+    The function performs the following steps:
+    1. Extracts information about the DataFrame's structure and stores it in a buffer.
+    2. Identifies numerical, categorical, and datetime columns in the DataFrame.
+    3. Constructs a prompt by replacing placeholders with the identified column names and the provided section name.
+    4. Sends the constructed prompt to a language model to generate a response.
+    Note:
+        - The function assumes the existence of a global variable `generate_plots_prompt` which contains the template for the prompt.
+        - The function assumes the existence of a global object `llm` with a method `get_response` that takes a prompt and returns a response.
+    """
     buffer = io.StringIO()
     df.info(buf=buffer)
     numerical_cols = df.select_dtypes(include=['float64', 'float32', 'int64', 'int32']).columns.tolist()
@@ -155,14 +56,35 @@ def get_llm_response(df: cudf.DataFrame, section_name: str) -> str:
     return llm.get_response(prompt)
 
 def extract_plot_config(response: str) -> Optional[str]:
+    """
+    Extracts a JSON-like configuration string from the given response.
+
+    This function searches for a JSON-like object within the provided response string
+    using a regular expression. If a match is found, the JSON-like string is returned;
+    otherwise, None is returned.
+
+    Args:
+        response (str): The input string containing the response from which to extract the JSON-like configuration.
+
+    Returns:
+        Optional[str]: The extracted JSON-like configuration string if found, otherwise None.
+    """
     match = re.search(r'\{.*\}', response, re.DOTALL)
     return match.group(0) if match else None
 
 def validate_plot_config(plot_type: str, plot_config: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Validates and filters the plot configuration dictionary based on the plot type.
+    Parameters:
+    plot_type (str): The type of plot (e.g., 'scatter', 'bar', 'regression', etc.).
+    plot_config (Dict[str, Any]): The configuration dictionary for the plot.
+    Returns:
+    Dict[str, Any]: A dictionary containing only the valid parameters for the specified plot type.
+    """
     required_params = {
         'scatter': {'x', 'y', 'size', 'color'},
         'bar': {'x', 'y', 'color'},
-        'area': {'x', 'y', 'color', 'line_group'},
+        'regression': {'x', 'y'},
         'violin': {'x', 'y', 'color'},
         'ecdf': {'x', 'color'},
         'parallelcoordinates': set(),
@@ -174,57 +96,71 @@ def validate_plot_config(plot_type: str, plot_config: Dict[str, Any]) -> Dict[st
     valid_params = required_params.get(plot_type, set())
     return {k: v for k, v in plot_config.items() if k in valid_params}
 
-
-
-async def parse_llm_response(section_name: str, max_samples: int = 10000) -> Tuple[Any, Optional[Dict], Optional[Dict]]:
-    df = get_dataframe()
-    if is_timeseries(df):
-        df = resample_df(df)
-    numeric_cols = df.select_dtypes(include=['float64', 'float32', 'int64', 'int32']).columns.tolist()
-    for numeric_col in numeric_cols:
-        df[numeric_col] = df[numeric_col].fillna(df[numeric_col].mean())
-    df = df.drop_duplicates()
-        
-    if len(df) > max_samples:
-        df = df.sample(n=max_samples, random_state=42)  # Use a fixed random state for reproducibility
-    
+async def parse_llm_response(section_name: str, max_samples: int = 10000):
+    """
+    Asynchronously parses the response from a language model to generate a plot.
+    Args:
+        section_name (str): The name of the section for which the plot is being generated.
+        max_samples (int, optional): The maximum number of samples to use from the dataframe. Defaults to 10000.
+    Returns:
+        tuple: A tuple containing the plot object, the plot data in JSON format, and the plot configuration dictionary.
+               If no plot is generated, returns (None, None, None).
+    Raises:
+        Exception: If any error occurs during the process, the exception traceback is printed and (None, None, None) is returned.
+    """
     try:
-        response = get_llm_response(df, section_name)  # This is not awaited as it's not an async function
+        df = get_dataframe()
+        if is_timeseries(df):
+            df = resample_df(df)
+        numeric_cols = df.select_dtypes(include=['float64', 'float32', 'int64', 'int32']).columns.tolist()
+        for numeric_col in numeric_cols:
+            df[numeric_col] = df[numeric_col].fillna(df[numeric_col].mean())
+        df = df.drop_duplicates()
+            
+        if len(df) > max_samples:
+            df = df.sample(n=max_samples, random_state=42)  
+        
+        response = get_llm_response(df, section_name)
+        
         plot_config_str = extract_plot_config(response)
         if not plot_config_str:
-            raise ValueError("No plot configuration found in the response")
-        response_dict = json_repair.loads(plot_config_str)  # Changed from response to plot_config_str
-    except Exception as e:
-        print(f"Error parsing JSON response for {section_name}: {e}")
-        return None, None, None
+            return None, None, None
+        
+        response_dict = json_repair.loads(plot_config_str)
+        
+        plot_functions = {
+            'scatter': plot_scatter,
+            'comparisonbar': plot_comparison_bars,
+            'regression': plot_linear_regression,
+            'comparisonviolin': plot_violin,
+            'ecdf': plot_ecdf,
+            'parallelcoordinates': plot_parallel_coordinates,
+            'pie': plot_pie,
+            'timeseries': plot_time_series
+        }
 
-    plot_functions = {
-        'scatter': plot_scatter,
-        'comparisonbar': plot_comparison_bars,
-        'area': plot_area,
-        'comparisonviolin': plot_violin,
-        'ecdf': plot_ecdf,
-        'parallelcoordinates': plot_parallel_coordinates,
-        'pie': plot_pie,
-        'timeseries': plot_time_series
-    }
-
-    try:
         for plot_type, plot_function in plot_functions.items():
             if plot_type in response_dict:
-                plot_config = response_dict[plot_type]
-                plot_config = validate_plot_config(plot_type, plot_config)
-                if plot_type == 'parallelcoordinates':
+                plot_config = validate_plot_config(plot_type, response_dict[plot_type])
+                
+                if plot_type == 'regression':
+                    plot = plot_function(df, **plot_config, test_size=0.2)
+                elif plot_type == 'parallelcoordinates':
                     plot = plot_function(df)
                     plot_config = {'type': 'parallelcoordinates'}
                 else:
                     plot = plot_function(df, **plot_config)
                 
                 if plot:
-                    plot_data = json.loads(plot.to_json())
-                    return plot, plot_data, plot_config
+                    try:
+                        plot_data = json.loads(plot.to_json())
+                        return plot, plot_data, plot_config
+                    except json.JSONDecodeError:
+                        print(traceback.format_exc())
+                else:
+                    print(f"Failed to generate plot for {section_name}")
         
         return None, None, None
-    except Exception as e:
-        print(f"Error generating plot for {section_name}: {str(e)}")
+    except Exception:
+        print(traceback.format_exc())
         return None, None, None

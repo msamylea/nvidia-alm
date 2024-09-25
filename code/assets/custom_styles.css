@@ -88,7 +88,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #E6EBEF;
+  --bs-body-bg: #fafafa;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-emphasis-color: #7400ff;
   --bs-emphasis-color-rgb: 0, 0, 0;
@@ -12123,7 +12123,7 @@ textarea.form-control-lg {
   background-color: #364652;
   border: 1px solid #364652;
   border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+  box-shadow: #76b900  0 2px 4px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -12157,44 +12157,13 @@ textarea.form-control-lg {
     transform: translate3d(0, 0, -1em);
    }
 
-   .info-box {
-    background: #364652;
-    border-radius: 10px;
-    /* width: 30%; */
-    -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.32);
-    padding: 10px;
-    text-align: center;
-    transition: all 0.3s ease 0s;
-    color: white;
-   }
-
-   .info-box-heading {
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-size: 28px;
-    font-weight: 700;
-    color: black;
-    margin-bottom: 10px;
-    color: white;
-   }
-
-   .info-box-text {
-    font-size: 20px;
-    font-weight: 400;
-    color: white;
-    text-align: center;
-   }
-
-
+ 
    .custom-p {
     font-size: 16px;
     font-weight: 400;
     color: white;
     text-align: left;
    }
-
    .custom-navbar-text {
     font-weight: 700;
     margin-top: 10px;
@@ -12218,6 +12187,11 @@ textarea.form-control-lg {
     text-align: left;
 }
 
+.presentation-modal-body {
+  padding: 1rem;
+  width: 40%;
+}
+
 .ppt-theme-header {
   font-weight: 700;
   text-align: center;
@@ -12229,10 +12203,14 @@ textarea.form-control-lg {
 
 .ppt-theme-card {
   display: flex;
+  background-color: #F0EDEE;
   align-items: center;
+  justify-content: center;
   padding: 5px;
   border: 1px solid #364652;
-  box-shadow:rgba(0, 0, 0, 0.075) 0px 4px 6px;
+  box-shadow: rgba(0, 0, 0, 0.075) 0px 4px 6px;
+  width: 80%;
+  margin: auto; /* Center the card horizontally and vertically */
 }
 
 .ppt-theme-maincard {
@@ -12244,10 +12222,9 @@ textarea.form-control-lg {
 
 .ppt-theme-card-inner {
   padding: 5px;
-  margin-top: 20px;
-  margin-left: 10px;
+  margin-top: 10px;
   color: black;
-  height: 50%;
+  height: 90%;
 }
 
 .ppt-inner-card-header {
@@ -12270,7 +12247,7 @@ textarea.form-control-lg {
 .chat-card {
   background-color: #fff;
   border-radius: 15px;
-  border: 1px solid #E94F37;
+  border: 5px solid #364652;
   padding: 10px;
   margin: 0;
   margin-top: 10px;
@@ -12304,16 +12281,17 @@ textarea.form-control-lg {
 }
 
 .home-card {
-  background-color: #fff;
+  background-color: #fafafa;
   border-radius: 15px;
   border: 1px solid #CDD5D1;
   padding: 40px;
   margin: 25px;
   color: black;
-  box-shadow:rgba(0, 0, 0, 0.075) 0px 4px 6px;
+  box-shadow:#76b900 0px 4px 6px;
 }
 
 .main-home-card {
+  background-color: #fafafa;
   display: flex;
   flex-direction: column;
   height: 100vh; /* Full viewport height */
@@ -12333,41 +12311,46 @@ textarea.form-control-lg {
 }
 
 .custom-tabs {
-  height: 64px;
+  height: 104px;
   width: 100vw;
   display: flex;
   flex-direction: row;
+  border-radius: 15px;
 
 }
 
 .custom-tabs .custom-tab {
-  border-bottom: 1px solid #e94f37 !important;
+  border-bottom: 1px solid #000 !important;
   padding: 6px;
   font-weight: bold;
   padding: 1.3em 3em;
-  font-size: 20px;
+  margin-top: 10px;
+  font-size: 25px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 700;
+  border-top: 5px solid #76b900 !important;
   padding-bottom: 20px;
+  border-radius: 15px 15px 0 0;
 }
 
 .custom-tabs .selected-custom-tab {
+  background-color: #76b900 !important;
   font-weight: bold;
   padding: 1.3em 3em;
-  font-size: 20px;
+  font-size: 25px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
-  border-top: 5px solid #e94f37 !important;
-  border-bottom: 1px solid #e94f37 !important;
-  background-color: #fff !important;
-  color: #e94f37 !important;
+  border-top: 5px solid #364652 !important;
+  border-bottom: 1px solid #000 !important;
+  color: white !important;
   padding-bottom: 20px;
+  border-radius: 15px 15px 0 0;
 }
 
 .custom-navbar-card {
   background-color: #364652;
-  border: 1px solid rgba(255, 255, 255, .25);
+  border: 1px solid #76b900;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.45);
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
@@ -12380,7 +12363,7 @@ textarea.form-control-lg {
   padding-right: 20px;
   height: fit-content;
 
-  border-left: 5px solid #e94f37;
+  border-left: 5px solid #76b900;
 }
 
 .navcard-header {
@@ -12400,4 +12383,13 @@ textarea.form-control-lg {
   text-align: left;
   margin-left: auto; 
   margin-bottom: 10px;
+}
+
+.custom-card-title {
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
 }

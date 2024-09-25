@@ -70,10 +70,6 @@ h1 {
   margin: 0;
 }
 
-@page :first {
-  margin: 0;
-}
-
 .table {
   border-collapse: collapse;
   width: 100%;
@@ -167,6 +163,7 @@ tr:nth-child(even) {
   @bottom-right {
       content: normal;
   }
+
   margin: 0;
 }
 
@@ -180,7 +177,10 @@ tr:nth-child(even) {
   size: letter;
   margin: 2.5cm;
   @bottom-right {
-      content: counter(page);
+      content: counter(page) " of " counter(pages);
+      font-size: 8pt;
+      border-bottom: 1px solid #{primary_color};
+      padding-bottom: 2px;
   }
   @top-left {
       background: #{primary_color};
@@ -189,26 +189,30 @@ tr:nth-child(even) {
       text-align: center;
       width: 1cm;
       margin-bottom: 1cm;
+      border-bottom: 1px solid #{primary_color};
+      padding-bottom: 2px;
   }
   @top-center {
-      background: #{primary_color};
-      content: '';
-      display: block;
-      height: .05cm;
-      opacity: .5;
+      content: "{report_title}";
+      font-size: 9pt;
+      height: 1cm;
+      vertical-align: middle;
+      text-align: center;
       width: 100%;
       margin-bottom: 1cm;
   }
   @top-right {
-      content: string(heading);
+      content: "{company_name}";
       font-size: 9pt;
       height: 1cm;
       vertical-align: middle;
+      text-align: right;
       width: 100%;
       margin-bottom: 1cm;
+      border-bottom: 1px solid #{primary_color};
+      padding-bottom: 2px;
   }
 }
-
 @page :blank {
   @top-left { background: none; content: '' }
   @top-center { content: none }

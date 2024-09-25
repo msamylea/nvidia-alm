@@ -18,5 +18,4 @@ class LLMHolder:
     def llm(self, new_llm: BaseLLM):
         self._llm = new_llm
 
-# Create a global instance
 llm_holder = LLMHolder()

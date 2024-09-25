@@ -1,13 +1,17 @@
 import dash
 import dash_bootstrap_components as dbc
-from dash import dcc, html, _dash_renderer, clientside_callback, Input, Output, ALL
+from dash import dcc, html
 from components.layout import create_layout
 from callbacks import register_callbacks
 from utils.configs import app_config
 import os
 from flask import Flask, request
 import requests
-from utils.utilities import get_dataframe
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 server = Flask(__name__)
 app = dash.Dash(__name__, 
@@ -39,4 +43,6 @@ def proxy_to_fastapi(path):
     return response
 
 if __name__ == '__main__':
+    logger.info("Starting Dash server...")
     app.run_server(debug=app_config['DEBUG'], host=app_config['HOST'], port=8050)
+    logger.info("Dash server stopped.")
