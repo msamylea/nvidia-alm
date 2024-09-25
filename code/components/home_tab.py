@@ -47,8 +47,7 @@ home_content = html.Div([
                             ], className="d-flex align-items-center")  # Use flexbox to align items
                         ])
                     ]),
-                    
-                    dbc.Alert("LLM Connection Established", id="connection-success", color="#76b900", dismissable=True, is_open=False, className="mt-3"),
+                    html.Div(id="card-alert-placeholder"),
                     dbc.Button([
                         DashIconify(icon="carbon:ai-launch", width=24, className="me-2"),
                         "Configure LLM"

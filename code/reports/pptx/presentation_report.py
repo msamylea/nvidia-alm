@@ -4,7 +4,7 @@ import sys
 import os
 import base64
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from utils.configs import llm
+from utils.configs import get_llm
 from prompts.presentation_prompt_template import presentation_prompt
 import random
 import re
@@ -30,7 +30,7 @@ def get_presentation_content(content):
         content = {k: v for k, v in content.items() if k != 'plot_image'}
         content = str(content)
     prompt = presentation_prompt.replace("{section_content}", content)
-    
+    llm = get_llm()
     response = llm.get_response(prompt)
     return response
 

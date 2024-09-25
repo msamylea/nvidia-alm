@@ -21,7 +21,6 @@ ecdf                         x (numeric), color (categorical)
 parallelcoordinates          (all columns numeric)
 pie                          x (categorical), y (numeric)
 timeseries                   x (datetime), y (numeric)
-heatmap                      (all columns numeric)
 
 If data is timeseries, it is preferrable to use a timeseries plot. If data is categorical, it is preferrable to use a pie chart or bar plot.
 

@@ -64,6 +64,7 @@ def create_layout():
             dcc.Store(id='report-style-data'),
             html.Div(id='connection-status', style={'display': 'none'}),
             navbar,
+            html.Div(id="alert-placeholder", hidden=True),
             llm_config_modal,
             presentation_modal,
             error_toast,

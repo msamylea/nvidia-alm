@@ -1,15 +1,18 @@
-from dash import Input, Output, State, html
+from dash import Input, Output, State, html, callback_context
 from dash.exceptions import PreventUpdate
 from utils.llm_factory import get_llm
 from utils.llm_singleton import llm_holder
 import dash
+import dash_bootstrap_components as dbc
 from utils.constants import LLM_PROVIDERS
 
 def register_llm_callbacks(app):
     @app.callback(
+        Output("error-toast", "is_open", allow_duplicate=True),
+        Output("error-message", "children", allow_duplicate=True),
         Output("llm-setup-output", "children"),
         Output('llm-config-modal', 'is_open', allow_duplicate=True),
-        Output('connection-success', 'is_open'),
+        Output('alert-placeholder', 'children', allow_duplicate=True),
         Input('main-tabs', 'value'),
         Input('llm-submit', 'n_clicks'),
         State('llm-config-modal', 'is_open'),
@@ -22,22 +25,7 @@ def register_llm_callbacks(app):
     )
     def update_llm_config(active_tab, llm_submit_clicks, modal_is_open,
                           provider, model, api_key, temperature, max_tokens):
-
-        """
-        Callback function to update the LLM (Language Learning Model) configuration based on user inputs.
-        Parameters:
-        active_tab (str): The currently active tab in the UI.
-        llm_submit_clicks (int): The number of times the submit button for LLM configuration has been clicked.
-        modal_is_open (bool): Boolean indicating if the modal is open.
-        provider (str): The LLM provider selected by the user.
-        model (str): The specific model selected by the user.
-        api_key (str): The API key for accessing the LLM provider.
-        temperature (str): The temperature setting for the LLM, controlling the randomness of the output.
-        max_tokens (str): The maximum number of tokens for the LLM output.
-        Returns:
-        tuple: A tuple containing a status message and a boolean indicating if there was an error.
-        """
-        ctx = dash.callback_context
+        ctx = callback_context
         if not ctx.triggered:
             raise PreventUpdate
 
@@ -54,17 +42,27 @@ def register_llm_callbacks(app):
                 provider_name = next(key for key, value in LLM_PROVIDERS.items() if value == provider)
                 
                 llm_setup_output = f"Provider: {provider_name}, Model: {model}"
-                return llm_setup_output, False, True
+                alert = dbc.Alert("LLM Connection Established", color="#76b900", dismissable=True)
+                return False, None, llm_setup_output, False, alert
             except ValueError as e:
-                return f"Error: Invalid API key - {str(e)}", True, False
+                return True, f"Error: Invalid API key - {str(e)}", dash.no_update, True, False
             except Exception as e:
-                return f"Error setting up LLM: {str(e)}", True, False
+                return True, f"Error setting up LLM: {str(e)}", dash.no_update, True, False
         
         if llm_holder.llm is not None:
-            provider_name = next(key for key, value in LLM_PROVIDERS.items() if value == llm_holder.llm.provider)
-            return f"Provider: {provider_name}, Model: {llm_holder.llm.model}", False, False
+            provider_name = next(key for key, value in LLM_PROVIDERS.items() if value == llm_holder.llm.config.provider)
+            return False, dash.no_update, f"Provider: {provider_name}, Model: {llm_holder.llm.config.model}", False, False
         else:
-            return "No LLM connected", False
+            return dash.no_update, dash.no_update, "No LLM connected", False, False
+            
+
+    @app.callback(
+    Output("card-alert-placeholder", "children", allow_duplicate=True),
+    Input("alert-placeholder", "children"),
+    prevent_initial_call=True
+    )
+    def update_card_alert(alert_content):
+        return alert_content
 
     @app.callback(
         Output('llm-config-modal', 'is_open', allow_duplicate=True),

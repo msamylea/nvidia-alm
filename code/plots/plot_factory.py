@@ -1,6 +1,6 @@
 import cudf
 import json_repair
-from utils.configs import llm
+from utils.configs import get_llm
 from prompts.plot_generation_template import generate_plots_prompt
 import io
 import re
@@ -52,7 +52,9 @@ def get_llm_response(df: cudf.DataFrame, section_name: str) -> str:
                                   .replace("{section_name}", section_name)\
                                   .replace("{categorical_columns}", categorical_cols_str)\
                                   .replace("{datetime_columns}", datetime_cols_str)
-    
+                                  
+    print("CALLED LLM")
+    llm = get_llm()
     return llm.get_response(prompt)
 
 def extract_plot_config(response: str) -> Optional[str]:
@@ -109,30 +111,33 @@ async def parse_llm_response(section_name: str, max_samples: int = 10000):
         Exception: If any error occurs during the process, the exception traceback is printed and (None, None, None) is returned.
     """
     try:
+        print("PLOT FACTORY CALLED")
         df = get_dataframe()
         if is_timeseries(df):
             df = resample_df(df)
+            print("RESAMPLED DF")
         numeric_cols = df.select_dtypes(include=['float64', 'float32', 'int64', 'int32']).columns.tolist()
         for numeric_col in numeric_cols:
             df[numeric_col] = df[numeric_col].fillna(df[numeric_col].mean())
         df = df.drop_duplicates()
-            
+        print(f"DF AFTER DROP DUPLICATES: {df.shape}")   
         if len(df) > max_samples:
             df = df.sample(n=max_samples, random_state=42)  
-        
+            print(f"DF AFTER SAMPLING: {df.shape}")
         response = get_llm_response(df, section_name)
-        
+        print("LLM RESPONSE RECEIVED", response)
         plot_config_str = extract_plot_config(response)
+        print("EXTRACTED PLOT CONFIG", plot_config_str) 
         if not plot_config_str:
             return None, None, None
         
         response_dict = json_repair.loads(plot_config_str)
-        
+        print("RESPONSE DICT", response_dict)
         plot_functions = {
             'scatter': plot_scatter,
-            'comparisonbar': plot_comparison_bars,
+            'bar': plot_comparison_bars,
             'regression': plot_linear_regression,
-            'comparisonviolin': plot_violin,
+            'violin': plot_violin,
             'ecdf': plot_ecdf,
             'parallelcoordinates': plot_parallel_coordinates,
             'pie': plot_pie,
@@ -141,8 +146,9 @@ async def parse_llm_response(section_name: str, max_samples: int = 10000):
 
         for plot_type, plot_function in plot_functions.items():
             if plot_type in response_dict:
+                print(f"Generating plot for {section_name} using {plot_type} plot")
                 plot_config = validate_plot_config(plot_type, response_dict[plot_type])
-                
+                print("VALIDATED PLOT CONFIG", plot_config)
                 if plot_type == 'regression':
                     plot = plot_function(df, **plot_config, test_size=0.2)
                 elif plot_type == 'parallelcoordinates':

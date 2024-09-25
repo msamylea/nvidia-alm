@@ -102,7 +102,7 @@ def generate_toc(sections):
             section_id = f"{original_id}-{counter}"
             counter += 1
         seen_ids.add(section_id)
-        toc_html += f'<li><a href="#{section_id}">{section["title"]}</a></li>'
+        toc_html += f'<li><a href="#{section_id}"></a></li>'
     toc_html += '</ul>'
     return toc_html
 

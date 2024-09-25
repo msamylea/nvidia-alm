@@ -1,5 +1,6 @@
 from fuzzywuzzy import process
-from functools import wraps
+from functools import wraps, lru_cache
+
 
 def get_best_match(column_name: str, columns: list) -> str:
     best_match, score = process.extractOne(column_name, columns)
@@ -22,3 +23,14 @@ def apply_fuzzy_matching(*args_to_match):
             return func(df, *matched_args, **kwargs)
         return wrapper
     return decorator
+
+@lru_cache(maxsize=None)
+def get_best_match_cached(key, columns):
+    return get_best_match(key, tuple(columns))  # Convert columns to tuple for hashability
+
+def fuzzy_getitem(self, key):
+    if key in self.columns:
+        return self[key]
+    else:
+        best_match = get_best_match_cached(key, tuple(self.columns))
+        return self[best_match]

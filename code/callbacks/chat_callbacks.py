@@ -1,7 +1,7 @@
 import logging
 import traceback
 from dash import html, dcc, Input, Output, State, no_update
-from utils.configs import llm
+from utils.configs import get_llm
 from utils.utilities import get_dataframe, get_data_from_api
 from utils.constants import DATETIME_FORMATS, NUMERIC_DTYPES, CATEGORICAL_DTYPES
 from prompts.chat_prompt_template import context
@@ -53,14 +53,16 @@ def register_chat_callbacks(app):
             numeric_columns = [col for col in columns if schema['dtypes'][col] in NUMERIC_DTYPES]
             datetime_columns = [col for col in columns if schema['dtypes'][col] in DATETIME_FORMATS]
                 
-                    # Add user input to chat history
+            
+           
             chat_history = json.loads(chat_history) if chat_history else []
             chat_history.append({"role": "user", "content": user_input})
 
             prompt = context.replace("{{user_input}}", user_input).replace("{{column_names}}", column_names).replace("{{categorical_columns}}", ', '.join(categorical_columns)).replace("{{numeric_columns}}", ', '.join(numeric_columns)).replace("{{datetime_columns}}", ', '.join(datetime_columns))
-            
+            print("PROMPT: ", prompt)
+             
             model_input = prompt + json.dumps(chat_history)
-
+            llm = get_llm()
             response = llm.get_response(model_input)
         
             chat_history.append({
@@ -76,21 +78,10 @@ def register_chat_callbacks(app):
 
 
     @app.callback(
-    Output("display-conversation", "children"),
-    [Input("store-conversation", "data")]
+        Output("display-conversation", "children"),
+        [Input("store-conversation", "data")]
     )
     def update_display(chat_history):
-        """
-        Updates the display of chat messages based on the provided chat history.
-        Args:
-            chat_history (str): A JSON string representing the chat history. Each message in the chat history
-                                should be a dictionary with a "role" key (either "user" or "assistant") and a 
-                                "content" key containing the message content.
-        Returns:
-            list: A list of HTML components representing the chat messages. Each user message is displayed in a 
-                  textbox, and each assistant message is processed and displayed with appropriate formatting 
-                  (text, code, figure, or error).
-        """
         if not chat_history:
             return []
         
@@ -115,18 +106,23 @@ def register_chat_callbacks(app):
                             html.Pre(result["output"], style={"background-color": "#e0e0e0", "padding": "10px", "border-radius": "5px"})
                         ]))
                     elif result["type"] == "figure":
-                        content.append(html.Div([
-                            dbc.Card([
-                            dcc.Graph(
-                                figure=result["content"],
-                                config={'displayModeBar': False},
-                            ),
-                            ], className="chat-plot-card"),
-                        ]))
+                        print("FIGURE FOUND")
+                        try:
+                            content.append(html.Div([
+                                dbc.Card([
+                                    dcc.Graph(
+                                        figure=result["content"],
+                                        config={'displayModeBar': False},
+                                    ),
+                                ], className="chat-plot-card"),
+                            ]))
+                            print("FIGURE: ", result["content"])
+                        except Exception as e:
+                            print(f"Error displaying figure: {str(e)}")
+                            content.append(html.P(f"Error displaying figure: {str(e)}"))
                     elif result["type"] == "error":
-                        if content:
-                            content.pop()  
-                        continue
+                        print("ERROR: ", result["content"])
+                        pass
                 
                 messages.append(textbox(html.Div(content, style={"margin-bottom": "20px"}), box="AI"))
         

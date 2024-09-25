@@ -109,9 +109,7 @@ execution:
     gpu:
       requested: 1
     sharedMemoryMB: 1024
-  secrets:
-  - variable: HF_TOKEN
-    description: ""
+  secrets: []
   mounts:
   - type: project
     target: /project/

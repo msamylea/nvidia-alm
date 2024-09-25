@@ -1,20 +1,12 @@
 import os
-from dotenv import load_dotenv
-from pathlib import Path
 import asyncio
 from abc import ABC, abstractmethod
 from typing import Any, Optional, Dict, List, Union
 import requests
 import google.generativeai as genai
-from huggingface_hub import InferenceClient
 from openai import AsyncOpenAI, OpenAI
 from PIL import Image
 import logging
-# # Load environment variables from .env file
-# root_path = Path(__file__).resolve().parent.parent
-# env_path = root_path / ".env"
-# load_dotenv(dotenv_path=env_path)
-# print(f"HF_TOKEN: {os.getenv('HF_TOKEN')}")
 
 class LLMConfig:
     def __init__(self, provider: str, model: str, api_key: Optional[str] = None, base_url: Optional[str] = None, **kwargs):
@@ -73,6 +65,11 @@ class BaseLLM(ABC):
         }
  
 class NVIDIALLM(BaseLLM):
+    def __init__(self, config):
+        self.provider = "NVIDIA"
+        self.config = config
+        self._create_client()
+        
     def _create_client(self):
         base_url = "https://integrate.api.nvidia.com/v1"
         self.sync_client = OpenAI(base_url=base_url, api_key=self.config.api_key)
@@ -98,6 +95,11 @@ class NVIDIALLM(BaseLLM):
                 yield chunk.choices[0].delta.content
 
 class GeminiLLM(BaseLLM):
+    def __init__(self, config):
+        self.provider = "Google"
+        self.config = config
+        self._create_client()
+        
     def _create_client(self):
         genai.configure(api_key=self.config.api_key)
         return genai.GenerativeModel(model_name=self.config.model)
@@ -126,18 +128,26 @@ class GeminiLLM(BaseLLM):
             await asyncio.sleep(0.01)
 
 class HFOpenAIAPILLM(BaseLLM):
+    def __init__(self, config):
+        self.provider = "HuggingFace"
+        self.config = config
+        self._create_client()
+        
     def _create_client(self):
         base_url = f"https://api-inference.huggingface.co/models/{self.config.model}/v1/"
-        self.sync_client = OpenAI(base_url=base_url, api_key="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")
-        self.async_client = AsyncOpenAI(base_url=base_url, api_key="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")
+        self.sync_client = OpenAI(base_url=base_url, api_key=self.config.api_key)
+        self.async_client = AsyncOpenAI(base_url=base_url, api_key=self.config.api_key)
 
     def get_response(self, prompt: str) -> str:
-        response = self.sync_client.chat.completions.create(
-            model=self.config.model,
-            messages=[{"role": "user", "content": prompt}],
-            **self.config.params
-        )
-        return response.choices[0].message.content
+        try:
+            response = self.sync_client.chat.completions.create(
+                model=self.config.model,
+                messages=[{"role": "user", "content": prompt}],
+                **self.config.params
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            return str(e)
 
     async def get_aresponse(self, prompt: str):
         stream = await self.async_client.chat.completions.create(
@@ -193,7 +203,7 @@ def validate_api_key(provider: str, api_key: str) -> bool:
     try:
         if provider == "huggingface-openai":
             response = requests.get(
-                "https://api-inference.huggingface.co/models",
+                "https://huggingface.co/api/whoami-v2",
                 headers={"Authorization": f"Bearer {api_key}"}
             )
             return response.status_code == 200
@@ -216,8 +226,8 @@ def validate_api_key(provider: str, api_key: str) -> bool:
         return False
 
 def get_llm(provider: str, model: str, api_key: Optional[str] = None, **kwargs) -> BaseLLM:
-    # if not validate_api_key(provider, api_key):
-    #     raise ValueError(f"Invalid API key for provider: {provider}")
+    if not validate_api_key(provider, api_key):
+        raise ValueError(f"Invalid API key for provider: {provider}")
     
     config = LLMConfig(provider, model, api_key=api_key, **kwargs)
     return LLMFactory.create_llm(config)

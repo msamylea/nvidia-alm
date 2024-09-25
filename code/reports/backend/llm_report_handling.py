@@ -1,6 +1,6 @@
 import re
 import asyncio
-from utils.configs import llm
+from utils.configs import get_llm
 from utils.data_cache import cached_get_summary, cached_get_schema, cached_data_retrieval
 
 async def get_outline_response(prompt):
@@ -9,7 +9,7 @@ async def get_outline_response(prompt):
     
     Context: {prompt}
     """
-    
+    llm = get_llm()
     response = await asyncio.to_thread(llm.get_response, context)
     
     return response
@@ -61,7 +61,7 @@ async def get_llm_response_for_section(prompt: str, section_name: str = None):
     If you cannot answer the prompt using the available data, say so explicitly.
     DO NOT make up or assume any information that is not provided by these functions.
     """
-    
+    llm = get_llm()
     try:
         response = await asyncio.to_thread(llm.get_response, context)
     except Exception as e:

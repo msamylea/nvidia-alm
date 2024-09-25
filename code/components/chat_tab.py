@@ -15,19 +15,20 @@ def textbox(content, box="AI", name="AI Data Expert"):
     }
 
     if box == "user":
-        icon = DashIconify(icon="hugeicons:user-question-01", width=24, className="me-2")
+        icon = DashIconify(icon="hugeicons:user-question-01", width=44, className="me-2")
         style["marginLeft"] = "auto"
         style["marginRight"] = 0
         style["backgroundColor"] = "#364652"
         style["padding"] = "10px 15px"
         style["color"] = "white"
     elif box == "AI":
-        icon = DashIconify(icon="hugeicons:ai-chat-02", width=24, className="me-2")
+        icon = DashIconify(icon="hugeicons:ai-chat-02", width=44, className="me-2")
         style["marginLeft"] = 0
         style["marginRight"] = "auto"
-        style["backgroundColor"] = "#B1BEB8"
+        style["backgroundColor"] = "#fff"
         style["padding"] = "10px 15px"
         style["color"] = "black"
+        style["border"] = "6px solid #76b900"
     else:
         raise ValueError("Incorrect option for `box`.")
 

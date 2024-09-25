@@ -8,7 +8,7 @@ from pathlib import Path
 cache_dir = Path(__file__).resolve().parent / "cache"
 cache_dir.mkdir(exist_ok=True)
 
-llm = get_llm("huggingface-openai", "meta-llama/Meta-Llama-3.1-8B-Instruct", max_tokens=2048)
+
 
 def get_llm():
     llm = llm_holder.llm

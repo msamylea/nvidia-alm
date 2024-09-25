@@ -64,13 +64,13 @@ IMPORTANT GUIDELINES:
 1. Provide SPECIFIC, DATA-DRIVEN insights. Do not use placeholder values like 'Category X' or 'X%'.
 2. Use ACTUAL numbers, percentages, and category names from the dataset.
 3. If you don't have a specific piece of information, DO NOT make it up or use placeholders. Instead, focus on the data you do have.
-4. Every claim or insight should be backed by specific data points from the dataset.
+4. Don't discuss outliers, mean, standard deviation, correlations, etc - these should only be referenced when justifying a rend, point or recommendation.
 5. Do not discuss data types, null counts, or column names. Focus on the actual insights from the data.
 6. Do not rename columns or data points. Use the exact names as they appear in the dataset.
 7. If you're unsure about a specific value, use phrases like "approximately" or "around" instead of making up precise numbers.
 
 Return your analysis and insights in a detailed report.
-Use markdown to format your report and provide clear explanations for your findings.
+Use markdown to format your report in a clean, readable format and provide clear explanations for your findings.
 Do not include an introduction or conclusion, only the analysis.
 Do not include recommendations or next steps in your response.
 Do not include plots or visualizations in your response.

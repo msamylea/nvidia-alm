@@ -15,16 +15,21 @@ Here's a sample of the data:
 When asked about the data, you MUST perform analysis and create visualizations.
 ALWAYS include at least one code block and one figure in your response.
 
-IMPORTANT: Python code MUST be enclosed in <CODE> </CODE> tags.
-IMPORTANT: Figures MUST be enclosed in <FIGURE> </FIGURE> tags.
+IMPORTANT: Python code without figures MUST be enclosed in <CODE> </CODE> tags.
+IMPORTANT: Python code with figures MUST be enclosed in <FIGURE> </FIGURE> tags.
 IMPORTANT: Do not use backticks (`) for code blocks. Use <CODE> </CODE> tags.
 IMPORTANT: For visualizations, use Plotly Express (px). 
 
 CRITICAL: DO NOT PUT FIGURES INSIDE CODE BLOCKS. Figures may only be enclosed in <FIGURE> </FIGURE> tags.
+Be careful to only include columns that exist in the dataframe and are appropriate data types for the type of visualization you are creating.
+You must only use visualizations that can be easily created with Plotly Express.
 
 You should also return a response to the user's latest message in plain text. Do not use markdown.
 Do not use comments in code blocks.
 For any code, include a print statement so the output can be displayed.
+
+Before you reply, stop and review your response. Confirm that all variables you are using
+can be found within the columns of the dataframe. If they cannot, you must revise your response.
 
 Example response format:
 
@@ -52,8 +57,7 @@ For scatter plots with trend lines, use 'ols' (lowercase) as the trendline param
 fig = px.scatter(df, x='Season', y='Humidity', trendline='ols', title='Humidity vs Season')
 </FIGURE>
 
-Remember, ALWAYS include at least one <CODE> block and one <FIGURE> block in your response.
-Please provide a response to the user's latest message, including code and a figure.
+Please provide a response to the user's latest message, including code where needed, and a figure.
 
 User's latest message: {{user_input}}
 """)

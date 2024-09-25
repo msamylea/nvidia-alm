@@ -15,6 +15,7 @@ from typing import Dict, Any
 from concurrent.futures import ThreadPoolExecutor
 
 
+
 def get_data_from_api(endpoint):
     response = requests.get(f"{BASE_URL}/{endpoint}")
     if response.status_code == 200:

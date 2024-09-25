@@ -63,6 +63,17 @@ def handle_missing_values(df: cudf.DataFrame) -> cudf.DataFrame:
     except Exception as e:
         return df
 
-# Dummy function to avoid NameError
-def convert_datetime(df: cudf.DataFrame) -> cudf.DataFrame:
-    return df
+def convert_datetime(df: cudf.DataFrame):
+    try:
+        for col in df.columns:
+            if any(keyword in col.lower() for keyword in ['date', 'year', 'month', 'day', 'datetime']):
+                print("Found potential datetime column", col)
+                try:
+                    df[col] = df[col].str.replace(r'(\+|-)\d{2}:\d{2}$', '', regex=True)
+                    df[col] = cudf.to_datetime(df[col])
+                except Exception as e:
+                    print(f"Failed to convert column {col}: {e}")
+        return df
+    except Exception as e:
+        print(f"Error in convert_datetime: {str(e)}")
+        return df
