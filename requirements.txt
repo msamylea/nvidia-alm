@@ -10,7 +10,6 @@ dash-bootstrap-components
 uvicorn
 python-dotenv
 dash_daq
-dash-ag-grid
 python-multipart
 python-pptx
 kaleido
