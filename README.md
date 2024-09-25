@@ -40,22 +40,21 @@ The use of these GPU-accelerated libraries significantly enhances the performanc
 
 1. Open NVIDIA AI Workbench and select your location.
 
-2. Select Clone Project and use this github repository.
+2. Select Clone Project and use this GitHub repository.
 
-3. To set up and run automatically if dash-app is not already in the workspace:
-- Under Environment, select Add -> Custom Application
-- Enter the following, then rebuild and toggle to run automatically:
--- Name: dash-app
--- Class: Web Application
--- Start Command: cd /project/code && PROXY_PREFIX=$PROXY_PREFIX python3 run_app.py
--- Health Check Command: curl -f "http://localhost:10000/projects/nvidia-alm/applications/dash-app/"
--- Stop Command: pkill -f '^python3 run_app.py'
--- Auto Launch: True
--- Port: 10000
---URL: http://localhost:10000/projects/nvidia-alm/applications/dash-app/
+3. To set up and run automatically if `dash-app` is not already in the workspace:
+   - Under Environment, select `Add -> Custom Application`
+   - Enter the following, then rebuild and toggle to run automatically:
+     - **Name**: `dash-app`
+     - **Class**: `Web Application`
+     - **Start Command**: `cd /project/code && PROXY_PREFIX=$PROXY_PREFIX python3 run_app.py`
+     - **Health Check Command**: `curl -f "http://localhost:10000/projects/nvidia-alm/applications/dash-app/"`
+     - **Stop Command**: `pkill -f '^python3 run_app.py'`
+     - **Auto Launch**: `True`
+     - **Port**: `10000`
+     - **URL**: `http://localhost:10000/projects/nvidia-alm/applications/dash-app/`
 
-4. If you don't want to add the custom application, open the project through Visual Studio Code in NVIDIA AI Workbench, then run run_app.py.
-
+4. If you don't want to add the custom application, open the project through Visual Studio Code in NVIDIA AI Workbench, then run `run_app.py`.
 ## System Requirements
 
 - **GPU**: NVIDIA GPU with CUDA support (minimum 8GB VRAM recommended)
