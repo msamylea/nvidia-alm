@@ -40,7 +40,6 @@ def get_value_counts(column_name, top_n=10):
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
-        print(f"Error getting value counts for {column_name}: {str(e)}")
         return {}
     
 def sum_single_column(column_name):

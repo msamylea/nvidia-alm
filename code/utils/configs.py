@@ -1,5 +1,4 @@
 from utils.llm_singleton import llm_holder
-from .llm_factory import get_llm
 
 
 from .llm_singleton import llm_holder

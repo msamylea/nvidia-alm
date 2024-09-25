@@ -57,10 +57,8 @@ def register_upload_callbacks(app):
                     
                     return stored_data, f"Data uploaded: {filename}", True
                 except Exception as e:
-                    print(f"Error processing file: {str(e)}")
                     return None, f"Error processing file: {str(e)}", False
             else:
                 return None, "Error loading data", False
         except Exception as e:
-            print(f"Error processing file: {str(e)}")
             return None, f"Error processing file: {str(e)}", False

@@ -71,7 +71,7 @@ def create_layout():
             dbc.Modal(
                 [
                     dbc.ModalBody([
-                        html.Div(id="section-modal-content")  # This will be replaced with the dynamic content
+                        html.Div(id="section-modal-content")  
                     ]),
                     dbc.ModalFooter([
                         dbc.Button("Generate Report", id="submit-sections", className="ml-auto"),

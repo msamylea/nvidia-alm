@@ -1,5 +1,3 @@
-import logging
-import traceback
 from dash import html, dcc, Input, Output, State, no_update
 from utils.configs import get_llm
 from utils.utilities import get_dataframe, get_data_from_api
@@ -59,7 +57,6 @@ def register_chat_callbacks(app):
             chat_history.append({"role": "user", "content": user_input})
 
             prompt = context.replace("{{user_input}}", user_input).replace("{{column_names}}", column_names).replace("{{categorical_columns}}", ', '.join(categorical_columns)).replace("{{numeric_columns}}", ', '.join(numeric_columns)).replace("{{datetime_columns}}", ', '.join(datetime_columns))
-            print("PROMPT: ", prompt)
              
             model_input = prompt + json.dumps(chat_history)
             llm = get_llm()
@@ -106,7 +103,6 @@ def register_chat_callbacks(app):
                             html.Pre(result["output"], style={"background-color": "#e0e0e0", "padding": "10px", "border-radius": "5px"})
                         ]))
                     elif result["type"] == "figure":
-                        print("FIGURE FOUND")
                         try:
                             content.append(html.Div([
                                 dbc.Card([
@@ -116,12 +112,9 @@ def register_chat_callbacks(app):
                                     ),
                                 ], className="chat-plot-card"),
                             ]))
-                            print("FIGURE: ", result["content"])
                         except Exception as e:
-                            print(f"Error displaying figure: {str(e)}")
                             content.append(html.P(f"Error displaying figure: {str(e)}"))
                     elif result["type"] == "error":
-                        print("ERROR: ", result["content"])
                         pass
                 
                 messages.append(textbox(html.Div(content, style={"margin-bottom": "20px"}), box="AI"))

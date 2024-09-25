@@ -4,7 +4,7 @@ from utils.cache_config import cache, cache_key
 import json
 from utils.utilities import parse_and_correct_json
 from .llm_report_handling import get_outline_response, get_llm_response_for_section
-from utils.data_cache import cached_get_summary, cached_get_schema, cached_data_retrieval
+from utils.data_cache import cached_get_summary, cached_get_schema
 
 
 async def get_outline(query: str):

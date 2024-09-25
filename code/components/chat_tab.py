@@ -49,7 +49,7 @@ chat_content = html.Div([
         html.Div(id="display-conversation", style={
             "overflowY": "auto",
             "display": "flex",
-            "height": "calc(70vh - 200px)",  # Adjust this value as needed
+            "height": "calc(70vh - 200px)",  
             "flexDirection": "column",
             "padding": "20px",
         }),

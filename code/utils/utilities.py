@@ -6,7 +6,7 @@ import base64
 import requests
 import cudf
 import pandas as pd
-from .constants import BASE_URL, DATETIME_FORMATS
+from .constants import BASE_URL
 import asyncio
 from .formatting_utilities import parse_markdown_table
 from .cache_config import cache
@@ -139,10 +139,8 @@ def send_data_to_api(encoded_df, filename):
         if response.status_code == 200:
             return True
         else:
-            print(f"Error loading data into API: {response.text}")
             return False
     except Exception as e:
-        print(f"Exception when sending data to API: {str(e)}")
         return False
     
 def generate_plot_title(plot_config: Dict[str, Any]) -> str:

@@ -39,7 +39,6 @@ def convert_markdown_to_html(md_content, section_title):
     processed_tables = process_tables(md_content)
     html_content = markdown.markdown(md_content, extensions=['tables', 'fenced_code', 'sane_lists', 'smarty', 'toc'])
     
-    # Parse the HTML
     soup = BeautifulSoup(html_content, 'html.parser')
     
     seen_headers = set()
@@ -50,39 +49,33 @@ def convert_markdown_to_html(md_content, section_title):
                 seen_headers.add(header_text)
                 header['class'] = header.get('class', []) + [f'header-{i}']
             else:
-                header.decompose()  # Remove duplicate header
+                header.decompose()  
                 
     for header in soup.find_all('h1'):
         header.decompose()
         
-    # Process lists
     for ul in soup.find_all('ul'):
         ul['class'] = ul.get('class', []) + ['list-unstyled']
     
     for ol in soup.find_all('ol'):
         ol['class'] = ol.get('class', []) + ['list-unstyled']
     
-    # Process paragraphs
     for p in soup.find_all('p'):
         p['class'] = p.get('class', []) + ['paragraph']
     
-    # Process code blocks
     for pre in soup.find_all('pre'):
         pre['class'] = pre.get('class', []) + ['code-block']
     
-    # Process inline code
     for code in soup.find_all('code'):
         if code.parent.name != 'pre':
             code['class'] = code.get('class', []) + ['inline-code']
     
-    # Process bold and italic text
     for strong in soup.find_all(['strong', 'b']):
         strong['class'] = strong.get('class', []) + ['bold-text']
     
     for em in soup.find_all(['em', 'i']):
         em['class'] = em.get('class', []) + ['italic-text']
     
-    # Replace markdown tables with processed HTML tables
     table_tags = soup.find_all('table')
     for i, table_tag in enumerate(table_tags):
         if i < len(processed_tables):
@@ -110,7 +103,6 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
     with open('reports/pdf/pdf_report.css', 'r') as file:
         css_template = file.read()
     
-    # Replace placeholders with actual values
     css = css_template.replace("{primary_color}", primary_color).replace("{accent_color}", accent_color).replace("{company_name}", company_name).replace("{report_title}", report_title)
     
     html_template = Template("""
@@ -171,7 +163,6 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
         section_id = section_name.lower().replace(" ", "-")
         html_content = convert_markdown_to_html(section_content, section_name)
         
-        # Use the existing plot image
         plot_description = ""
         if plot_image:
             plot_description = f"Figure {index}: {plot_config.get('x', 'X')} vs {plot_config.get('y', 'Y')}"
@@ -204,12 +195,10 @@ def create_pdf_report(report_title, section_results, end_matter, logo_bytes, pri
         toc=toc_html
     )
     
-    # Generate PDF
     font_config = FontConfiguration()
     html = HTML(string=html_content)
     css = CSS(string=css)
     
-    # Save PDF to a BytesIO object
     pdf_buffer = io.BytesIO()
     html.write_pdf(pdf_buffer, stylesheets=[css], font_config=font_config)
     pdf_buffer.seek(0)

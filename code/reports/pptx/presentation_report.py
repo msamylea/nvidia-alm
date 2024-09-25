@@ -42,7 +42,7 @@ def parse_slides(section_content):
         content = section_content
     
     if isinstance(content, list):
-        content = "\n".join(content)  # Convert list to string
+        content = "\n".join(content)  
     
     response = get_presentation_content(content)
     slides = []
@@ -94,7 +94,7 @@ def parse_markdown_table(markdown_table):
 
         headers = [cell.strip() for cell in lines[0].split('|') if cell.strip()]
         data = []
-        for line in lines[2:]:  # Skip the separator line
+        for line in lines[2:]:  
             cells = [cell.strip() for cell in line.split('|') if cell.strip()]
             if cells:
                 data.append(cells)
@@ -132,21 +132,16 @@ def create_presentation(section_content, prs=None, selected_template='default'):
         layout_index = select_slide_layout(slide_content, include_plot=include_plot, include_table=include_table)
         slide = prs.slides.add_slide(prs.slide_layouts[layout_index])
         
-        # Ensure the section title is always set
         section_title = slide_content.get('section_title', 'Untitled Section')
         if section_title == 'Untitled Section' and 'report_title' in slide_content:
             section_title = slide_content['report_title']
         
-        # Debug print to check the section title
-        print(f"Slide {slide_number} section title: {section_title}")
-        
-        # Ensure the title placeholder is found and set
+
         title_placeholder = slide.shapes.title
         if title_placeholder:
             title_placeholder.text = section_title
-            print(f"Slide {slide_number} title set to: {section_title}")
         else:
-            print(f"Slide {slide_number} has no title placeholder")
+            return None
         
         add_content_to_slide(slide, slide_content)
         
@@ -173,7 +168,7 @@ def add_plot_to_slide(slide, plot_image):
 def add_content_to_slide(slide, slide_content):
     content_placeholder = find_content_placeholder(slide)
     text_frame = content_placeholder.text_frame
-    text_frame.clear()  # Clear any existing content
+    text_frame.clear()  
 
     for item in slide_content['content']:
         if item['type'] == 'paragraph':
@@ -199,7 +194,7 @@ def add_plot_to_slide(slide, plot_image):
     
 def find_content_placeholder(slide):
     for placeholder in slide.placeholders:
-        if placeholder.placeholder_format.idx != 0:  # Skip title placeholder
+        if placeholder.placeholder_format.idx != 0:  
             return placeholder
     return None
 
@@ -211,7 +206,7 @@ def find_plot_placeholder(slide):
 
 def find_table_placeholder(slide):
     for shape in slide.placeholders:
-        if shape.placeholder_format.type == 12:  # Table placeholder
+        if shape.placeholder_format.type == 12: 
             return shape
     return None
 
@@ -220,7 +215,7 @@ def add_table_to_slide(slide, table_data):
         return
     try:
         table_placeholder = find_table_placeholder(slide)
-        rows = len(table_data['data']) + 1  # +1 for header
+        rows = len(table_data['data']) + 1  
         cols = len(table_data['headers'])
         
         table = table_placeholder.insert_table(rows, cols).table

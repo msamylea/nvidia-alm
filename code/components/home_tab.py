@@ -43,8 +43,8 @@ home_content = html.Div([
                         dbc.Col([
                             html.Div([
                                 DashIconify(icon="bi:1-circle", width=44),
-                                html.H4("  Configure LLM", className="custom-card-title")  # Add the text beside the icon
-                            ], className="d-flex align-items-center")  # Use flexbox to align items
+                                html.H4("  Configure LLM", className="custom-card-title")  
+                            ], className="d-flex align-items-center")  
                         ])
                     ]),
                     html.Div(id="card-alert-placeholder"),
@@ -60,8 +60,8 @@ home_content = html.Div([
                         dbc.Col([
                             html.Div([
                                 DashIconify(icon="bi:2-circle", width=44),
-                                html.H4("  Upload Dataset", className="custom-card-title")  # Add the text beside the icon
-                            ], className="d-flex align-items-center")  # Use flexbox to align items
+                                html.H4("  Upload Dataset", className="custom-card-title")  
+                            ], className="d-flex align-items-center") 
                         ])
                     ]),
                     dbc.Alert("File successfully uploaded", id="upload-success", color="#76b900", dismissable=True, is_open=False, className="mt-3"),
@@ -85,8 +85,8 @@ home_content = html.Div([
                         dbc.Col([
                             html.Div([
                                 DashIconify(icon="bi:3-circle", width=44),
-                                html.H4("  Enter Query and Generate Report", className="custom-card-title")  # Add the text beside the icon
-                            ], className="d-flex align-items-center")  # Use flexbox to align items
+                                html.H4("  Enter Query and Generate Report", className="custom-card-title")  
+                            ], className="d-flex align-items-center")  
                         ])
                     ]),
                     dbc.Textarea(id="llm-prompt", placeholder="Enter your query or analysis target here...", 
@@ -103,8 +103,8 @@ home_content = html.Div([
                         dbc.Col([
                             html.Div([
                                 DashIconify(icon="bi:4-circle", width=44),
-                                html.H4("  Create Presentation", className="custom-card-title")  # Add the text beside the icon
-                            ], className="d-flex align-items-center")  # Use flexbox to align items
+                                html.H4("  Create Presentation", className="custom-card-title")  
+                            ], className="d-flex align-items-center")  
                         ])
                     ]),
                     dbc.Button([

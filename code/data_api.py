@@ -1,25 +1,12 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 from utils.cache_config import cache
-from data_staging.load_data import ingest_data
-from data_staging.preprocess_data import prep_data
 from utils.utilities import get_dataframe
 from utils.fuzzy_matching import apply_fuzzy_matching
 import traceback
 from fastapi import Query
 import numpy as np
-
-import sys
-
-def log_info(message):
-    print(f"INFO: {message}", flush=True)
-    sys.stdout.flush()
-
-def log_error(message):
-    print(f"ERROR: {message}", file=sys.stderr, flush=True)
-    sys.stderr.flush()
-
 
 
 app = FastAPI()
@@ -66,8 +53,7 @@ async def clear_cache():
         cache.clear()
         return {"message": "Cache cleared successfully"}
     except Exception as e:
-        print(f"Error in clear_cache: {str(e)}")
-        print(traceback.format_exc())
+
         raise HTTPException(status_code=500, detail=f"Error clearing cache: {str(e)}")
 
 @app.get("/schema")
@@ -98,11 +84,6 @@ async def get_sample(n: int = 25):
 async def get_value_counts(column_name: str, top_n: int = Query(default=10, ge=1)):
     df = get_dataframe()
     
-    # Debug print to check the input parameters
-    print(f"get_value_counts called with column_name={column_name}, top_n={top_n}")
-    
-    # Debug print to check the DataFrame columns
-    print(f"DataFrame columns: {df.columns}")
     
     if column_name not in df.columns:
         raise HTTPException(status_code=404, detail=f"Column '{column_name}' not found. Available columns are: {', '.join(df.columns)}")
@@ -110,9 +91,6 @@ async def get_value_counts(column_name: str, top_n: int = Query(default=10, ge=1
     try:
         value_counts = df[column_name].value_counts().head(top_n).to_pandas().to_dict()
         result = {str(k): int(v) for k, v in value_counts.items()}
-        
-        # Debug print to check the result
-        print(f"Value counts result: {result}")
         
         return result
     except Exception as e:

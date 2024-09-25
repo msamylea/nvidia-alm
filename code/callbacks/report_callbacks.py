@@ -153,20 +153,15 @@ def register_report_callbacks(app):
 
                         
                         if plot:
-                            print("PLOT GENERATED")
                             try:
                                 if isinstance(plot, (go.Figure, px)):
                                     img_bytes = to_image(plot, format="png", engine="kaleido", width=900, height=500, scale=2)
                                     plot_image = base64.b64encode(img_bytes).decode('utf-8')
-                                    print("SAVED PLOT IMAGE")
                                 else:
-                                    print("PLOT NOT GENERATED")
                                     plot_image = None
                             except Exception as img_error:
-                                print("ERROR SAVING PLOT IMAGE")
                                 plot_image = None
                         else:
-                            print("NO PLOT")
                             plot_image = None
                                 
                         processed_results.append((section_name, (section_content, plot_image, plot_config)))

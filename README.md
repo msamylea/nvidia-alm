@@ -42,7 +42,7 @@ The use of these GPU-accelerated libraries significantly enhances the performanc
 
 2. Select Clone Project and use this github repository.
 
-3. To set up and run automatically:
+3. To set up and run automatically if dash-app is not already in the workspace:
 - Under Environment, select Add -> Custom Application
 - Enter the following, then rebuild and toggle to run automatically:
 -- Name: dash-app
