@@ -10,6 +10,7 @@ def run_fastapi():
     uvicorn.run("data_api:app", host="0.0.0.0", port=8000, log_level='info')
 
 def run_dash():
+    os.environ['DASH_URL_BASE_PATHNAME'] = '/projects/nvidia-alm/applications/dash-app/'
     os.system("python /project/code/app.py")
 
 if __name__ == "__main__":

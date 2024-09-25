@@ -105,6 +105,22 @@ execution:
     logfile_path: ""
     timeout_seconds: 120
     icon_url: ""
+  - name: dash-app
+    type: custom
+    class: webapp
+    start_command: cd /project/code && PROXY_PREFIX=$PROXY_PREFIX python3 run_app.py
+    health_check_command: curl -f "http://localhost:10000/projects/nvidia-alm/applications/dash-app/"
+    stop_command: pkill -f '^python3 run_app.py'
+    user_msg: ""
+    logfile_path: ""
+    timeout_seconds: 60
+    icon_url: ""
+    webapp_options:
+      autolaunch: true
+      port: "10000"
+      proxy:
+        trim_prefix: false
+      url: http://localhost:10000/projects/nvidia-alm/applications/dash-app/
   resources:
     gpu:
       requested: 1

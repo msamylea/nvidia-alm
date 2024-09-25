@@ -112,9 +112,9 @@ def parse_markdown_table(markdown_table):
 def create_presentation(section_content, prs=None, selected_template='default'):
     if prs is None:
         if selected_template == 'default':
-            prs = Presentation('code/templates/BlueYellow.pptx')
+            prs = Presentation('templates/BlueYellow.pptx')
         else:
-            prs = Presentation(f"code/templates/{selected_template}.pptx")
+            prs = Presentation(f"templates/{selected_template}.pptx")
         
     if not prs.slides:
         title_slide = prs.slides.add_slide(prs.slide_layouts[0])

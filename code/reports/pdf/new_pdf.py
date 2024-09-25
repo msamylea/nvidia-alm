@@ -107,7 +107,7 @@ def generate_toc(sections):
     return toc_html
 
 def create_pdf_report(report_title, section_results, end_matter, logo_bytes, primary_color, accent_color, company_name):
-    with open('code/reports/pdf/pdf_report.css', 'r') as file:
+    with open('reports/pdf/pdf_report.css', 'r') as file:
         css_template = file.read()
     
     # Replace placeholders with actual values

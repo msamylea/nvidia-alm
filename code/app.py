@@ -8,18 +8,17 @@ import os
 from flask import Flask, request
 import requests
 
-
 server = Flask(__name__)
 app = dash.Dash(__name__, 
                 server=server,
                 external_stylesheets=[dbc.themes.FLATLY, dbc.icons.BOOTSTRAP], 
                 suppress_callback_exceptions=True,
-                url_base_pathname=os.environ.get('DASH_URL_BASE_PATHNAME', '/'))
+                url_base_pathname='/projects/nvidia-alm/applications/dash-app/')
 
 app.layout = create_layout()
 register_callbacks(app)
 
-@server.route('/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@server.route('/projects/nvidia-alm/applications/dash-app/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def proxy_to_fastapi(path):
     fastapi_url = f"http://localhost:8000/{path}"
     resp = requests.request(
@@ -39,4 +38,4 @@ def proxy_to_fastapi(path):
     return response
 
 if __name__ == '__main__':
-    app.run(debug=app_config['DEBUG'], host=app_config['HOST'], port=8050)
+    app.run(debug=app_config['DEBUG'], host='0.0.0.0', port=10000)
