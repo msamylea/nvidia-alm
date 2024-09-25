@@ -1,6 +1,6 @@
 # AI Data Analysis Project
 
-This project is an interactive data analysis application that leverages AI capabilities and GPU-accelerated computing to provide insightful analyses and visualizations of uploaded datasets. It combines a user-friendly interface with powerful backend processing to offer a comprehensive and high-performance data exploration experience.
+This project is an interactive data analysis application that leverages AI capabilities and GPU-accelerated computing to provide insightful analyses and visualizations of uploaded datasets. It combines a user-friendly interface with a backend that makes use of the NVIDIA RAPIDS libraries and algorithms to automate data processing and analysis while also using a data API with caching to greatly increase the speed of results.
 
 ## Features and Functionality
 
@@ -23,7 +23,7 @@ This project leverages NVIDIA's RAPIDS suite, specifically cuDF and cuML, to per
   - Quick data transformations and aggregations
 
 - **cuML**: A suite of GPU-accelerated machine learning algorithms that provides scikit-learn-like APIs. In this project, cuML is used for:
-  - Accelerated linear regression modeling
+  - Accelerated linear regression modeling for on the fly plot generation
   - Fast train-test splits for model evaluation
   - Potential for other machine learning tasks (clustering, dimensionality reduction, etc.)
 
