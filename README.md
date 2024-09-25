@@ -35,22 +35,14 @@ The use of these GPU-accelerated libraries significantly enhances the performanc
 
 - NVIDIA GPU with CUDA support
 - [NVIDIA AI Workbench installed](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html)
-- Access to AI Workbench environment
 
 ### Setup and Run Instructions
 
-1. Clone the repository to your AI Workbench environment.
+1. Open NVIDIA AI Workbench and select your location.
 
-2. Navigate to the project directory:
-   ```
-   cd ai-data-analysis-project
-   ```
+2. Select Clone Project and use this github repository.
 
-3. Build and run the Docker container:
-   ```
-   docker build -t ai-data-analysis .
-   docker run --gpus all -p 8050:8050 -p 8000:8000 ai-data-analysis
-   ```
+3. 
 
 4. Access the application through your web browser at `http://localhost:8050`.
 
