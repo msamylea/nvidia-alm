@@ -34,7 +34,7 @@ The use of these GPU-accelerated libraries significantly enhances the performanc
 ### Prerequisites
 
 - NVIDIA GPU with CUDA support
-- Docker and NVIDIA Container Toolkit installed
+- [NVIDIA AI Workbench installed]("https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html")
 - Access to AI Workbench environment
 
 ### Setup and Run Instructions
