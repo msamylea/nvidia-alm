@@ -1,5 +1,3 @@
-Certainly! I'll add details about the use of cuDF and cuML to the README. Here's an updated version with this information included:
-
 # AI Data Analysis Project
 
 This project is an interactive data analysis application that leverages AI capabilities and GPU-accelerated computing to provide insightful analyses and visualizations of uploaded datasets. It combines a user-friendly interface with powerful backend processing to offer a comprehensive and high-performance data exploration experience.
