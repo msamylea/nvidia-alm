@@ -2,6 +2,8 @@
 
 This project is an interactive data analysis application that leverages AI capabilities and GPU-accelerated computing to provide insightful analyses and visualizations of uploaded datasets. It combines a user-friendly interface with a backend that makes use of the NVIDIA RAPIDS libraries and algorithms to automate data processing and analysis while also using a data API with caching to greatly increase the speed of results.
 
+This project was inspired by another I created, but contains all new, custom code and features like LLM integration, custom PDF and PPTX reports, cuDF and cuML powered visualizations, and more.
+
 ## Features and Functionality
 
 1. **LLM Integration**: Configure and connect to various Language Learning Models (LLMs) for AI-powered analysis.
