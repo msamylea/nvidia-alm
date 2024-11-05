@@ -10,6 +10,32 @@ from utils.utilities import extract_content
 import pandas as pd
 
 def process_tables(md_content):
+    """
+    Processes markdown content to extract and convert tables into HTML format.
+
+    Args:
+        md_content (str): The markdown content containing tables to be processed.
+
+    Returns:
+        list: A list of HTML table strings.
+
+    The function performs the following steps:
+    1. Sets the pandas display option for maximum column width.
+    2. Extracts elements from the markdown content.
+    3. Iterates through the extracted elements to identify and process tables.
+    4. For string-based tables, it parses the table rows and headers.
+    5. For dictionary-based tables, it directly uses the columns and data.
+    6. Cleans the table data by removing markdown bold syntax.
+    7. Converts the table data into a pandas DataFrame.
+    8. Formats numeric values to two decimal places.
+    9. Converts the DataFrame to an HTML table with specific classes and without escaping HTML characters.
+    10. Appends the HTML table to the list of processed tables.
+
+    Note:
+        - The function assumes that the first row of a string-based table contains headers.
+        - Rows are split by newline characters, and cells are split by the '|' character.
+        - The function handles both string and dictionary representations of tables.
+    """
     pd.set_option('display.max_colwidth', 0)
     elements = extract_content(md_content)
     processed_tables = []
@@ -36,6 +62,29 @@ def process_tables(md_content):
     return processed_tables
 
 def convert_markdown_to_html(md_content, section_title):
+    """
+    Converts Markdown content to HTML with additional processing for tables and specific HTML elements.
+    Args:
+        md_content (str): The Markdown content to be converted.
+        section_title (str): The title of the section being processed.
+    Returns:
+        str: The processed HTML content as a string.
+    The function performs the following steps:
+    1. Processes tables within the Markdown content.
+    2. Converts the Markdown content to HTML using the `markdown` library with specific extensions.
+    3. Uses BeautifulSoup to parse the HTML content and perform additional processing:
+        - Adds specific classes to headers (h2 to h6) to ensure unique headers.
+        - Removes all h1 headers.
+        - Adds 'list-unstyled' class to all unordered (ul) and ordered (ol) lists.
+        - Adds 'paragraph' class to all paragraph (p) tags.
+        - Adds 'code-block' class to all preformatted (pre) tags.
+        - Adds 'inline-code' class to all inline code (code) tags that are not within pre tags.
+        - Adds 'bold-text' class to all strong and b tags.
+        - Adds 'italic-text' class to all em and i tags.
+    4. Replaces table tags in the HTML content with processed tables.
+    Note:
+        The function assumes that the `process_tables` function and the `markdown` and `BeautifulSoup` libraries are available in the scope.
+    """
     processed_tables = process_tables(md_content)
     html_content = markdown.markdown(md_content, extensions=['tables', 'fenced_code', 'sane_lists', 'smarty', 'toc'])
     
@@ -85,6 +134,26 @@ def convert_markdown_to_html(md_content, section_title):
     return str(soup)
 
 def generate_toc(sections):
+    """
+    Generates a table of contents (TOC) in HTML format from a list of sections.
+
+    Args:
+        sections (list of dict): A list of dictionaries where each dictionary represents a section.
+                                 Each dictionary must have an "id" key with a unique identifier for the section.
+
+    Returns:
+        str: A string containing the HTML for the table of contents.
+
+    Example:
+        sections = [
+            {"id": "introduction"},
+            {"id": "chapter1"},
+            {"id": "chapter2"}
+        ]
+        toc_html = generate_toc(sections)
+        # toc_html will be:
+        # '<ul><li><a href="#introduction"></a></li><li><a href="#chapter1"></a></li><li><a href="#chapter2"></a></li></ul>'
+    """
     toc_html = '<ul>'
     seen_ids = set()
     for section in sections:
@@ -100,6 +169,19 @@ def generate_toc(sections):
     return toc_html
 
 def create_pdf_report(report_title, section_results, end_matter, logo_bytes, primary_color, accent_color, company_name):
+    """
+    Generates a PDF report with the given parameters.
+    Args:
+        report_title (str): The title of the report.
+        section_results (list): A list of tuples containing section names, content, plot images, and plot configurations.
+        end_matter (str): The concluding content of the report.
+        logo_bytes (bytes): The logo image in bytes.
+        primary_color (str): The primary color for the report's styling.
+        accent_color (str): The accent color for the report's styling.
+        company_name (str): The name of the company to be included in the report.
+    Returns:
+        io.BytesIO: A buffer containing the generated PDF report.
+    """
     with open('reports/pdf/pdf_report.css', 'r') as file:
         css_template = file.read()
     

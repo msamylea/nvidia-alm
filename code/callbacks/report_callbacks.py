@@ -18,7 +18,15 @@ from reports.backend.create_sections import write_section_async, get_outline, wr
 from plots.plot_factory import parse_llm_response
 from components.pdf_gen_options_modal import create_section_modal_body
 from components.pdf_display import create_pdf_display  
+import logging
 
+logging.basicConfig(
+    filename='/project/code/app.log',
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+logger = logging.getLogger('report_callback')
 
 def register_report_callbacks(app):
         
@@ -121,36 +129,27 @@ def register_report_callbacks(app):
     def generate_report(trigger, prompt, outline_data, report_style_data):
         """
         Generates a report based on the provided outline data and report style.
-        Args:
-            trigger (bool): A trigger to initiate the report generation.
-            prompt (str): The prompt to be used for generating report sections.
-            outline_data (dict): The outline data containing sections and report title.
-            report_style_data (dict): The style data for the report including logo, colors, and company name.
-        Returns:
-            tuple: A tuple containing:
-                - pdf_frame (html.Div): The HTML frame to display the generated PDF.
-                - report_data (dict): The data used to generate the report.
-                - pdf_base64 (str): The base64 encoded string of the generated PDF.
-                - bool: A flag indicating the success of the report generation.
-        Raises:
-            PreventUpdate: If the trigger is not set or outline_data/prompt is None.
-            Exception: If any error occurs during report generation, an error message and traceback are returned.
         """
+        logger.info("Starting report generation callback...")
+        
         if not trigger or outline_data is None or prompt is None:
+            logger.warning("Report generation triggered without required data")
             raise PreventUpdate
 
         try:
+            logger.info("Processing selected sections...")
             selected_sections = [section["name"] for section in outline_data["sections"] if section.get("selected", False)]
 
             async def generate_sections():
+                logger.info("Starting section generation...")
                 section_tasks = [write_section_async(section_name, prompt) for section_name in selected_sections]
                 section_results = await asyncio.gather(*section_tasks)
                 
                 processed_results = []
                 for section_name, section_content in section_results:
                     try:
+                        logger.info(f"Processing section: {section_name}")
                         plot, plot_data, plot_config = await parse_llm_response(section_name, max_samples=10000)
-
                         
                         if plot:
                             try:
@@ -160,23 +159,27 @@ def register_report_callbacks(app):
                                 else:
                                     plot_image = None
                             except Exception as img_error:
+                                logger.error(f"Error converting plot to image: {str(img_error)}")
                                 plot_image = None
                         else:
                             plot_image = None
                                 
                         processed_results.append((section_name, (section_content, plot_image, plot_config)))
                     except Exception as e:
-
+                        logger.error(f"Error processing section {section_name}: {str(e)}")
+                        logger.error(traceback.format_exc())
                         processed_results.append((section_name, (section_content, None, None)))
                 
+                logger.info("Summarizing sections...")
                 summarized_sections = [(name, await summarize_section_async(content)) for name, (content, _, _) in processed_results]
-                
                 end_matter = await write_recommendations_conclusions_async(summarized_sections)
                 
                 return processed_results, end_matter
 
+            logger.info("Running section generation...")
             section_results, end_matter = run_async_in_sync(generate_sections())
 
+            logger.info("Creating report data structure...")
             report_data = {
                 'report_title': outline_data["report_title"],
                 'section_title': selected_sections[-1] if selected_sections else "",
@@ -187,6 +190,8 @@ def register_report_callbacks(app):
                 'end_matter': end_matter
             }
             
+            # Process report styling
+            logger.info("Processing report styling...")
             report_title = report_data['report_title']
             section_results = report_data['section_results']
             end_matter = report_data['end_matter']
@@ -195,31 +200,56 @@ def register_report_callbacks(app):
             primary_color = report_style_data.get('primary_color', '#1a73e8') if report_style_data else '#1a73e8'
             accent_color = report_style_data.get('accent_color', '#fbbc04') if report_style_data else '#fbbc04'
             company_name = report_style_data.get('company_name', ' Name') if report_style_data else ''
+            
             if logo:
-                logo_type, logo_string = logo.split(',')
-                logo_bytes = base64.b64decode(logo_string)
+                try:
+                    logo_type, logo_string = logo.split(',')
+                    logo_bytes = base64.b64decode(logo_string)
+                    logger.info("Logo processed successfully")
+                except Exception as e:
+                    logger.error(f"Error processing logo: {str(e)}")
+                    logo_bytes = None
             else:
                 logo_bytes = None
 
             primary_color = primary_color.lstrip('#')
             accent_color = accent_color.lstrip('#')
 
-            pdf_buffer = create_pdf_report(
-                report_data['report_title'], 
-                report_data['section_results'], 
-                report_data['end_matter'], 
-                logo_bytes,
-                primary_color,
-                accent_color,
-                company_name
-            )
+            logger.info("Creating PDF report...")
+            try:
+                pdf_buffer = create_pdf_report(
+                    report_data['report_title'], 
+                    report_data['section_results'], 
+                    report_data['end_matter'], 
+                    logo_bytes,
+                    primary_color,
+                    accent_color,
+                    company_name
+                )
+                logger.info("PDF report created successfully")
+                
+                # Check PDF buffer
+                if pdf_buffer is None:
+                    raise ValueError("PDF buffer is None after creation")
+                    
+                buffer_size = len(pdf_buffer.getvalue())
+                logger.info(f"PDF buffer size: {buffer_size} bytes")
+                
+            except Exception as e:
+                logger.error(f"Error creating PDF report: {str(e)}")
+                logger.error(traceback.format_exc())
+                raise
 
-            pdf_base64 = base64.b64encode(pdf_buffer.getvalue()).decode('utf-8')
+            logger.info("Creating PDF display component...")
             pdf_frame = create_pdf_display(pdf_buffer)
+            pdf_base64 = base64.b64encode(pdf_buffer.getvalue()).decode('utf-8')
 
+            logger.info("Report generation completed successfully")
             return pdf_frame, report_data, pdf_base64, True
 
         except Exception as e:
+            logger.error(f"Error in report generation: {str(e)}")
+            logger.error(traceback.format_exc())
             return html.Div([
                 html.H4("Error generating report"),
                 html.Pre(str(e)),
@@ -228,7 +258,6 @@ def register_report_callbacks(app):
                     html.Pre(traceback.format_exc())
                 ])
             ]), None, None, False
-    
 
     @app.callback(
     Output('report-style-data', 'data'),
@@ -239,6 +268,18 @@ def register_report_callbacks(app):
     prevent_initial_call=True
     )
     def update_report_style(logo, primary_color, accent_color, company_name):
+        """
+        Updates the report style with the given parameters.
+
+        Args:
+            logo (str): The URL or path to the company's logo.
+            primary_color (str): The primary color to be used in the report.
+            accent_color (str): The accent color to be used in the report.
+            company_name (str): The name of the company. If not provided, defaults to an empty string.
+
+        Returns:
+            dict: A dictionary containing the updated report style with keys 'logo', 'primary_color', 'accent_color', and 'company_name'.
+        """
         if not company_name:
             company_name = ''
         return {
@@ -253,6 +294,16 @@ def register_report_callbacks(app):
         Input("report-generated", "data")
     )
     def toggle_download_button(report_generated):
+        """
+        Toggles the state of the download button based on whether a report has been generated.
+
+        Args:
+            report_generated (bool): A flag indicating if the report has been generated.
+
+        Returns:
+            bool: False if the report has been generated (enabling the download button), 
+                  True otherwise (disabling the download button).
+        """
         if report_generated:
             return False   
         return True  
