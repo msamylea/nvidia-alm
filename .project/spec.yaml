@@ -23,7 +23,7 @@ layout:
 environment:
   base:
     registry: nvcr.io
-    image: nvidia/rapidsai/notebooks:24.08-cuda12.0-py3.11
+    image: nvidia/rapidsai/notebooks:24.10-cuda12.0-py3.11
     build_timestamp: ""
     name: RAPIDS with CUDA 12.0.1
     supported_architectures: []
@@ -56,7 +56,7 @@ environment:
     programming_languages:
     - python3
     icon_url: ""
-    image_version: 24.08.01
+    image_version: 24.10.00
     os: linux
     os_distro: ubuntu
     os_distro_release: "22.04"

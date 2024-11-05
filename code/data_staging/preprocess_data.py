@@ -7,6 +7,14 @@ project_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_dir))
 
 def prep_data(df: cudf.DataFrame) -> cudf.DataFrame:
+    """
+    Preprocess the input DataFrame by handling duplicates, converting datetime columns,
+    and handling missing values.
+    Args:
+        df (cudf.DataFrame): The input DataFrame to preprocess.
+    Returns:
+        cudf.DataFrame: The preprocessed DataFrame.
+    """
     df = handle_duplicates(df)
     df = convert_datetime(df)
     df = handle_missing_values(df)
@@ -64,6 +72,19 @@ def handle_missing_values(df: cudf.DataFrame) -> cudf.DataFrame:
         return df
 
 def convert_datetime(df: cudf.DataFrame):
+    """
+    Convert columns containing date-related keywords to datetime format in a cuDF DataFrame.
+
+    This function searches for columns with names containing any of the keywords: 'date', 'year', 
+    'month', 'day', 'datetime'. It then attempts to convert these columns to datetime format. 
+    If the column contains timezone information, it removes the timezone offset before conversion.
+
+    Parameters:
+    df (cudf.DataFrame): The cuDF DataFrame containing the data to be processed.
+
+    Returns:
+    cudf.DataFrame: The DataFrame with the specified columns converted to datetime format.
+    """
     try:
         for col in df.columns:
             if any(keyword in col.lower() for keyword in ['date', 'year', 'month', 'day', 'datetime']):

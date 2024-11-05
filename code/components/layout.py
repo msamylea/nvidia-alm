@@ -100,6 +100,18 @@ def create_layout():
     Input('main-tabs', 'value')
 )
 def render_content(tab):
+    """
+    Renders the content based on the selected tab.
+
+    Args:
+        tab (str): The name of the tab to render content for. 
+                   Expected values are 'home' or 'chat'.
+
+    Returns:
+        The content corresponding to the selected tab.
+        If 'home', returns home_content.
+        If 'chat', returns chat_content.
+    """
     if tab == 'home':
         return home_content
     elif tab == 'chat':

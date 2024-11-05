@@ -49,6 +49,7 @@ def is_timeseries(df: cudf.DataFrame) -> bool:
 
 def run_async_in_sync(coroutine):
     def run_in_new_loop(coro):
+        print("Entered async loop")
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:

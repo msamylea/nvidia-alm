@@ -23,8 +23,27 @@ def register_llm_callbacks(app):
         State("llm-max-tokens", "value"),
         prevent_initial_call=True
     )
-    def update_llm_config(active_tab, llm_submit_clicks, modal_is_open,
+    def update_llm_config(active_tab, llm_submit_clicks, modal_is_open,                        
                           provider, model, api_key, temperature, max_tokens):
+        """
+        Update the configuration of the LLM (Language Learning Model) based on user inputs.
+        Parameters:
+        active_tab (str): The currently active tab in the UI.
+        llm_submit_clicks (int): The number of times the submit button has been clicked.
+        modal_is_open (bool): Whether the modal is open or not.
+        provider (str): The provider of the LLM.
+        model (str): The model of the LLM.
+        api_key (str): The API key for accessing the LLM.
+        temperature (float): The temperature setting for the LLM.
+        max_tokens (int): The maximum number of tokens for the LLM.
+        Returns:
+        tuple: A tuple containing:
+            - (bool): Whether to show an error alert.
+            - (str or None): The error message if an error occurred, otherwise None.
+            - (str or dash.no_update): The LLM setup output message or no update.
+            - (bool): Whether to show the modal.
+            - (dbc.Alert or bool): The alert component if successful, otherwise False.
+        """
         ctx = callback_context
         if not ctx.triggered:
             raise PreventUpdate
@@ -62,6 +81,15 @@ def register_llm_callbacks(app):
     prevent_initial_call=True
     )
     def update_card_alert(alert_content):
+        """
+        Updates the card alert with the given content.
+
+        Args:
+            alert_content (str): The content to update the alert with.
+
+        Returns:
+            str: The updated alert content.
+        """
         return alert_content
 
     @app.callback(
@@ -71,6 +99,16 @@ def register_llm_callbacks(app):
         prevent_initial_call=True
     )
     def toggle_modal(n_clicks, is_open):
+        """
+        Toggles the state of a modal window.
+
+        Args:
+            n_clicks (int): The number of times the button has been clicked.
+            is_open (bool): The current state of the modal window.
+
+        Returns:
+            bool: The new state of the modal window.
+        """
         if n_clicks:
             return not is_open
         return is_open
