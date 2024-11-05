@@ -1,0 +1,631 @@
+2024-11-05 19:11:47,469 - root - DEBUG - Getting API key for provider: gemini
+2024-11-05 19:11:47,469 - root - DEBUG - Using provided API key.
+2024-11-05 19:11:50,852 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:11:50,853 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:11:50,877 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /schema HTTP/1.1" 200 4663
+2024-11-05 19:11:50,878 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/schema HTTP/1.1" 200 4663
+2024-11-05 19:11:50,879 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:11:50,880 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:11:50,955 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /summary HTTP/1.1" 200 1201
+2024-11-05 19:11:50,955 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/summary HTTP/1.1" 200 1201
+2024-11-05 19:11:52,936 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:11:53,868 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:11:53,868 - report_callback - WARNING - Report generation triggered without required data
+2024-11-05 19:11:55,122 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:11:55,122 - report_callback - INFO - Processing selected sections...
+2024-11-05 19:11:55,122 - report_callback - INFO - Running section generation...
+2024-11-05 19:11:55,123 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:11:55,123 - report_callback - INFO - Starting section generation...
+2024-11-05 19:11:58,600 - report_callback - INFO - Processing section: Opportunity Pipeline Overview
+2024-11-05 19:12:00,028 - report_callback - INFO - Processing section: Client Segmentation and Growth Strategies
+2024-11-05 19:12:00,569 - report_callback - INFO - Processing section: Market and Regional Performance Analysis
+2024-11-05 19:12:01,254 - report_callback - INFO - Processing section: Competitive Landscape and Win Rate Assessment
+2024-11-05 19:12:03,379 - report_callback - INFO - Processing section: Forecasting and Revenue Projections
+2024-11-05 19:12:04,005 - report_callback - INFO - Summarizing sections...
+2024-11-05 19:12:07,253 - report_callback - INFO - Creating report data structure...
+2024-11-05 19:12:07,253 - report_callback - INFO - Processing report styling...
+2024-11-05 19:12:07,253 - report_callback - INFO - Creating PDF report...
+2024-11-05 19:12:07,288 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:07,292 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:07,293 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:07,294 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:07,295 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:07,304 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:07,304 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:07,304 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:07,304 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:07,304 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:07,320 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:07,320 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:07,320 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:07,320 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:07,320 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:07,328 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:07,329 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:07,329 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:07,329 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:07,329 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:07,337 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:07,337 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:07,337 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:07,337 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:07,338 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:07,341 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:07,342 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:07,342 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:07,342 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:07,342 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:09,322 - weasyprint - WARNING - Anchor defined twice: 'opportunity-pipeline-overview'
+2024-11-05 19:12:09,323 - weasyprint - WARNING - Anchor defined twice: 'client-segmentation-and-growth-strategies'
+2024-11-05 19:12:09,329 - weasyprint - WARNING - Anchor defined twice: 'market-and-regional-performance-analysis'
+2024-11-05 19:12:09,331 - weasyprint - WARNING - Anchor defined twice: 'competitive-landscape-and-win-rate-assessment'
+2024-11-05 19:12:09,332 - weasyprint - WARNING - Anchor defined twice: 'forecasting-and-revenue-projections'
+2024-11-05 19:12:09,341 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,341 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:09,345 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,345 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:09,348 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,348 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:09,351 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,351 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:09,353 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,353 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:09,818 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,818 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:09,934 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,934 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:09,993 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:09,993 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:10,090 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:10,090 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:10,212 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:10,212 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:10,315 - report_callback - INFO - PDF report created successfully
+2024-11-05 19:12:10,315 - report_callback - INFO - PDF buffer size: 701180 bytes
+2024-11-05 19:12:10,315 - report_callback - INFO - Creating PDF display component...
+2024-11-05 19:12:10,315 - pdf_display - INFO - Starting PDF display creation...
+2024-11-05 19:12:10,316 - pdf_display - INFO - PDF Buffer type: <class '_io.BytesIO'>
+2024-11-05 19:12:10,316 - pdf_display - INFO - Proxy prefix: /projects/nvidia-alm/applications/dash-app
+2024-11-05 19:12:10,316 - pdf_display - INFO - PDF bytes size: 701180
+2024-11-05 19:12:10,316 - pdf_display - INFO - Base64 PDF size: 934908
+2024-11-05 19:12:10,316 - pdf_display - INFO - PDF successfully converted to data URL
+2024-11-05 19:12:10,316 - pdf_display - INFO - Display component created successfully
+2024-11-05 19:12:10,317 - report_callback - INFO - Report generation completed successfully
+2024-11-05 19:12:25,412 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:12:25,414 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:12:25,437 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /schema HTTP/1.1" 200 2324
+2024-11-05 19:12:25,438 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/schema HTTP/1.1" 200 2324
+2024-11-05 19:12:25,439 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:12:25,440 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:12:25,681 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /summary HTTP/1.1" 200 1796
+2024-11-05 19:12:25,682 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/summary HTTP/1.1" 200 1796
+2024-11-05 19:12:28,996 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:12:29,883 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:12:29,883 - report_callback - WARNING - Report generation triggered without required data
+2024-11-05 19:12:31,641 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:12:31,642 - report_callback - INFO - Processing selected sections...
+2024-11-05 19:12:31,642 - report_callback - INFO - Running section generation...
+2024-11-05 19:12:31,642 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:12:31,642 - report_callback - INFO - Starting section generation...
+2024-11-05 19:12:34,724 - report_callback - INFO - Processing section: Program Effectiveness and Impact
+2024-11-05 19:12:36,099 - report_callback - INFO - Processing section: Budget Allocation and Utilization
+2024-11-05 19:12:36,905 - report_callback - INFO - Processing section: Regional Performance Variations
+2024-11-05 19:12:37,603 - report_callback - INFO - Processing section: Identifying High-Performing and Underperforming Programs
+2024-11-05 19:12:39,011 - report_callback - INFO - Processing section: Cost-Benefit Analysis and Optimization
+2024-11-05 19:12:40,913 - report_callback - INFO - Summarizing sections...
+2024-11-05 19:12:48,680 - report_callback - INFO - Creating report data structure...
+2024-11-05 19:12:48,680 - report_callback - INFO - Processing report styling...
+2024-11-05 19:12:48,680 - report_callback - INFO - Creating PDF report...
+2024-11-05 19:12:48,685 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:48,685 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:48,685 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:48,685 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:48,685 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:48,694 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:48,694 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:48,694 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:48,694 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:48,694 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:48,696 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:48,696 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:48,696 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:48,696 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:48,696 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:48,701 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:48,701 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:48,701 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:48,701 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:48,701 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:48,709 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:48,709 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:48,709 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:48,709 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:48,709 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:48,716 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:12:48,716 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:12:48,716 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:12:48,716 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:12:48,716 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:12:50,472 - weasyprint - WARNING - Anchor defined twice: 'program-effectiveness-and-impact'
+2024-11-05 19:12:50,474 - weasyprint - WARNING - Anchor defined twice: 'budget-allocation-and-utilization'
+2024-11-05 19:12:50,474 - weasyprint - WARNING - Anchor defined twice: 'regional-performance-variations'
+2024-11-05 19:12:50,474 - weasyprint - WARNING - Anchor defined twice: 'identifying-high-performing-and-underperforming-programs'
+2024-11-05 19:12:50,476 - weasyprint - WARNING - Anchor defined twice: 'cost-benefit-analysis-and-optimization'
+2024-11-05 19:12:50,485 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:50,486 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:50,488 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:50,488 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:50,489 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:50,489 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:50,493 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:50,493 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:50,496 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:50,496 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:50,786 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:50,786 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:50,942 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:50,942 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:51,037 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:51,037 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:51,127 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:51,127 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:51,284 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:12:51,284 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:12:51,415 - report_callback - INFO - PDF report created successfully
+2024-11-05 19:12:51,415 - report_callback - INFO - PDF buffer size: 1375865 bytes
+2024-11-05 19:12:51,415 - report_callback - INFO - Creating PDF display component...
+2024-11-05 19:12:51,415 - pdf_display - INFO - Starting PDF display creation...
+2024-11-05 19:12:51,415 - pdf_display - INFO - PDF Buffer type: <class '_io.BytesIO'>
+2024-11-05 19:12:51,415 - pdf_display - INFO - Proxy prefix: /projects/nvidia-alm/applications/dash-app
+2024-11-05 19:12:51,416 - pdf_display - INFO - PDF bytes size: 1375865
+2024-11-05 19:12:51,416 - pdf_display - INFO - Base64 PDF size: 1834488
+2024-11-05 19:12:51,417 - pdf_display - INFO - PDF successfully converted to data URL
+2024-11-05 19:12:51,417 - pdf_display - INFO - Display component created successfully
+2024-11-05 19:12:51,418 - report_callback - INFO - Report generation completed successfully
+2024-11-05 19:14:44,403 - root - DEBUG - Getting API key for provider: gemini
+2024-11-05 19:14:44,403 - root - DEBUG - Using provided API key.
+2024-11-05 19:14:46,908 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:14:46,910 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:14:46,933 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /schema HTTP/1.1" 200 4663
+2024-11-05 19:14:46,934 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/schema HTTP/1.1" 200 4663
+2024-11-05 19:14:46,935 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:14:46,936 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:14:47,021 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /summary HTTP/1.1" 200 1201
+2024-11-05 19:14:47,022 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/summary HTTP/1.1" 200 1201
+2024-11-05 19:14:50,243 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:14:50,245 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:14:50,261 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /schema HTTP/1.1" 200 2324
+2024-11-05 19:14:50,261 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/schema HTTP/1.1" 200 2324
+2024-11-05 19:14:50,262 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:14:50,264 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:14:50,409 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /summary HTTP/1.1" 200 1796
+2024-11-05 19:14:50,410 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/summary HTTP/1.1" 200 1796
+2024-11-05 19:14:51,982 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:14:53,012 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:14:53,012 - report_callback - WARNING - Report generation triggered without required data
+2024-11-05 19:14:56,282 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:14:56,282 - report_callback - INFO - Processing selected sections...
+2024-11-05 19:14:56,282 - report_callback - INFO - Running section generation...
+2024-11-05 19:14:56,282 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:14:56,282 - report_callback - INFO - Starting section generation...
+2024-11-05 19:14:59,511 - report_callback - INFO - Processing section: Program Effectiveness and Budget Utilization
+2024-11-05 19:15:01,062 - report_callback - INFO - Processing section: Regional Variations in Program Performance and Spending
+2024-11-05 19:15:01,860 - report_callback - INFO - Processing section: Impact of Funding Sources on Program Outcomes
+2024-11-05 19:15:02,554 - report_callback - INFO - Processing section: Identifying High-Performing and Underperforming Programs
+2024-11-05 19:15:03,765 - report_callback - INFO - Processing section: Cost-Benefit Analysis of Program Delivery
+2024-11-05 19:15:05,889 - report_callback - INFO - Summarizing sections...
+2024-11-05 19:15:15,090 - report_callback - INFO - Creating report data structure...
+2024-11-05 19:15:15,091 - report_callback - INFO - Processing report styling...
+2024-11-05 19:15:15,091 - report_callback - INFO - Creating PDF report...
+2024-11-05 19:15:15,106 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:15:15,110 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:15:15,110 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:15:15,111 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:15:15,111 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:15:15,118 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:15:15,118 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:15:15,118 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:15:15,118 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:15:15,118 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:15:15,124 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:15:15,124 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:15:15,124 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:15:15,124 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:15:15,125 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:15:15,136 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:15:15,136 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:15:15,136 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:15:15,137 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:15:15,137 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:15:15,144 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:15:15,144 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:15:15,144 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:15:15,144 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:15:15,144 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:15:15,151 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:15:15,152 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:15:15,152 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:15:15,152 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:15:15,152 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:15:17,109 - weasyprint - WARNING - Anchor defined twice: 'program-effectiveness-and-budget-utilization'
+2024-11-05 19:15:17,111 - weasyprint - WARNING - Anchor defined twice: 'regional-variations-in-program-performance-and-spending'
+2024-11-05 19:15:17,112 - weasyprint - WARNING - Anchor defined twice: 'impact-of-funding-sources-on-program-outcomes'
+2024-11-05 19:15:17,114 - weasyprint - WARNING - Anchor defined twice: 'identifying-high-performing-and-underperforming-programs'
+2024-11-05 19:15:17,115 - weasyprint - WARNING - Anchor defined twice: 'cost-benefit-analysis-of-program-delivery'
+2024-11-05 19:15:17,126 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:17,126 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:17,128 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:17,128 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:17,132 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:17,132 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:17,136 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:17,136 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:17,143 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:17,143 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:17,813 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:17,813 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:17,905 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:17,905 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:18,002 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:18,002 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:18,090 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:18,090 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:18,241 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:15:18,241 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:15:18,445 - report_callback - INFO - PDF report created successfully
+2024-11-05 19:15:18,445 - report_callback - INFO - PDF buffer size: 1754505 bytes
+2024-11-05 19:15:18,445 - report_callback - INFO - Creating PDF display component...
+2024-11-05 19:15:18,445 - pdf_display - INFO - Starting PDF display creation...
+2024-11-05 19:15:18,445 - pdf_display - INFO - PDF Buffer type: <class '_io.BytesIO'>
+2024-11-05 19:15:18,445 - pdf_display - INFO - Proxy prefix: /projects/nvidia-alm/applications/dash-app
+2024-11-05 19:15:18,445 - pdf_display - INFO - PDF bytes size: 1754505
+2024-11-05 19:15:18,447 - pdf_display - INFO - Base64 PDF size: 2339340
+2024-11-05 19:15:18,447 - pdf_display - INFO - PDF successfully converted to data URL
+2024-11-05 19:15:18,447 - pdf_display - INFO - Display component created successfully
+2024-11-05 19:15:18,449 - report_callback - INFO - Report generation completed successfully
+2024-11-05 19:15:49,403 - root - DEBUG - Getting API key for provider: gemini
+2024-11-05 19:15:49,403 - root - DEBUG - Using provided API key.
+2024-11-05 19:15:51,907 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:15:51,909 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:15:51,928 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /schema HTTP/1.1" 200 2324
+2024-11-05 19:15:51,929 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/schema HTTP/1.1" 200 2324
+2024-11-05 19:15:51,930 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:15:51,932 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:15:52,100 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /summary HTTP/1.1" 200 1796
+2024-11-05 19:15:52,101 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/summary HTTP/1.1" 200 1796
+2024-11-05 19:15:53,532 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:15:54,547 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:15:54,547 - report_callback - WARNING - Report generation triggered without required data
+2024-11-05 19:15:55,806 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:15:55,806 - report_callback - INFO - Processing selected sections...
+2024-11-05 19:15:55,806 - report_callback - INFO - Running section generation...
+2024-11-05 19:15:55,806 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:15:55,806 - report_callback - INFO - Starting section generation...
+2024-11-05 19:15:58,739 - report_callback - INFO - Processing section: Program Effectiveness and Impact
+2024-11-05 19:16:00,681 - report_callback - INFO - Processing section: Budget Allocation and Utilization
+2024-11-05 19:16:01,463 - report_callback - INFO - Processing section: Regional Performance Variations
+2024-11-05 19:16:02,200 - report_callback - INFO - Processing section: Departmental Performance Comparison
+2024-11-05 19:16:02,901 - report_callback - INFO - Processing section: Identifying High-Performing and Underperforming Programs
+2024-11-05 19:16:04,089 - report_callback - INFO - Summarizing sections...
+2024-11-05 19:16:10,495 - report_callback - INFO - Creating report data structure...
+2024-11-05 19:16:10,495 - report_callback - INFO - Processing report styling...
+2024-11-05 19:16:10,495 - report_callback - INFO - Creating PDF report...
+2024-11-05 19:16:10,510 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:16:10,514 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:16:10,514 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:16:10,515 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:16:10,516 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:16:10,521 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:16:10,521 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:16:10,521 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:16:10,521 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:16:10,521 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:16:10,525 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:16:10,525 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:16:10,525 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:16:10,526 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:16:10,526 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:16:10,530 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:16:10,530 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:16:10,530 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:16:10,530 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:16:10,531 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:16:10,535 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:16:10,535 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:16:10,536 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:16:10,536 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:16:10,536 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:16:10,543 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:16:10,543 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:16:10,544 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:16:10,544 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:16:10,544 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:16:12,219 - weasyprint - WARNING - Anchor defined twice: 'program-effectiveness-and-impact'
+2024-11-05 19:16:12,220 - weasyprint - WARNING - Anchor defined twice: 'budget-allocation-and-utilization'
+2024-11-05 19:16:12,220 - weasyprint - WARNING - Anchor defined twice: 'regional-performance-variations'
+2024-11-05 19:16:12,221 - weasyprint - WARNING - Anchor defined twice: 'departmental-performance-comparison'
+2024-11-05 19:16:12,221 - weasyprint - WARNING - Anchor defined twice: 'identifying-high-performing-and-underperforming-programs'
+2024-11-05 19:16:12,231 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,231 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,233 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,233 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,235 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,235 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,236 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,237 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,239 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,239 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,596 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,596 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,755 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,755 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,848 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,848 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:12,939 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:12,939 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:13,033 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:16:13,033 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:16:13,189 - report_callback - INFO - PDF report created successfully
+2024-11-05 19:16:13,190 - report_callback - INFO - PDF buffer size: 1139986 bytes
+2024-11-05 19:16:13,190 - report_callback - INFO - Creating PDF display component...
+2024-11-05 19:16:13,190 - pdf_display - INFO - Starting PDF display creation...
+2024-11-05 19:16:13,190 - pdf_display - INFO - PDF Buffer type: <class '_io.BytesIO'>
+2024-11-05 19:16:13,190 - pdf_display - INFO - Proxy prefix: /projects/nvidia-alm/applications/dash-app
+2024-11-05 19:16:13,190 - pdf_display - INFO - PDF bytes size: 1139986
+2024-11-05 19:16:13,190 - pdf_display - INFO - Base64 PDF size: 1519984
+2024-11-05 19:16:13,191 - pdf_display - INFO - PDF successfully converted to data URL
+2024-11-05 19:16:13,191 - pdf_display - INFO - Display component created successfully
+2024-11-05 19:16:13,192 - report_callback - INFO - Report generation completed successfully
+2024-11-05 19:17:20,497 - root - DEBUG - Getting API key for provider: gemini
+2024-11-05 19:17:20,497 - root - DEBUG - Using provided API key.
+2024-11-05 19:17:22,935 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:17:22,937 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:17:22,954 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /schema HTTP/1.1" 200 2324
+2024-11-05 19:17:22,955 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/schema HTTP/1.1" 200 2324
+2024-11-05 19:17:22,956 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:17:22,957 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:17:23,101 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /summary HTTP/1.1" 200 1796
+2024-11-05 19:17:23,102 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/summary HTTP/1.1" 200 1796
+2024-11-05 19:17:24,401 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:17:25,859 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:17:25,860 - report_callback - WARNING - Report generation triggered without required data
+2024-11-05 19:17:29,197 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:17:29,197 - report_callback - INFO - Processing selected sections...
+2024-11-05 19:17:29,197 - report_callback - INFO - Running section generation...
+2024-11-05 19:17:29,198 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:17:29,198 - report_callback - INFO - Starting section generation...
+2024-11-05 19:17:32,669 - report_callback - INFO - Processing section: Program Funding and Allocation: Understanding Budgetary Trends and Distribution
+2024-11-05 19:17:34,407 - report_callback - INFO - Processing section: Program Efficiency and Cost-Effectiveness: Exploring Relationships Between Spending, Outcomes, and Beneficiaries
+2024-11-05 19:17:36,916 - report_callback - INFO - Processing section: Program Impact and Public Satisfaction: Assessing Program Effectiveness and Public Perception
+2024-11-05 19:17:38,246 - report_callback - INFO - Processing section: Regional and Departmental Variations: Identifying Key Differences and Potential Best Practices
+2024-11-05 19:17:39,512 - report_callback - INFO - Processing section: Predictive Modeling for Program Optimization: Utilizing Data to Forecast Future Performance and Identify Areas for Improvement
+2024-11-05 19:17:40,459 - report_callback - INFO - Summarizing sections...
+2024-11-05 19:17:44,792 - report_callback - INFO - Creating report data structure...
+2024-11-05 19:17:44,792 - report_callback - INFO - Processing report styling...
+2024-11-05 19:17:44,793 - report_callback - INFO - Creating PDF report...
+2024-11-05 19:17:44,808 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:17:44,811 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:17:44,812 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:17:44,813 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:17:44,813 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:17:44,817 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:17:44,817 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:17:44,817 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:17:44,817 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:17:44,817 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:17:44,823 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:17:44,823 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:17:44,823 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:17:44,823 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:17:44,823 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:17:44,828 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:17:44,828 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:17:44,828 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:17:44,828 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:17:44,828 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:17:44,834 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:17:44,834 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:17:44,834 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:17:44,834 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:17:44,834 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:17:44,840 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:17:44,840 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:17:44,840 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:17:44,840 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:17:44,840 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:17:46,556 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:46,556 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:46,564 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:46,564 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:46,568 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:46,568 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:46,570 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:46,570 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:46,572 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:46,572 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:46,960 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:46,961 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:47,061 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:47,062 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:47,292 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:47,292 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:47,381 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:47,381 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:47,475 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:17:47,475 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:17:47,585 - report_callback - INFO - PDF report created successfully
+2024-11-05 19:17:47,585 - report_callback - INFO - PDF buffer size: 1722662 bytes
+2024-11-05 19:17:47,585 - report_callback - INFO - Creating PDF display component...
+2024-11-05 19:17:47,585 - pdf_display - INFO - Starting PDF display creation...
+2024-11-05 19:17:47,585 - pdf_display - INFO - PDF Buffer type: <class '_io.BytesIO'>
+2024-11-05 19:17:47,585 - pdf_display - INFO - Proxy prefix: /projects/nvidia-alm/applications/dash-app
+2024-11-05 19:17:47,585 - pdf_display - INFO - PDF bytes size: 1722662
+2024-11-05 19:17:47,586 - pdf_display - INFO - Base64 PDF size: 2296884
+2024-11-05 19:17:47,586 - pdf_display - INFO - PDF successfully converted to data URL
+2024-11-05 19:17:47,586 - pdf_display - INFO - Display component created successfully
+2024-11-05 19:17:47,588 - report_callback - INFO - Report generation completed successfully
+2024-11-05 19:18:10,374 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:18:10,413 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:18:10,414 - report_callback - WARNING - Report generation triggered without required data
+2024-11-05 19:18:11,823 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:18:11,824 - report_callback - INFO - Processing selected sections...
+2024-11-05 19:18:11,824 - report_callback - INFO - Running section generation...
+2024-11-05 19:18:11,824 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:18:11,824 - report_callback - INFO - Starting section generation...
+2024-11-05 19:18:14,954 - report_callback - INFO - Processing section: Program Funding and Allocation: Understanding Budgetary Trends and Distribution
+2024-11-05 19:18:15,694 - report_callback - INFO - Processing section: Program Efficiency and Cost-Effectiveness: Exploring Relationships Between Spending, Outcomes, and Beneficiaries
+2024-11-05 19:18:17,765 - report_callback - INFO - Processing section: Program Impact and Public Satisfaction: Assessing Program Effectiveness and Public Perception
+2024-11-05 19:18:18,484 - report_callback - INFO - Processing section: Regional and Departmental Variations: Identifying Key Differences and Potential Best Practices
+2024-11-05 19:18:19,187 - report_callback - INFO - Processing section: Predictive Modeling for Program Optimization: Utilizing Data to Forecast Future Performance and Identify Areas for Improvement
+2024-11-05 19:18:19,832 - report_callback - INFO - Summarizing sections...
+2024-11-05 19:18:23,076 - report_callback - INFO - Creating report data structure...
+2024-11-05 19:18:23,076 - report_callback - INFO - Processing report styling...
+2024-11-05 19:18:23,076 - report_callback - INFO - Creating PDF report...
+2024-11-05 19:18:23,080 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:18:23,080 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:18:23,080 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:18:23,080 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:18:23,080 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:18:23,087 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:18:23,087 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:18:23,087 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:18:23,088 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:18:23,088 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:18:23,091 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:18:23,091 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:18:23,092 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:18:23,092 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:18:23,092 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:18:23,097 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:18:23,097 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:18:23,097 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:18:23,097 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:18:23,097 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:18:23,106 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:18:23,106 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:18:23,106 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:18:23,107 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:18:23,107 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:18:23,110 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:18:23,111 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:18:23,111 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:18:23,111 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:18:23,111 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:18:24,765 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:24,766 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:24,772 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:24,772 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:24,775 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:24,775 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:24,778 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:24,778 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:24,780 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:24,780 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:25,107 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:25,107 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:25,207 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:25,207 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:25,411 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:25,411 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:25,499 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:25,499 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:25,592 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:18:25,592 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:18:25,698 - report_callback - INFO - PDF report created successfully
+2024-11-05 19:18:25,698 - report_callback - INFO - PDF buffer size: 1582664 bytes
+2024-11-05 19:18:25,698 - report_callback - INFO - Creating PDF display component...
+2024-11-05 19:18:25,698 - pdf_display - INFO - Starting PDF display creation...
+2024-11-05 19:18:25,698 - pdf_display - INFO - PDF Buffer type: <class '_io.BytesIO'>
+2024-11-05 19:18:25,698 - pdf_display - INFO - Proxy prefix: /projects/nvidia-alm/applications/dash-app
+2024-11-05 19:18:25,698 - pdf_display - INFO - PDF bytes size: 1582664
+2024-11-05 19:18:25,699 - pdf_display - INFO - Base64 PDF size: 2110220
+2024-11-05 19:18:25,700 - pdf_display - INFO - PDF successfully converted to data URL
+2024-11-05 19:18:25,700 - pdf_display - INFO - Display component created successfully
+2024-11-05 19:18:25,701 - report_callback - INFO - Report generation completed successfully
+2024-11-05 19:18:54,494 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:19:01,170 - root - DEBUG - Getting API key for provider: gemini
+2024-11-05 19:19:01,171 - root - DEBUG - Using provided API key.
+2024-11-05 19:19:03,989 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:19:03,991 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:19:04,014 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /schema HTTP/1.1" 200 2324
+2024-11-05 19:19:04,015 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/schema HTTP/1.1" 200 2324
+2024-11-05 19:19:04,017 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:10000
+2024-11-05 19:19:04,019 - urllib3.connectionpool - DEBUG - Starting new HTTP connection (1): localhost:8000
+2024-11-05 19:19:04,167 - urllib3.connectionpool - DEBUG - http://localhost:8000 "GET /summary HTTP/1.1" 200 1796
+2024-11-05 19:19:04,168 - urllib3.connectionpool - DEBUG - http://localhost:10000 "GET /projects/nvidia-alm/applications/dash-app/api/summary HTTP/1.1" 200 1796
+2024-11-05 19:19:05,409 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:19:06,380 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:19:06,380 - report_callback - WARNING - Report generation triggered without required data
+2024-11-05 19:19:07,379 - report_callback - INFO - Starting report generation callback...
+2024-11-05 19:19:07,379 - report_callback - INFO - Processing selected sections...
+2024-11-05 19:19:07,379 - report_callback - INFO - Running section generation...
+2024-11-05 19:19:07,379 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-05 19:19:07,379 - report_callback - INFO - Starting section generation...
+2024-11-05 19:19:10,118 - report_callback - INFO - Processing section: Program Effectiveness and Resource Allocation
+2024-11-05 19:19:11,472 - report_callback - INFO - Processing section: Regional and Departmental Performance Variations
+2024-11-05 19:19:11,721 - report_callback - INFO - Processing section: Funding Source Impact on Program Outcomes
+2024-11-05 19:19:12,472 - report_callback - INFO - Processing section: Cost Efficiency and Beneficiary Impact
+2024-11-05 19:19:14,609 - report_callback - INFO - Processing section: Public Perception and Satisfaction
+2024-11-05 19:19:15,350 - report_callback - INFO - Summarizing sections...
+2024-11-05 19:19:22,592 - report_callback - INFO - Creating report data structure...
+2024-11-05 19:19:22,593 - report_callback - INFO - Processing report styling...
+2024-11-05 19:19:22,593 - report_callback - INFO - Creating PDF report...
+2024-11-05 19:19:22,608 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:19:22,612 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:19:22,612 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:19:22,613 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:19:22,614 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:19:22,617 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:19:22,617 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:19:22,617 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:19:22,618 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:19:22,618 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:19:22,618 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:19:22,618 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:19:22,618 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:19:22,619 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:19:22,619 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:19:22,620 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:19:22,620 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:19:22,621 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:19:22,621 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:19:22,621 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:19:22,626 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:19:22,626 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:19:22,626 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:19:22,626 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:19:22,626 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:19:22,629 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.tables.TableExtension".
+2024-11-05 19:19:22,629 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.fenced_code.FencedCodeExtension".
+2024-11-05 19:19:22,629 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.sane_lists.SaneListExtension".
+2024-11-05 19:19:22,629 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.smarty.SmartyExtension".
+2024-11-05 19:19:22,629 - MARKDOWN - DEBUG - Successfully loaded extension "markdown.extensions.toc.TocExtension".
+2024-11-05 19:19:24,274 - weasyprint - WARNING - Anchor defined twice: 'program-effectiveness-and-resource-allocation'
+2024-11-05 19:19:24,275 - weasyprint - WARNING - Anchor defined twice: 'cost-efficiency-and-beneficiary-impact'
+2024-11-05 19:19:24,286 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:24,286 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:24,287 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:24,288 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:24,296 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:24,297 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:24,300 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:24,300 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:24,720 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:24,720 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:24,814 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:24,814 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:24,901 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:24,901 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:25,079 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-05 19:19:25,079 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 41 8192
+2024-11-05 19:19:25,173 - report_callback - INFO - PDF report created successfully
+2024-11-05 19:19:25,173 - report_callback - INFO - PDF buffer size: 1214539 bytes
+2024-11-05 19:19:25,173 - report_callback - INFO - Creating PDF display component...
+2024-11-05 19:19:25,173 - pdf_display - INFO - Starting PDF display creation...
+2024-11-05 19:19:25,173 - pdf_display - INFO - PDF Buffer type: <class '_io.BytesIO'>
+2024-11-05 19:19:25,173 - pdf_display - INFO - Proxy prefix: /projects/nvidia-alm/applications/dash-app
+2024-11-05 19:19:25,173 - pdf_display - INFO - PDF bytes size: 1214539
+2024-11-05 19:19:25,174 - pdf_display - INFO - Base64 PDF size: 1619388
+2024-11-05 19:19:25,174 - pdf_display - INFO - PDF successfully converted to data URL
+2024-11-05 19:19:25,174 - pdf_display - INFO - Display component created successfully
+2024-11-05 19:19:25,175 - report_callback - INFO - Report generation completed successfully
