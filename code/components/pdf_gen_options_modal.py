@@ -2,6 +2,20 @@ import dash_bootstrap_components as dbc
 from dash import html, dcc, Input, Output, callback
 
 def create_section_modal_body(outline_data):
+    """
+    Creates the body of a modal for configuring PDF generation options.
+    Parameters:
+    outline_data (dict): A dictionary containing the report title and sections information.
+        - report_title (str): The suggested title for the report.
+        - sections (list of dict): A list of sections where each section is a dictionary with:
+            - name (str): The name of the section.
+            - selected (bool): Whether the section is selected to be included in the report.
+    Returns:
+    html.Div: A Dash HTML component containing the layout for the modal body, which includes:
+        - A section for changing the report title and selecting sections to include.
+        - An optional section for adding a new section.
+        - An optional section for report styling, including company name, logo upload, and color scheme selection.
+    """
     return html.Div([
         dbc.Row([
             dbc.Col([
@@ -93,5 +107,14 @@ def create_section_modal_body(outline_data):
     Input("uploaded-logo", "contents"),
 )
 def update_logo_preview(contents):
+    """
+    Updates the logo preview with the provided image contents.
+
+    Args:
+        contents (str): The base64-encoded contents of the image to be displayed.
+
+    Returns:
+        html.Img: An HTML image element with the provided contents as the source and a maximum width of 25%.
+    """
     if contents is not None:
         return html.Img(src=contents, style={"max-width": "25%"})

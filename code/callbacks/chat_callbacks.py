@@ -79,6 +79,17 @@ def register_chat_callbacks(app):
         [Input("store-conversation", "data")]
     )
     def update_display(chat_history):
+        """
+        Updates the display based on the provided chat history.
+        Args:
+            chat_history (str): A JSON string representing the chat history. Each message in the chat history
+                                should be a dictionary with a "role" key (either "user" or "assistant") and a
+                                "content" key containing the message content.
+        Returns:
+            list: A list of HTML components representing the chat messages. User messages are displayed in a
+                  textbox with the "user" style, while assistant messages are processed and displayed with
+                  appropriate formatting for text, code, and figures.
+        """
         if not chat_history:
             return []
         

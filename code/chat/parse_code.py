@@ -8,10 +8,30 @@ import sys
 import io
 
 def remove_show_calls(code):
+    """
+    Remove all instances of plt.show() and fig.show() from the given code string.
+
+    Args:
+        code (str): The code string from which to remove show calls.
+
+    Returns:
+        str: The code string with all show calls removed.
+    """
     show_calls_pattern = re.compile(r'\b(?:plt|fig)\.show\(\s*\)')
     return show_calls_pattern.sub('', code)
 
 def extract_content(tag, segment):
+    """
+    Extracts the content enclosed within a specified HTML/XML tag from a given text segment.
+
+    Args:
+        tag (str): The HTML/XML tag to search for.
+        segment (str): The text segment to search within.
+
+    Returns:
+        str or None: The content found within the specified tag, with leading and trailing whitespace removed.
+                     Returns None if the tag is not found.
+    """
     pattern = rf'<{tag}>(.*?)</{tag}>'
     match = re.search(pattern, segment, re.DOTALL | re.IGNORECASE)
     if match:
@@ -21,6 +41,32 @@ def extract_content(tag, segment):
 
 
 def process_response(response):
+    """
+    Processes a response string containing code and figure segments, executes the code, and captures the output.
+
+    Args:
+        response (str): The response string containing segments of code and figures wrapped in <CODE> and <FIGURE> tags.
+
+    Returns:
+        dict: A dictionary with a "type" key set to "mixed" and a "results" key containing a list of dictionaries. Each dictionary in the list represents a processed segment and has the following structure:
+            - For code segments:
+                {
+                    "type": "code",
+                    "content": str,  # The code that was executed
+                    "output": str    # The output of the executed code
+            - For figure segments:
+                {
+                    "type": "figure",
+                    "content": object  # The figure object created by the code
+            - For text segments:
+                {
+                    "type": "text",
+                    "content": str  # The plain text content of the segment
+            - For errors:
+                {
+                    "type": "error",
+                    "content": str  # The error message
+    """
     segments = re.split(r'(<CODE>.*?</CODE>|<FIGURE>.*?</FIGURE>)', response, flags=re.DOTALL | re.IGNORECASE)
     df = get_dataframe()
     df = df.to_pandas()

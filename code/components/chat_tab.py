@@ -3,6 +3,23 @@ import dash_bootstrap_components as dbc
 from dash_iconify import DashIconify
 
 def textbox(content, box="AI", name="AI Data Expert"):
+    """
+    Creates a styled text box with an icon for displaying messages in a chat interface.
+
+    Parameters:
+    content (str or dict): The content to be displayed inside the text box. If a dictionary is provided, it should contain:
+        - "type" (str): The type of content, e.g., "graph".
+        - "text" (str): The text to be displayed.
+        - "figure" (plotly.graph_objs.Figure, optional): The figure to be displayed if the type is "graph".
+    box (str): The type of box to display. Options are "user" for user messages and "AI" for AI messages. Default is "AI".
+    name (str): The name of the sender. Default is "AI Data Expert".
+
+    Returns:
+    html.Div: A Dash HTML Div component containing the styled text box and optional graph.
+    
+    Raises:
+    ValueError: If the `box` parameter is not "user" or "AI".
+    """
     style = {
         "maxWidth": "70%",
         "width": "max-content",
