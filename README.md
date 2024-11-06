@@ -154,7 +154,7 @@ You can now continue chatting with the LLM about your data:
 
 ## System Architecture
 
-![main-flow](https://github.com/user-attachments/assets/00069ab8-a337-4540-842d-7af4f891b56a)
+![main-flow](https://github.com/user-attachments/assets/d1b3503d-22cc-4534-a233-edf63eabecf1)
 
  
 ## Report Generation
