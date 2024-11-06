@@ -9,7 +9,8 @@ This project was inspired by another I created, but contains all new, custom cod
 - [How to Use the Project](#how-to-use-the-project)
 - [System Architecture](#system-architecture)
 - [Report Generation Process](#report-generation)
-- [Event Processing and Callbacks](#event-processing-and-callbacks)
+- [Component Interaction](#component-interaction)
+- [Data Flow](#data-flow)
   
 ### Prerequisites
 
@@ -153,15 +154,23 @@ You can now continue chatting with the LLM about your data:
 
 ## System Architecture
 
-![image](https://github.com/user-attachments/assets/3d3b07b7-ba35-458e-960e-0022713a52b4)
+![main-flow](https://github.com/user-attachments/assets/00069ab8-a337-4540-842d-7af4f891b56a)
 
  
 ## Report Generation
 
-![image](https://github.com/user-attachments/assets/487e7e04-63a5-4cf0-958c-391bbf18fa20)
+![report-generation](https://github.com/user-attachments/assets/f98bdc6f-4f75-4df5-b1ce-b16fc48205b3)
 
  
-## Event Processing and Callbacks
+## Component Interaction
 
- ![image](https://github.com/user-attachments/assets/f11aa000-b71a-4a86-aef4-803511df5f6f)
+![component-interaction](https://github.com/user-attachments/assets/a9a3c9d3-90c1-49fc-b098-d8fa2360ec27)
+
+## Data Flow
+
+![data-flow](https://github.com/user-attachments/assets/3004f960-edfb-44e8-9e4f-bbcca6b73733)
+
+
+
+
 
