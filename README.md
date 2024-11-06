@@ -92,7 +92,7 @@ You should now see that the Provider and selected model display in the main bar 
 
 #### The next step is Step 2, Upload Dataset.  
 1.	Click the Upload Dataset button.
-2.	Select a dataset from your local computer and click Open.
+2.	Select a dataset (preferred CSV format) from your local computer and click Open.
 3.	If the file upload was successful, the top bar will display the dataset as Data Uploaded
   
 ![image](https://github.com/user-attachments/assets/074fa8d2-74f2-448e-8647-86d9f8ebb9fa)
