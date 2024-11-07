@@ -4,6 +4,7 @@ This project was inspired by another I created, but contains all new, custom cod
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
+- [System Requirements](#system-requirements)
 - [Restrictions and Limitations](#restrictions-and-limitations)
 - [How to Install and Run the Project](#how-to-install-and-run-the-project)
 - [How to Use the Project](#how-to-use-the-project)
@@ -17,6 +18,13 @@ This project was inspired by another I created, but contains all new, custom cod
 - NVIDIA GPU with CUDA support
 - API key for LLM Provider of your choice (HuggingFace, NVIDIA, or Google Gemini)
 > If on Windows, WSL2.  See this page for information: [Windows Subsystem for Linux Documentation | Microsoft Learn](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+## System Requirements
+- Operating System: Ubuntu 22.04 (tested on WSL 2 Ubuntu 22.04)
+- CPU requirements: None, tested with AMD Ryzen 7 7800X3D 8-Core Processor 4.20 GHz
+- GPU requirements: NVIDIA GPU, tested with NVIDIA RTX 4070 Ti Super
+- NVIDIA driver requirements: Latest driver version
+- Storage requirements: 20GB
 
 ### Restrictions and Limitations
 -	LLM Models: The project is designed to work with specific LLM providers (HuggingFace, NVIDIA, Google Gemini). Speed of report and presentation generation will vary depending upon the provider and model chosen.
