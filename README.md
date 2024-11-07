@@ -13,7 +13,7 @@ This project was inspired by another I created, but contains all new, custom cod
 - [Component Interaction](#component-interaction)
 - [Data Flow](#data-flow)
   
-### Prerequisites
+## Prerequisites
 
 - NVIDIA GPU with CUDA support
 - API key for LLM Provider of your choice (HuggingFace, NVIDIA, or Google Gemini)
@@ -26,11 +26,11 @@ This project was inspired by another I created, but contains all new, custom cod
 - NVIDIA driver requirements: Latest driver version
 - Storage requirements: 20GB
 
-### Restrictions and Limitations
+## Restrictions and Limitations
 -	LLM Models: The project is designed to work with specific LLM providers (HuggingFace, NVIDIA, Google Gemini). Speed of report and presentation generation will vary depending upon the provider and model chosen.
 -	File Size: While cuDF allows for processing of larger datasets, there may still be limitations based on available GPU memory.
 
-### How to Install and Run the Project
+## How to Install and Run the Project
 1.	Install NVIDIA AI Workbench by following the instructions for your operating system:  [Install AI Workbench - NVIDIA Docs](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html)
 2.	Open NVIDIA AI Workbench and under My Locations, select Local
 3.	The My Projects Page will load. Click Clone Project on the right.  A pop-up will appear to enter the project data.  Enter the following:
@@ -76,7 +76,7 @@ b.	Path: /home/workbench/nvidia-workbench/nvidia-alm
 ![image](https://github.com/user-attachments/assets/1f098796-7e93-4ca1-a9f2-b551d8bf4247)
 
 
-### How to Use the Project
+## How to Use the Project
 
 #### Click on the Configure LLM button in the Step 1 Box, and a pop-up will appear to configure the LLM provider and model:
 
@@ -177,6 +177,8 @@ You can now continue chatting with the LLM about your data:
 ## Data Flow
 
 ![data-flow](https://github.com/user-attachments/assets/3004f960-edfb-44e8-9e4f-bbcca6b73733)
+
+
 
 
 
